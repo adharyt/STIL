@@ -1,21 +1,50 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<title>STIL - Home</title>
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="description" content="OneTech shop project">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" type="text/css" href="<?php echo base_url();?>assets/styles/bootstrap4/bootstrap.min.css">
-<link href="<?php echo base_url();?>assets/plugins/fontawesome-free-5.0.1/css/fontawesome-all.css" rel="stylesheet" type="text/css">
-<link rel="stylesheet" type="text/css" href="<?php echo base_url();?>assets/plugins/OwlCarousel2-2.2.1/owl.carousel.css">
-<link rel="stylesheet" type="text/css" href="<?php echo base_url();?>assets/plugins/OwlCarousel2-2.2.1/owl.theme.default.css">
-<link rel="stylesheet" type="text/css" href="<?php echo base_url();?>assets/plugins/OwlCarousel2-2.2.1/animate.css">
-<link rel="stylesheet" type="text/css" href="<?php echo base_url();?>assets/plugins/slick-1.8.0/slick.css">
-<link rel="stylesheet" type="text/css" href="<?php echo base_url();?>assets/styles/main_styles.css">
-<link rel="stylesheet" type="text/css" href="<?php echo base_url();?>assets/styles/responsive.css">
-
+<style media="screen">
+.img-profile {
+	border-radius: 50%;
+	border: 2px solid #fff;
+	-webkit-box-shadow: 0 5px 10px 0 rgba(43, 43, 43, .2);
+	box-shadow: 0 5px 10px 0 rgba(43, 43, 43, .2);
+	width: 60px;
+	height: 60px;
+}
+.pr-star-rating {
+  display: flex;
+  align-items: center;
+  font-size: 15px;
+}
+.pr-back-stars {
+  display: flex;
+  color: #ddd;
+  position: relative;
+  text-shadow: 4px 4px 10px #843a3a;
+}
+.pr-front-stars {
+  display: flex;
+  color: #fbd600;
+  overflow: hidden;
+  position: absolute;
+  text-shadow: 2px 2px 5px #d29b09;
+  top: 0;
+}
+</style>
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+<script type="text/javascript">
+  function number_only(evt){
+          var charCode = (evt.which) ? evt.which : event.keyCode
+          if (charCode > 31 && (charCode < 48 || charCode > 57))
+            return false;
+          return true;
+  }
+  function alphabet_only(evt){
+          var charCode = (evt.which) ? evt.which : event.keyCode
+          if (charCode >=  48 && charCode <= 57)
+            return false;
+          return true;
+  }
+
+
+</script>
 <script type="text/javascript">
 function login(){
 Swal.fire({
@@ -38,10 +67,8 @@ Swal.fire({
                                     '</div>'+
                                 '</div>'+
                                 '</div>'+
-
-
                                 '<div class="col-12">'+
-                                    '<div class="button banner_button"><a href="http://localhost/stil/assets/#">Login</a></div>'+
+                                    '<div class="button "><a href="javascript:auth();">Login</a></div>'+
                                 '</div>'+
 
                                 '<div class="row">'+
@@ -72,8 +99,7 @@ function auth(){
             } ,
             success: function (response) {
                // you will get response from your php page (what you echo or print)
-               //alert(response);
-               if(response=='FAILED'){
+               if(response!='PASSWORD MATCH'){
                  Swal.fire({
                    type: 'error',
                    title: 'Authentication Failed',
@@ -81,7 +107,7 @@ function auth(){
                                      '<div class="contact-form-area">'+
                                                  '<div class="row">'+
                                                  '<div class="col-12">'+
-                                                     '<div class="button banner_button"><a href="http://localhost/stil/assets/#">Belanja Sekarang</a></div>'+
+                                                     '<div class="button "><a href="javascript:login();">Ok</a></div>'+
                                                  '</div>'+
                                                  '</div>'+
                                      '</div>',
@@ -111,7 +137,7 @@ function auth(){
                         '<div class="contact-form-area">'+
                                     '<div class="row">'+
                                     '<div class="col-12">'+
-                                        '<div id="btnok1" class="button banner_button" onClick="login();">Ok</div><br>&nbsp;'+
+                                        '<div class="button "><a href="javascript:login();">Ok</a></div>'+
                                     '</div>'+
                                     '</div>'+
                         '</div>',
@@ -164,8 +190,12 @@ function auth(){
 							</div>
 							<div class="top_bar_user">
 								<div class="user_icon"><img src="<?php echo base_url();?>assets/images/user.svg" alt=""></div>
-								<div><a href="javascript:login();">Masuk</a></div>
-                <div><a href="<?php echo base_url();?>register">Daftar</a></div>
+                <?php if($this->session->userdata('is_login')!='y'){ ?>
+  								<div><a href="javascript:login();">Masuk</a></div>
+                  <div><a href="<?php echo base_url();?>register">Daftar</a></div>
+                <?php }else{ ?>
+                  <a href="javascript:login();"><?php echo $this->session->userdata('email');?></a>
+                <?php } ?>
 							</div>
 						</div>
 					</div>
@@ -182,7 +212,7 @@ function auth(){
 					<!-- Logo -->
 					<div class="col-lg-2 col-sm-3 col-3 order-1">
 						<div class="logo_container">
-							<div class="logo"><a href="<?php echo base_url();?>assets/#">STIL</a></div>
+							<div class="logo"><a href="<?php echo base_url();?>"><img src="<?php echo base_url();?>assets/images/logoNameLandscape.png" height="75"></a></div>
 						</div>
 					</div>
 
@@ -262,79 +292,38 @@ function auth(){
 								</div>
 
 								<ul class="cat_menu">
-									<li class="hassubs">
-										<a href="<?php echo base_url();?>assets/#">Kehutanan<i class="fas fa-chevron-right"></i></a>
-										<ul>
-											<li class="hassubs">
-												<a href="<?php echo base_url();?>assets/#">Kayu<i class="fas fa-chevron-right"></i></a>
-												<ul>
-													<li><a href="<?php echo base_url();?>assets/#">Menu Item<i class="fas fa-chevron-right"></i></a></li>
-													<li><a href="<?php echo base_url();?>assets/#">Menu Item<i class="fas fa-chevron-right"></i></a></li>
-													<li><a href="<?php echo base_url();?>assets/#">Menu Item<i class="fas fa-chevron-right"></i></a></li>
-													<li><a href="<?php echo base_url();?>assets/#">Menu Item<i class="fas fa-chevron-right"></i></a></li>
-												</ul>
-											</li>
-											<li><a href="<?php echo base_url();?>assets/#">Gum Rosin<i class="fas fa-chevron-right"></i></a></li>
-											<li><a href="<?php echo base_url();?>assets/#">Terpentin<i class="fas fa-chevron-right"></i></a></li>
-											<li><a href="<?php echo base_url();?>assets/#">Kopal<i class="fas fa-chevron-right"></i></a></li>
-											<li><a href="<?php echo base_url();?>assets/#">Madu<i class="fas fa-chevron-right"></i></a></li>
-											<li><a href="<?php echo base_url();?>assets/#">Minyak Kayu Putih<i class="fas fa-chevron-right"></i></a></li>
-											<li><a href="<?php echo base_url();?>assets/#">Sutra<i class="fas fa-chevron-right"></i></a></li>
-										</ul>
-									</li>
-									<li class="hassubs">
-										<a href="<?php echo base_url();?>assets/#">Pertanian<i class="fas fa-chevron-right"></i></a>
-										<ul>
-											<li class="hassubs">
-												<a href="<?php echo base_url();?>assets/#">Kopi<i class="fas fa-chevron-right"></i></a>
-											</li>
-											<li><a href="<?php echo base_url();?>assets/#">Jagung<i class="fas fa-chevron-right"></i></a></li>
-											<li><a href="<?php echo base_url();?>assets/#">Beras<i class="fas fa-chevron-right"></i></a></li>
-											<li><a href="<?php echo base_url();?>assets/#">Lada<i class="fas fa-chevron-right"></i></a></li>
-											<li><a href="<?php echo base_url();?>assets/#">Cengkeh<i class="fas fa-chevron-right"></i></a></li>
-											<li><a href="<?php echo base_url();?>assets/#">Pala<i class="fas fa-chevron-right"></i></a></li>
-											<li><a href="<?php echo base_url();?>assets/#">Kunyit<i class="fas fa-chevron-right"></i></a></li>
-											<li><a href="<?php echo base_url();?>assets/#">Jahe<i class="fas fa-chevron-right"></i></a></li>
-											<li><a href="<?php echo base_url();?>assets/#">Lengkuas<i class="fas fa-chevron-right"></i></a></li>
-											<li><a href="<?php echo base_url();?>assets/#">Nanas<i class="fas fa-chevron-right"></i></a></li>
-											<li><a href="<?php echo base_url();?>assets/#">Singkong<i class="fas fa-chevron-right"></i></a></li>
-											<li><a href="<?php echo base_url();?>assets/#">Kacang Kedelai<i class="fas fa-chevron-right"></i></a></li>
-											<li><a href="<?php echo base_url();?>assets/#">Kacang Tanah<i class="fas fa-chevron-right"></i></a></li>
-											<li><a href="<?php echo base_url();?>assets/#">Kacang Panjang<i class="fas fa-chevron-right"></i></a></li>
-										</ul>
-									</li>
-									<li class="hassubs">
-										<a href="<?php echo base_url();?>assets/#">Peternakan<i class="fas fa-chevron-right"></i></a>
-										<ul>
-											<li class="hassubs">
-												<a href="<?php echo base_url();?>assets/#">Sapi<i class="fas fa-chevron-right"></i></a>
-											</li>
-											<li><a href="<?php echo base_url();?>assets/#">Kambing<i class="fas fa-chevron-right"></i></a></li>
-											<li><a href="<?php echo base_url();?>assets/#">Ayam<i class="fas fa-chevron-right"></i></a></li>
-											<li><a href="<?php echo base_url();?>assets/#">Lele<i class="fas fa-chevron-right"></i></a></li>
-										</ul>
-									</li>
-									<li class="hassubs">
-										<a href="<?php echo base_url();?>assets/#">Hasil Olahan<i class="fas fa-chevron-right"></i></a>
-										<ul>
-											<li class="hassubs">
-												<a href="<?php echo base_url();?>assets/#">Kopi<i class="fas fa-chevron-right"></i></a>
-											</li>
-											<li><a href="<?php echo base_url();?>assets/#">Kerajinan Kulit<i class="fas fa-chevron-right"></i></a></li>
-											<li><a href="<?php echo base_url();?>assets/#">Kopi Kemasan<i class="fas fa-chevron-right"></i></a></li>
-											<li><a href="<?php echo base_url();?>assets/#">Corn Flakes<i class="fas fa-chevron-right"></i></a></li>
-											<li><a href="<?php echo base_url();?>assets/#">Marning<i class="fas fa-chevron-right"></i></a></li>
-										</ul>
-									</li>
-									<li class="hassubs">
-										<a href="<?php echo base_url();?>assets/#">Merchandise<i class="fas fa-chevron-right"></i></a>
-										<ul>
-											<li><a href="<?php echo base_url();?>assets/#">Kaos<i class="fas fa-chevron-right"></i></a></li>
-											<li><a href="<?php echo base_url();?>assets/#">Tas<i class="fas fa-chevron-right"></i></a></li>
-											<li><a href="<?php echo base_url();?>assets/#">Gantungan Kunci<i class="fas fa-chevron-right"></i></a></li>
-										</ul>
-									</li>
-									<li><a href="<?php echo base_url();?>assets/#">Lain-lain<i class="fas fa-chevron-right"></i></a></li>
+                  <?php
+                      $mainMenu=$this->db->query("SELECT id,name,is_parent FROM productcategory_main WHERE is_deleted=0 ORDER BY order_pos ASC")->result_array();
+                      foreach($mainMenu as $mainItem){ ?>
+                        <li <?php if($mainItem['is_parent']==1){echo "class='hassubs'";}?>>
+      										<a href="<?php echo base_url();?>assets/#"><?php echo $mainItem['name'];?><i class="fas fa-chevron-right"></i></a>
+
+                          <?php if($mainItem['is_parent']==1){ ?>
+                            <ul>
+                            <?php
+                              $subMenu=$this->db->query("SELECT id,name,is_parent FROM productcategory_sub where id_parent=$mainItem[id] AND is_deleted=0 ORDER BY order_pos ASC")->result_array();
+                              foreach($subMenu as $subItem){ ?>
+        											<li <?php if($subItem['is_parent']==1){echo "class='hassubs'";}?>>
+        												<a href="<?php echo base_url();?>assets/#"><?php echo $subItem['name']; ?><i class="fas fa-chevron-right"></i></a>
+                                <?php if($subItem['is_parent']==1){ ?>
+          												<ul>
+                                    <?php
+                                    $subprMenu=$this->db->query("SELECT id,name FROM productcategory_subofsubs where id_parent=$subItem[id] AND is_deleted=0 ORDER BY order_pos ASC")->result_array();
+                                    foreach($subprMenu as $subprItem){ ?>
+          													<li><a href="<?php echo base_url();?>assets/#"><?php echo $subprItem['name']; ?><i class="fas fa-chevron-right"></i></a></li>
+                                    <?php } ?>
+          												</ul>
+                                <?php } ?>
+        											</li>
+                              <?php } ?>
+
+        										</ul>
+
+                          <?php } ?>
+
+      									</li>
+
+                <?php } ?>
 								</ul>
 							</div>
 

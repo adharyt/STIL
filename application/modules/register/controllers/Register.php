@@ -1,7 +1,9 @@
 <?php
 	class Register extends CI_Controller{
 		public function index(){
-			$this->load->view('v_register');
+			$this->load->model('optionModel');
+			$data['lastEdu']=$this->optionModel->get_lastEdu();
+			$this->load->view('v_register',$data);
 		}
 
 
@@ -13,6 +15,8 @@
 				$email=$_POST['email'];
 				$password=$_POST['password'];
 				$pin=$_POST['pin'];
+				$marital=$_POST['marital'];
+				$edu=$_POST['edu'];
 				$password=md5($password);
 				$password=password_hash($password,PASSWORD_DEFAULT);
 
@@ -38,7 +42,9 @@
 						pin,
 						status,
 						lup,
-						is_deleted
+						is_deleted,
+						marital,
+						last_education
 					)
 					values (
 						'$name',
@@ -50,7 +56,9 @@
 						'$pin',
 						0,
 						now(),
-						0
+						0,
+						'$marital',
+						'$edu'
 					)
 					");
 

@@ -50,5 +50,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |		my-controller/my-method	-> my_controller/my_method
 */
 $route['default_controller'] = 'Home';
+
+//Detail Produk (aktor: pembeli, penjual)
+$route['p/(:any)/(:any)'] = 'product/detail/$1/$2';
+
+//Produk Baru (aktor: Penjual)
+$route['product/new'] = 'product/newProduct';
+
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;

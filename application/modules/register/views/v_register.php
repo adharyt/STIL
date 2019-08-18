@@ -182,7 +182,23 @@ h5 {
 																		<input type="hidden" id="dtp_input2" value="" /><br/>
 
                                 </div>
-								<div class="form-radio">
+                                <div class="form-select">
+                                    <div class="label-flex">
+                                        <label for="job">Pendidikan Terakhir</label>
+                                    </div>
+                                    <div class="select-list" onClick="validate_ac();">
+                                        <select name="job" id="meal_preference" >
+																						<option value="NULL" selected disabled>- Pilih Satu -</option>
+                                            <?php
+                                              foreach($lastEdu as $lastEduItem){
+                                                echo "<option value='$lastEduItem[id]'>$lastEduItem[nama]</option>";
+                                              }
+                                            ?>
+                                        </select>
+                                    </div>
+                                    <div id="validate_edu" style="color:red;font-style:oblique"></div>
+                                </div>
+								                <div class="form-radio">
                                     <div class="label-flex">
                                         <label for="payment">Jenis Kelamin</label>
                                     </div>
@@ -199,14 +215,32 @@ h5 {
                                         </div>
                                     </div>
                                 </div>
-								<div class="form-input">
-                                    <label for="phone" class="required">Nomor Telepon</label>
-                                    <input type="text" name="phone" id="phone" onKeyUp="validate_ac();" onkeypress="return number_only(event);" maxlength="15"/>
-                                    <div id="validate_phone" style="color:red;font-style:oblique"></div>
+                                <div class="form-radio">
+                                    <div class="label-flex">
+                                        <label for="payment">Status Pernikahan</label>
+                                    </div>
+                                    <div class="form-radio-group">
+                                        <div class="form-radio-item">
+                                            <input type="radio" name="marital" id="bm" value="bm" checked>
+                                            <label for="bm">Belum Menikah</label>
+                                            <span class="check"></span>
+                                        </div>
+                                        <div class="form-radio-item">
+                                            <input type="radio" name="marital" id="sm" value="sm">
+                                            <label for="sm">Sudah Menikah</label>
+                                            <span class="check"></span>
+                                        </div>
+                                    </div>
                                 </div>
+
                             </div>
                             <div class="form-group">
-								<div class="form-input">
+                              <div class="form-input">
+                                  <label for="phone" class="required">Nomor Telepon</label>
+                                  <input type="text" name="phone" id="phone" onKeyUp="validate_ac();" onkeypress="return number_only(event);" maxlength="15"/>
+                                  <div id="validate_phone" style="color:red;font-style:oblique"></div>
+                              </div>
+								                <div class="form-input">
                                     <label for="email" class="required">Email</label>
                                     <input type="text" name="email" id="email" onKeyUp="validate_ac();" placeholder="yourname@domain.com" maxlength="50"/>
                                     <div id="validate_email" style="color:red;font-style:oblique"></div>
@@ -266,15 +300,7 @@ h5 {
 		<script type="text/javascript" src="<?php echo base_url();?>assets/vendor/bootstrap-datepicker/js/bootstrap-datetimepicker.id.js" charset="UTF-8"></script>
 		<script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
 
-    <script type="text/javascript">
-      function number_only(evt){
-							var charCode = (evt.which) ? evt.which : event.keyCode
-							if (charCode > 31 && (charCode < 48 || charCode > 57))
-								return false;
-							return true;
-      }
-
-    </script>
+    
 		<script type="text/javascript">
       var is_register_click=0;
       var validate_name_status=0;
@@ -284,6 +310,7 @@ h5 {
       var validate_password_status=0;
       var validate_rpassword_status=0;
       var validate_pin_status=0;
+      var validate_edu_status=0;
       $('#validate_pin').hide();
       $('#validate_name').hide();
       $('#validate_password').hide();
@@ -291,6 +318,7 @@ h5 {
       $('#validate_email').hide();
       $('#validate_phone').hide();
       $('#validate_date').hide();
+      $('#validate_edu').hide();
 
 			$('.form_date').datetimepicker({
 		    weekStart: 1,
@@ -327,6 +355,19 @@ h5 {
             $('#validate_date').text('Tanggal lahir harus diisi!');
             $('#validate_date').show();
             $('#dateshowv').css("border-color","red");
+          }
+        }
+
+        function validate_edu(edu){
+          if(typeof edu!='undefined'){
+            validate_edu_status=1;
+            $('#validate_edu').hide();
+            $('#meal_preference').css("border-color","#ebebeb");
+          }else{
+            validate_edu_status=0;
+            $('#validate_edu').text('Pendidikan terakhir harus diisi!');
+            $('#validate_edu').show();
+            $('#meal_preference').css("border-color","red");
           }
         }
 
@@ -484,6 +525,7 @@ h5 {
 					var email=$('#email').val();
 					var password=$('#password').val();
 					var rpassword=$('#rpassword').val();
+          var edu=$('#meal_preference').find('.selected').attr('value');
 
           if(is_register_click==1){
             validate_name(name);
@@ -493,6 +535,7 @@ h5 {
             validate_password(password);
             validate_rpassword(password,rpassword);
             validate_pin(pin);
+            validate_edu(edu);
           }
         }
 
@@ -501,11 +544,13 @@ h5 {
 					var name=$('#name').val();
 					var date=$('#dtp_input2').val();
 					var gender=$("input[name='gender']:checked").val();
+          var marital=$("input[name='marital']:checked").val();
 					var phone=$('#phone').val();
 					var pin=$('#pin').val();
 					var email=$('#email').val();
 					var password=$('#password').val();
 					var rpassword=$('#rpassword').val();
+          var edu=$('#meal_preference').find('.selected').attr('value');
 
           validate_name(name);
           validate_date(date);
@@ -514,8 +559,10 @@ h5 {
           validate_password(password);
           validate_rpassword(password,rpassword);
           validate_pin(pin);
+          validate_edu(edu);
 
-					if(validate_name_status==1 && validate_date_status==1 && validate_phone_status==1 && validate_email_status==1 && validate_password_status && validate_rpassword_status==1 && validate_pin_status==1){
+
+					if(validate_edu_status==1 && validate_name_status==1 && validate_date_status==1 && validate_phone_status==1 && validate_email_status==1 && validate_password_status && validate_rpassword_status==1 && validate_pin_status==1){
             $.ajax({
     	            url: "<?php echo base_url();?>register/register_submit",
     	            type: "post",
@@ -525,6 +572,8 @@ h5 {
     	                gender:gender,
     	                phone:phone,
                       email:email,
+                      marital:marital,
+                      edu:edu,
                       password:password,
                       pin:pin
     	            } ,

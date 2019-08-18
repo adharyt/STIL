@@ -1,0 +1,62 @@
+.img-profile{
+    width: 10%;
+    height: 10%;
+    border-radius: 50%;
+    border-color: #009245;
+}
+.circle {
+    border-radius: 25px;
+}
+.icon-mark {
+    width: 20px;
+    height: 20px;
+}
+.rounded {
+    height: 30px;
+    border-radius: 20px;
+}
+.btn-edit {
+    background-color: #f4f459;
+}
+.btn-edit:hover {
+    background-color: #e5e54a;
+}
+.btn-tambah {
+    background-color: #f4f459;
+}
+.new-address-header {
+    background-color: #009245;
+}
+.new-address-title {
+    font-family: 'helvetica';
+    font-size: 1.2rem;
+    color: white;
+}
+.new-address-btn-close {
+    color: white;
+}
+.new-address-btn-close:hover {
+    color: red;
+}
+.new-address-body {
+    font-family: 'helvetica';
+    font-size: 0.9rem;
+    color: black;
+    flex-direction: column;
+    padding: 20px !important;
+}
+.delete-address-body {
+    font-family: 'helvetica';
+    font-size: 1.1rem;
+    color: black;
+    flex-direction: column;
+    padding: 20px !important;
+    align-self: center;
+}
+.delete-confirmation {
+    font-size: 1.1rem !important;
+    color: black !important;
+}
+.i-address-name {
+    width: 100%;
+}

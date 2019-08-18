@@ -1,0 +1,18 @@
+fieldset.form-group {
+    position: relative;
+}
+
+.active a {
+    background-color: #FFA500 !important;
+}
+
+label {
+    position: absolute;
+    top: 0.6rem;
+    left: 1rem;
+    color:grey;
+    top:-10px;
+    background-color: #fff;
+    padding: 0 2px;
+    transition:all 0.4s linear;
+}

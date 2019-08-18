@@ -1,0 +1,170 @@
+/* Container */
+.dashboard-seller-container {
+	padding-left: 4%;
+	padding-right: 4%;
+}
+.header-container {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	height: 160px;
+	padding-right: 2.5%;
+	padding-left: 2%;
+}
+.dashboard-seller-profile-container {
+	padding-right: 2.5%;
+	padding-left: 4%;
+	justify-content: space-between;
+}
+.dashboard-proudcts-container {
+	display: flex;
+	flex-direction: column;
+	border: 2px #009245;
+	border-style: dashed;
+	padding: 2%;
+	margin: 2%;
+}
+.side-bar-container {
+    padding: 0rem 0.7rem 0.7rem 1.5rem !important;
+}
+.dashboard-filter-product-container {
+    padding: 0rem 1.5rem 0.7rem 0.7rem !important;
+}
+
+/* Image */
+.img-profile-header {
+	width: 100%;
+	height: 200px;
+	position: absolute;
+}
+.img-profile {
+	width: 30%;
+	height: auto;
+	border-radius: 50%;
+	border-color: #009245;
+}
+.img-no-product {
+    width: 30%;
+	height: auto;
+    align-self: center;
+    justify-self: center;
+}
+
+/* Button */
+.btn-edit-header {
+	padding: 8px;
+	background-color: white;
+	font-family: Helvetica;
+	font-size: 14px;
+	height: fit-content;
+	border: 1px solid #009245;
+	border-radius: 4px;
+}
+.btn-edit-header:hover {
+	color: #009245;
+	cursor: pointer;
+}
+
+.btn-settings-shop {
+	align-self: center;
+	padding: 8px;
+	background-color: white;
+	font-family: Helvetica;
+	font-size: 14px;
+	height: fit-content;
+	border: 1px solid #009245;
+	border-radius: 4px;
+}
+.btn-settings-shop:hover,
+.icon-settings:hover {
+	color: #009245;
+	cursor: pointer;
+}
+
+.btn-settings-products {
+	width: fit-content;
+	height: fit-content;
+	align-self: center;
+	padding-top: 8px;
+	padding-bottom: 8px;
+	padding-right: 15px;
+	padding-left: 15px;
+	text-align: center;
+	color: white;
+	background-color: #009245;
+	font-family: Helvetica;
+	font-size: 14px;
+	border-radius: 4px;
+}
+.btn-settings-products:hover {
+	background-color: #009250;
+	cursor: pointer;
+}
+
+/* Text */
+.text-show-products {
+	text-align: center;
+}
+.text-storefront-label {
+	font-family: Helvetica;
+    font-size: 1rem;
+    font-weight: bold;
+}
+.text-default {
+    font-family: Helvetica;
+    font-size: 0.9rem;
+    color: black;
+}
+.text-bold {
+    font-family: Helvetica;
+    font-size: 1rem;
+    color: black;
+    font-weight: bold;
+}
+
+/* Style */
+.card-header-style {
+    background-color: white;
+}
+a:hover, a>p:hover, li>span:hover {
+	color: #009245;
+	cursor: pointer;
+}
+.hoverPointer:hover {
+	color: #009245;
+	cursor: pointer;
+}
+.input-icons i { 
+    position: absolute; 
+}
+.icon { 
+    padding: 10px; 
+    color: grey; 
+    min-width: 50px;
+    text-align: center; 
+} 
+.input-icons {
+    flex-direction: row;
+}
+.input-field { 
+    width: 100%;
+    padding: 5px 5px 5px 45px; 
+}
+.icon-horizontal {
+    display: flex;
+    flex-direction: row;
+    justify-self: center;
+}
+.no-product {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.divider {
+	width: 1px;
+	background-color: #eee;
+}
+.checked {
+	color: orange !important;
+}

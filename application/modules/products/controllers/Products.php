@@ -11,6 +11,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		public function index(){
 			isset($_GET['search'])?$search_keyword=$_GET['search']:$search_keyword="";
 
+			//wew
 			$data['dataProduct']=$this->productModel->getProducts()->result_array();
 			$data['dataProductCount']=$this->productModel->getProducts()->num_rows();
 			$this->load->view('appinfo');

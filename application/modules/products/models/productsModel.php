@@ -4,7 +4,7 @@ class productsModel extends CI_Model{
     $this->load->database();
   }
 
-  
+  //wewe
 
   public function getProductQuickview($product_id,$store_id){
     $sql = "SELECT

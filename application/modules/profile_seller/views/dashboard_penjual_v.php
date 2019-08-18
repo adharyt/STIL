@@ -16,7 +16,7 @@
     </div>
     <div class="row dashboard-seller-profile-container">
         <div class="row">
-            <img src="<?php echo base_url();?>assets/images/image-user/default_client_m.png" alt="Photo Profile" class="img-thumbnail img-profile">
+            <img src="<?php echo base_url();?>assets/images/image-user/default_user_m.png" alt="Photo Profile" class="img-thumbnail img-profile">
             <div>
                 <div class="ml-3 mt-5 profile-name-container">
                     <h4>Abimanyu Bhamakerti</h4>

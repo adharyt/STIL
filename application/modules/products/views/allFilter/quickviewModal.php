@@ -8,7 +8,7 @@
         <?php $i=0; foreach($dataProductImg as $productImg){ $i++;?>
         <div class="carousel-item <?php if($i==1){echo 'active';} ?>">
           <img class="d-block w-100"
-            src="<?php echo base_url();?>document_upload/<?php echo $productQV['store_link'].'/product/'.$productQV['product_id'].'/'.$productImg['img_url'];?>"
+            src="<?php echo $productImg['img_url'];?>"
             alt="">
         </div>
       <?php } ?>

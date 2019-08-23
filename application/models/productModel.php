@@ -59,22 +59,24 @@ class productModel extends CI_Model{
   }
 
   public function getProductImage($product_id){
-    $sql = "SELECT img_url,is_selected
-    FROM product_image
-    where id_product='$product_id'
-    and is_deleted=0
-    ORDER BY is_selected desc";
+    $sql = "SELECT u.username as store_link,p.id,i.img_url,i.is_selected
+    FROM product as p left join
+    user_client as u on p.id_user=u.id left outer join
+    product_image as i on i.id_product=p.id
+    where p.id='$product_id'
+    ORDER BY i.is_selected desc";
 
-    $cek_img=$this->db->query($sql)->num_rows();
-    if($cek_img>0){
-      return $this->db->query($sql)->result_array();
+    $data_img=$this->db->query($sql)->result_array();
+    if($data_img[0]['img_url']!=''){
+      for($i=0;$i<count($data_img);$i++){
+        $data_img[$i]['img_url']=base_url().'document_upload/'.$data_img[$i]['store_link'].'/product/'.$data_img[$i]['id'].'/'.$data_img[$i]['img_url'];
+      }
     }else{
-      //Jika gambar tidak ada
-      $data_img=[
-        ["img_url"=>"image-not-available.png","is_selected"=>1]
-      ];
-      return $data_img;
+      $data_img[0]['img_url']=base_url().'assets/images/product/image-not-available.png';
+      $data_img[0]['is_selected']=1;
     }
+
+    return $data_img;
   }
 
   public function getFeedback($store_id,$vibes){
@@ -305,6 +307,94 @@ class productModel extends CI_Model{
     }
 
   }
+
+  public function cekHargaBarang($id,$value){
+    $sql = "SELECT
+    p.price as product_price,
+    p.is_wholesale,
+    p.wh_unit1,
+    p.wh_price1,
+    p.wh_unit2,
+    p.wh_price2,
+    p.wh_unit3,
+    p.wh_price3,
+    p.wh_unit4,
+    p.wh_price4,
+    p.wh_unit5,
+    p.wh_price5,
+    p.is_discount,
+    p.discount_value,
+    p.is_discount_stil
+    FROM product as p
+    where p.id='$id'
+    limit 1";
+    $data=$this->db->query($sql)->result_array()[0];
+
+    if($data['is_wholesale']==1){
+      if(($data['wh_unit5']!='' && $data['wh_unit5']!=0 && $data['wh_price5']!='' && $data['wh_price5']!=0) && $value>=$data['wh_unit5']){
+        $price=$data['wh_price5'];
+      }else if(($data['wh_unit4']!='' && $data['wh_unit4']!=0 && $data['wh_price4']!='' && $data['wh_price4']!=0) && $value>=$data['wh_unit4']){
+        $price=$data['wh_price4'];
+      }else if(($data['wh_unit3']!='' && $data['wh_unit3']!=0 && $data['wh_price3']!='' && $data['wh_price3']!=0) && $value>=$data['wh_unit3']){
+        $price=$data['wh_price3'];
+      }else if(($data['wh_unit2']!='' && $data['wh_unit2']!=0 && $data['wh_price2']!='' && $data['wh_price2']!=0) && $value>=$data['wh_unit2']){
+        $price=$data['wh_price2'];
+      }else if(($data['wh_unit1']!='' && $data['wh_unit1']!=0 && $data['wh_price1']!='' && $data['wh_price1']!=0) && $value>=$data['wh_unit1']){
+        $price=$data['wh_price1'];
+      }else{
+        $price=$data['product_price'];
+      }
+    }else{
+      $price=$data['product_price'];
+    }
+
+    return $price;
+
+
+  }
+
+  public function cekStokBarang($id,$value){
+    $sql = "SELECT
+    p.stock_type,
+    p.stock,
+    p.buy_minimum
+    FROM product as p
+    where p.id='$id'
+    limit 1";
+    $data=$this->db->query($sql)->result_array()[0];
+    $msg=1;
+        if($data['stock_type']==1){
+          $new_value=1;
+        }else if($data['stock_type']==2){
+          if($value<=$data['stock']){
+            $new_value=$value;
+          }else{
+            $new_value=$data['stock'];
+            $msg=2;
+          }
+          if($value>=$data['buy_minimum']){
+            $new_value=$new_value;
+          }else{
+            $new_value=$data['buy_minimum'];
+            $msg=3;
+          }
+        }else{
+          if($value>=$data['buy_minimum']){
+            $new_value=$value;
+          }else{
+            $new_value=$data['buy_minimum'];
+            $msg=3;
+          }
+        }
+
+        $data = array(
+          'value' => $new_value,
+          'msg' => $msg
+          );
+        return $data;
+  }
+
+
 
 }
 

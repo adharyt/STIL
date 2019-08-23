@@ -26,6 +26,39 @@
   text-shadow: 2px 2px 5px #d29b09;
   top: 0;
 }
+.navbar {
+
+  background-color: #FFF;
+}
+
+/* Navbar links */
+.navbar a {
+  float: right;
+  text-align: center;
+  padding: 12px;
+  color: black;
+  text-decoration: none;
+  font-size: 17px;
+	height:100%;
+}
+
+/* Navbar links on mouse-over */
+.navbar a:hover {
+  background-color: #000;
+}
+
+/* Current/active navbar link */
+.active {
+  background-color: #4CAF50;
+}
+
+/* Add responsiveness - will automatically display the navbar vertically instead of horizontally on screens less than 500 pixels */
+@media screen and (max-width: 500px) {
+  .navbar a {
+    float: none;
+    display: block;
+  }
+}
 </style>
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
@@ -43,6 +76,19 @@
           return true;
   }
 
+	function ribuan_format(bilangan){
+		var	number_string = bilangan.toString(),
+			sisa 	= number_string.length % 3,
+			rupiah 	= number_string.substr(0, sisa),
+			ribuan 	= number_string.substr(sisa).match(/\d{3}/g);
+
+		if (ribuan) {
+			separator = sisa ? '.' : '';
+			rupiah += separator + ribuan.join('.');
+		}
+
+		return rupiah;
+	}
 
 </script>
 <script type="text/javascript">
@@ -163,46 +209,6 @@ function auth(){
 
 	<header class="header">
 
-		<!-- Top Bar -->
-
-		<div class="top_bar">
-			<div class="container">
-				<div class="row">
-					<div class="col d-flex flex-row">
-						<div class="top_bar_contact_item"><div class="top_bar_icon"><img src="<?php echo base_url();?>assets/images/phone.png" alt=""></div>+62 87884 044440</div>
-						<div class="top_bar_contact_item"><div class="top_bar_icon"><img src="<?php echo base_url();?>assets/images/mail.png" alt=""></div><a href="<?php echo base_url();?>assets/mailto:fastsales@gmail.com">contact@stil.com</a></div>
-						<div class="top_bar_content ml-auto">
-							<div class="top_bar_menu">
-								<ul class="standard_dropdown top_bar_dropdown">
-									<li>
-										<a href="<?php echo base_url();?>assets/#">Indonesia<i class="fas fa-chevron-down"></i></a>
-										<ul>
-											<li><a href="<?php echo base_url();?>assets/#">English</a></li>
-										</ul>
-									</li>
-									<li>
-										<a href="<?php echo base_url();?>assets/#">IDR<i class="fas fa-chevron-down"></i></a>
-										<ul>
-											<li><a href="<?php echo base_url();?>assets/#">USD</a></li>
-										</ul>
-									</li>
-								</ul>
-							</div>
-							<div class="top_bar_user">
-								<div class="user_icon"><img src="<?php echo base_url();?>assets/images/user.svg" alt=""></div>
-                <?php if($this->session->userdata('is_login')!='y'){ ?>
-  								<div><a href="javascript:login();">Masuk</a></div>
-                  <div><a href="<?php echo base_url();?>register">Daftar</a></div>
-                <?php }else{ ?>
-                  <a href="javascript:login();"><?php echo $this->session->userdata('email');?></a>
-                <?php } ?>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-
 		<!-- Header Main -->
 
 		<div class="header_main">
@@ -222,21 +228,8 @@ function auth(){
 							<div class="header_search_content">
 								<div class="header_search_form_container">
 									<form action="#" class="header_search_form clearfix">
-										<input type="search" required="required" class="header_search_input" placeholder="Cari produk...">
-										<div class="custom_dropdown">
-											<div class="custom_dropdown_list">
-												<span class="custom_dropdown_placeholder clc">Semua Kategori</span>
-												<i class="fas fa-chevron-down"></i>
-												<ul class="custom_list clc">
-													<li><a class="clc" href="<?php echo base_url();?>assets/#">Semua Kategori</a></li>
-													<li><a class="clc" href="<?php echo base_url();?>assets/#">Kehutanan</a></li>
-													<li><a class="clc" href="<?php echo base_url();?>assets/#">Pertanian</a></li>
-													<li><a class="clc" href="<?php echo base_url();?>assets/#">Peternakan</a></li>
-													<li><a class="clc" href="<?php echo base_url();?>assets/#">Hasil Olahan</a></li>
-													<li><a class="clc" href="<?php echo base_url();?>assets/#">Merchandise</a></li>
-												</ul>
-											</div>
-										</div>
+										<input type="search" required="required" class="header_search_input" placeholder="Cari produk..." style="width:90%">
+
 										<button type="submit" class="header_search_button trans_300" value="Submit"><img src="<?php echo base_url();?>assets/images/search.png" alt=""></button>
 									</form>
 								</div>
@@ -251,7 +244,7 @@ function auth(){
 								<div class="wishlist_icon"><img src="<?php echo base_url();?>assets/images/heart.png" alt=""></div>
 								<div class="wishlist_content">
 									<div class="wishlist_text"><a href="<?php echo base_url();?>assets/#">Wishlist</a></div>
-									<div class="wishlist_count">5</div>
+									<div class="wishlist_count">0 item</div>
 								</div>
 							</div>
 
@@ -260,11 +253,17 @@ function auth(){
 								<div class="cart_container d-flex flex-row align-items-center justify-content-end">
 									<div class="cart_icon">
 										<img src="<?php echo base_url();?>assets/images/cart.png" alt="">
-										<div class="cart_count"><span>10</span></div>
+										<div class="cart_count"><span>0</span></div>
 									</div>
 									<div class="cart_content">
-										<div class="cart_text"><a href="<?php echo base_url();?>assets/#">Cart</a></div>
-										<div class="cart_price">IDR 825.000,00</div>
+										<div class="cart_text">
+											<?php if($this->session->userdata('is_login')!='y'){ ?>
+												<a href="javascript:login();">Cart</a>
+											<?php }else{ ?>
+												<a href="javascript:login();"><?php echo $this->session->userdata('email');?></a>
+											<?php } ?>
+										</div>
+										<div class="cart_price">0 item</div>
 									</div>
 								</div>
 							</div>
@@ -329,56 +328,13 @@ function auth(){
 
 							<!-- Main Nav Menu -->
 
-							<div class="main_nav_menu ml-auto">
-								<ul class="standard_dropdown main_nav_dropdown">
-									<li><a href="<?php echo base_url();?>assets/#">Home<i class="fas fa-chevron-down"></i></a></li>
-									<li class="hassubs">
-										<a href="<?php echo base_url();?>assets/#">Super Deals<i class="fas fa-chevron-down"></i></a>
-										<ul>
-											<li>
-												<a href="<?php echo base_url();?>assets/#">Menu Item<i class="fas fa-chevron-down"></i></a>
-												<ul>
-													<li><a href="<?php echo base_url();?>assets/#">Menu Item<i class="fas fa-chevron-down"></i></a></li>
-													<li><a href="<?php echo base_url();?>assets/#">Menu Item<i class="fas fa-chevron-down"></i></a></li>
-													<li><a href="<?php echo base_url();?>assets/#">Menu Item<i class="fas fa-chevron-down"></i></a></li>
-												</ul>
-											</li>
-											<li><a href="<?php echo base_url();?>assets/#">Menu Item<i class="fas fa-chevron-down"></i></a></li>
-											<li><a href="<?php echo base_url();?>assets/#">Menu Item<i class="fas fa-chevron-down"></i></a></li>
-											<li><a href="<?php echo base_url();?>assets/#">Menu Item<i class="fas fa-chevron-down"></i></a></li>
-										</ul>
-									</li>
-									<li class="hassubs">
-										<a href="<?php echo base_url();?>assets/#">Featured Brands<i class="fas fa-chevron-down"></i></a>
-										<ul>
-											<li>
-												<a href="<?php echo base_url();?>assets/#">Menu Item<i class="fas fa-chevron-down"></i></a>
-												<ul>
-													<li><a href="<?php echo base_url();?>assets/#">Menu Item<i class="fas fa-chevron-down"></i></a></li>
-													<li><a href="<?php echo base_url();?>assets/#">Menu Item<i class="fas fa-chevron-down"></i></a></li>
-													<li><a href="<?php echo base_url();?>assets/#">Menu Item<i class="fas fa-chevron-down"></i></a></li>
-												</ul>
-											</li>
-											<li><a href="<?php echo base_url();?>assets/#">Menu Item<i class="fas fa-chevron-down"></i></a></li>
-											<li><a href="<?php echo base_url();?>assets/#">Menu Item<i class="fas fa-chevron-down"></i></a></li>
-											<li><a href="<?php echo base_url();?>assets/#">Menu Item<i class="fas fa-chevron-down"></i></a></li>
-										</ul>
-									</li>
-									<li class="hassubs">
-										<a href="<?php echo base_url();?>assets/#">Pages<i class="fas fa-chevron-down"></i></a>
-										<ul>
-											<li><a href="<?php echo base_url();?>assets/shop.html">Shop<i class="fas fa-chevron-down"></i></a></li>
-											<li><a href="<?php echo base_url();?>assets/product.html">Product<i class="fas fa-chevron-down"></i></a></li>
-											<li><a href="<?php echo base_url();?>assets/blog.html">Blog<i class="fas fa-chevron-down"></i></a></li>
-											<li><a href="<?php echo base_url();?>assets/blog_single.html">Blog Post<i class="fas fa-chevron-down"></i></a></li>
-											<li><a href="<?php echo base_url();?>assets/regular.html">Regular Post<i class="fas fa-chevron-down"></i></a></li>
-											<li><a href="<?php echo base_url();?>assets/cart.html">Cart<i class="fas fa-chevron-down"></i></a></li>
-											<li><a href="<?php echo base_url();?>assets/contact.html">Contact<i class="fas fa-chevron-down"></i></a></li>
-										</ul>
-									</li>
-									<li><a href="<?php echo base_url();?>assets/blog.html">Blog<i class="fas fa-chevron-down"></i></a></li>
-									<li><a href="<?php echo base_url();?>assets/contact.html">Contact<i class="fas fa-chevron-down"></i></a></li>
-								</ul>
+							<div class="navbar ml-auto">
+							  <a style="border-left:1px solid silver;border-right:1px solid silver;"  href="#"><i class="fa fa-fw fa-wallet"></i></a>
+								<a href="#"><i class="fa fa-fw fa-comment-dots"></i></a>
+								<a href="#" class="active"><i class="fa fa-fw fa-exchange-alt"></i></a>
+							  <a href="#"><i class="fa fa-fw fa-bell"></i></a>
+							  <a href="#" style="border-left:1px solid silver;border-right:0px solid silver;"><i class="fa fa-fw fa-store-alt"></i></a>
+							  <a href="#" style="border-left:1px solid silver;border-right:1px solid silver;"><i class="fa fa-fw fa-user"></i></a>
 							</div>
 
 							<!-- Menu Trigger -->

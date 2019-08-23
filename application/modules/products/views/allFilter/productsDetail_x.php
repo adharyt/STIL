@@ -12,6 +12,15 @@
 <script src="<?php echo base_url();?>assets/plugins/jquery-ui-1.12.1.custom/jquery-ui.js"></script>
 <script src="<?php echo base_url();?>assets/plugins/parallax-js-master/parallax.min.js"></script>
 <script src="<?php echo base_url();?>assets/js/shop_custom.js"></script>
+
+<script type="text/javascript">
+$(function(){
+$('#kategori').find('div').click(function(e){
+    $(this).parent().children('ol').toggle();
+    $(this).children('i').toggleClass('fa-chevron-right fa-chevron-down');
+});
+});
+</script>
 <script type="text/javascript">
   function quickview(idProduk,storeLink){
     $.ajax({

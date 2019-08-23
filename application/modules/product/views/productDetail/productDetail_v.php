@@ -10,14 +10,14 @@
 				<div class="col-lg-1 order-lg-1 order-2">
 					<ul class="image_list">
 						<?php foreach($dataProductImg as $productImg){ ?>
-							<li data-image="<?php echo base_url()."document_upload/$dataProduct[store_link]/product/$dataProduct[product_id]/".$productImg['img_url']; ?>"><img src="<?php echo base_url()."document_upload/$dataProduct[store_link]/product/$dataProduct[product_id]/".$productImg['img_url']; ?>" alt=""></li>
+							<li data-image="<?php echo $productImg['img_url']; ?>"><img src="<?php echo $productImg['img_url']; ?>" alt=""></li>
 						<?php } ?>
 					</ul>
 				</div>
 
 				<!-- Selected Image -->
 				<div class="col-lg-3 order-lg-2 order-1">
-					<div class="image_selected"><img src="<?php echo base_url()."document_upload/$dataProduct[store_link]/product/$dataProduct[product_id]/".$dataProductImg[0]['img_url'];?>" alt=""></div>
+					<div class="image_selected"><img src="<?php echo $dataProductImg[0]['img_url'];?>" alt=""></div>
 				</div>
 
 				<!-- Description -->
@@ -113,12 +113,13 @@
 							<form action="#">
 								<div class="clearfix" style="z-index: 1000;<?php if($dataProduct['stock_type']==1){echo 'display:none';} ?>">
 									<!-- Product Quantity -->
-									<div class="product_quantity clearfix">
+									<div class="product_quantity clearfix" style="width:220px;">
 										<span  style="color:black">Jumlah: </span>
-										<input  style="color:black" id="quantity_input" type="text" pattern="[0-9]*" value="<?php echo $dataProduct['buy_minimum']; ?>">
+										<?php if($dataProduct['stock_type']==2){$maxbeli="$dataProduct[stock]";}else{$maxbeli="9999999";}?>
+										<input onChange="validation_quantity();" style="color:black;width:100px" id="quantity_input" type="text" pattern="[0-9]*" min="<?php echo $dataProduct['buy_minimum']; ?>" max="<?php echo $maxbeli;?>" value="<?php echo $dataProduct['buy_minimum']; ?>">
 										<div class="quantity_buttons">
-											<div id="quantity_inc_button" class="quantity_inc quantity_control"><i class="fas fa-chevron-up"></i></div>
-											<div id="quantity_dec_button" class="quantity_dec quantity_control"><i class="fas fa-chevron-down"></i></div>
+											<div id="quantity_inc_buttona" class="quantity_inc quantity_control"><i class="fas fa-chevron-up"></i></div>
+											<div id="quantity_dec_buttona" class="quantity_dec quantity_control"><i class="fas fa-chevron-down"></i></div>
 										</div>
 									</div>
 								</div>
@@ -127,7 +128,7 @@
 
 
 								<div class="button_container">
-									<button type="button" class="button cart_button">Tambahkan ke Keranjang</button>
+									<button type="button" class="button cart_button" onClick="addToCart('<?php echo $dataProduct['product_id']; ?>');">Tambahkan ke Keranjang</button>
 									<div class="product_fav" title="Tambahkan ke Wishlist"><i class="fas fa-heart"></i></div>
 								</div>
 								Jaminan 100% Aman<br>
@@ -350,6 +351,7 @@
 
 						<!-- feedback start -->
 						<?php
+						if(count($storeFeedback)>0){
 							$i=0;
 							foreach($storeFeedback as $feedback){
 							$i++;
@@ -395,7 +397,11 @@
 
             </div>
 						<!-- feedback end -->
-						<?php } ?>
+						<?php }
+					}//feedback >0
+					else{
+							echo "<center style='color:#999'><img src='".base_url()."assets/images/product/no-feedback.png' width='25%'><br>Penjual ini belum memiliki feedback</center>";
+					}?>
 
 
           </div>
@@ -407,6 +413,7 @@
           >
             <div class="row">
               <div class="col-lg-12">
+								<?php 	if(count($productReview)>0){ ?>
                 <div class="row total_rate">
                   <div class="col-6">
                     <div class="box_total">
@@ -462,7 +469,6 @@
 							 </div>
 							 <div class="col-lg-12">
 								 <?php
-								 	if(!is_null($productReview)){
 								 		foreach($productReview as $review){
 								  ?>
  								<!-- REVIEWSTART -->
@@ -498,8 +504,10 @@
 									</div>
  									<!-- REVIEWEND -->
  									<?php }
-										}
-									 ?>
+										}//review >0
+										else{
+												echo "<center style='color:#999'><img src='".base_url()."assets/images/product/no-review.png' width='25%'><br>Belum ada ulasan untuk produk ini</center>";
+										}?>
 
               </div>
 
@@ -529,7 +537,7 @@
 					<div class="col-9">
 						<?php echo $dataProduct['store_name']; ?><br>
 						<font style="font-size:13px;text-decoration-line: underline;text-decoration-style:dashed;">
-							<?php echo number_format(($storeFeedbackCountPositive/$storeFeedbackCount)*100,0,'.',','); ?>% (<?php echo $storeFeedbackCount; ?> feedback)
+							<?php $storeFeedbackCount==0?$feedbackDiv=1:$feedbackDiv=$storeFeedbackCount; echo number_format(($storeFeedbackCountPositive/$feedbackDiv)*100,0,'.',','); ?>% (<?php echo $storeFeedbackCount; ?> feedback)
 						</font><br>
 							<font style="font-size:12px;color:#7f5994"><i class="fas fa-map-marker-alt"></i> <?php echo $dataProduct['store_city']; ?></font><br>
 					 </div>

@@ -19,17 +19,50 @@
 					<div class="shop_sidebar">
 						<div class="sidebar_section">
 							<div class="sidebar_title">Categories</div>
-							<ul class="sidebar_categories">
-								<li><a href="#">Computers & Laptops</a></li>
-								<li><a href="#">Cameras & Photos</a></li>
-								<li><a href="#">Hardware</a></li>
-								<li><a href="#">Smartphones & Tablets</a></li>
-								<li><a href="#">TV & Audio</a></li>
-								<li><a href="#">Gadgets</a></li>
-								<li><a href="#">Car Electronics</a></li>
-								<li><a href="#">Video Games & Consoles</a></li>
-								<li><a href="#">Accessories</a></li>
-							</ul>
+							<div id="kategori" class="pointerhand">
+								<ol class="dd-list">
+									<li class="dd-item" data-id="1">
+										<div class="dd-handle">Item 1</div>
+									</li>
+									<li class="dd-item" data-id="2">
+										<div class="dd-handle"><i class="fas fa-chevron-down"></i> Item 2</div>
+										<ol class="dd-list">
+											<li class="dd-item" data-id="3">
+												<div class="dd-handle">Item 3</div>
+											</li>
+											<li class="dd-item" data-id="4">
+												<div class="dd-handle">Item 4</div>
+											</li>
+											<li class="dd-item" data-id="5">
+												<div class="dd-handle"><i class="fas fa-chevron-down"></i> Item 5</div>
+												<ol class="dd-list">
+													<li class="dd-item" data-id="6">
+														<div class="dd-handle">Item 6</div>
+													</li>
+													<li class="dd-item" data-id="7">
+														<div class="dd-handle">Item 7</div>
+													</li>
+													<li class="dd-item" data-id="8">
+														<div class="dd-handle">Item 8</div>
+													</li>
+												</ol>
+											</li>
+											<li class="dd-item" data-id="9">
+												<div class="dd-handle">Item 9</div>
+											</li>
+											<li class="dd-item" data-id="10">
+												<div class="dd-handle">Item 10</div>
+											</li>
+										</ol>
+									</li>
+									<li class="dd-item" data-id="11">
+										<div class="dd-handle">Item 11</div>
+									</li>
+									<li class="dd-item" data-id="12">
+										<div class="dd-handle">Item 12</div>
+									</li>
+								</ol>
+							</div>
 						</div>
 						<div class="sidebar_section filter_by_section">
 							<div class="sidebar_title">Filter By</div>
@@ -100,7 +133,7 @@
 							<div class="product_item <?php if($product['is_discount']==1){ echo 'discount';}?> is_new">
 								<div class="product_border"></div>
 								<div onClick="quickview('<?php echo $product['pr_slug'].'-'.$product['pr_uniq'];?>','<?php echo $product['store_link'];?>');"class="product_image d-flex flex-column align-items-center justify-content-center">
-									<img style="height:100%" src="<?php echo base_url();?>document_upload/<?php echo $product['store_link'].'/product/'.$product['product_id'].'/'.$this->productModel->getProductImage($product['product_id'])[0]['img_url']; ?>" alt=""></div>
+									<img style="height:100%" src="<?php echo $this->productModel->getProductImage($product['product_id'])[0]['img_url']; ?>" alt=""></div>
 								<div onClick="quickview('<?php echo $product['pr_slug'].'-'.$product['pr_uniq'];?>','<?php echo $product['store_link'];?>');"class="product_content" style="border:0px solid black;text-align:left;padding-left:5px">
 									<div class="product_name" style="height:40px"><div><a href="javascript:void(0);" tabindex="0" title="<?php echo $product['pr_name'];?>"><?php echo $product['pr_name'];?></a></div></div>
 									<div class="product_price" style="margin-top:5px;margin-left:5px;text-align:left;font-size:15px">

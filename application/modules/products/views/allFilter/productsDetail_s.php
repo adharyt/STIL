@@ -6,7 +6,29 @@
 <link rel="stylesheet" type="text/css" href="<?php echo base_url();?>assets/plugins/slick-1.8.0/slick.css">
 <link rel="stylesheet" type="text/css" href="<?php echo base_url();?>assets/styles/shop_styles.css">
 <link rel="stylesheet" type="text/css" href="<?php echo base_url();?>assets/styles/shop_responsive.css">
+<link rel="stylesheet" type="text/css" href="<?php echo base_url();?>assets/plugins/nestable/nestable.css">
 <style media="screen">
+.dd-list,
+.dd-item,
+.dd-handle,
+.pointerhand{
+    cursor: pointer;
+}
+.dd-active{
+    background: white;
+}
+dd-active:before {
+   font-family: "Font Awesome 5 Free";
+   content: "\f095";
+   display: inline-block;
+   padding-right: 3px;
+   vertical-align: middle;
+   font-weight: 900;
+}
+.dd-nactive{
+    background: gray;
+}
+
 .label {
   font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
 }

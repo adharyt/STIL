@@ -9,8 +9,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 
 		public function detail($store_id,$slug){
-
-
 			//PRODUCT
 			$data['dataProduct']=$this->productModel->getProductDetail($store_id,$slug)->result_array()[0];
 			$data['dataProductImg']=$this->productModel->getProductImage($data['dataProduct']['product_id']);
@@ -187,4 +185,25 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 			echo "ok";
 		}
+
+
+		public function swishlist(){
+			$produk=$_POST['id'];
+			$store=$_POST['store'];
+			$id_user=$this->session->userdata('user_id');
+
+			$data=$this->productModel->getProductDetail($store,$produk)->result_array()[0];
+			$id_product=$data['product_id'];
+
+			$cek=$this->db->query("SELECT * FROM wishlist where id_user='$id_user' and id_product='$id_product'")->num_rows();
+			if($cek>0){
+				$this->db->query("DELETE FROM wishlist where id_user='$id_user' and id_product='$id_product'");
+				$response="OKd";
+			}else{
+				$this->db->query("INSERT INTO wishlist values('','$id_user','$id_product',now())");
+				$response="OKi";
+			}
+			echo $response;
+		}
+
 }

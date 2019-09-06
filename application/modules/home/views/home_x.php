@@ -10,6 +10,11 @@
 <script src="<?php echo base_url();?>assets/plugins/slick-1.8.0/slick.js"></script>
 <script src="<?php echo base_url();?>assets/plugins/easing/easing.js"></script>
 <script src="<?php echo base_url();?>assets/js/custom.js"></script>
+<script>
+$(document).ready(function(){
+  $('[data-toggle="tooltip"]').tooltip();
+});
+</script>
 </body>
 
 </html>

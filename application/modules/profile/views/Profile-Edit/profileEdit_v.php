@@ -4,39 +4,30 @@
 	}
 
 	.img-profile {
-		width: 100%;
+		width: 150px;
+		height:150px;
 	}
 </style>
-<body>		
-			<div class="col-sm-9">
-				<ul class="nav nav-tab">
-					<li class="nav-item">
-						<a class="nav-link active text-primary" href="#">Profil</a>
-					</li>
-					<span class="mt-2">></span>
-					<li class="nav-item">
-						<a class="nav-link" href="#">Akun Saya</a>
-					</li>
-				</ul>
-				<div class="row d-flex">
+<body>
+			<div class="col-sm-9" style="margin-top:30px;">
+				<div class="row d-flex" style="padding-left:15px;padding-right:15px;">
 					<div class="p-0 h-100 align-middle" style="margin-top: 0.8rem">
 						<span class="fas fa-user-alt"></span>
 					</div>
 					<div class="ml-3 mt-2 p-0 h-100 align-middle">
-						<h3>Abimanyu Bhamakerti</h3>
+						<h3>Profil Akun</h3>
 					</div>
 				</div>
-				<div class="row">
-					<div class="col-md-3 p-0 d-flex">
-						<div class="card p-0 bg-light"	>
-							<div class="card-body d-flex flex-column">
-								<img src="<?php echo base_url();?>assets/images/image-user/default_client_m.png" alt="Photo Profile" class="img-thumbnail img-profile">
-								<button type="button" class="btn btn-light mt-2" style="border-color: #9400D3">Choose Photo</button>
-								<div class="mt-3">
-									<p class="text-justify text-center">Besar File maksimum 10 Mb
-									Ekstensi ile yang diperbolehkan
-									JPG, JPEG dan PNG</p>
-								</div>
+				<div class="row" style="padding-left:15px;padding-right:15px;">
+					<div class="col-md-3 p-0">
+						<div class="card p-0 bg-light"	style="width:100%">
+							<div class="card-body d-flex flex-column text-center">
+								<center>
+									<img id="currentpic" src="<?php echo $this->userModel->getPhoto($this->session->userdata('username'),$this->session->userdata('photo'),$this->session->userdata('gender')); ?>" alt="Photo Profile" class="img-thumbnail img-profile">
+									<br><br>
+									<label for="upload_image" class="btn btn-light mt-2" style="border-color: #009245;cursor:pointer">Pilih Foto Profil</label>
+									<input type="file" name="upload_image" id="upload_image" accept="image/*" style="opacity:0;position:absolute;z-index: -1;"/>
+								</center>
 							</div>
 						</div>
 					</div>
@@ -45,26 +36,26 @@
 							<div class="card-body mt-4 pt-0 pb-0 pr-1">
 								<form class="form-group">
 									<div class="row">
-										<fieldset class="form-group col-lg-9">	
+										<fieldset class="form-group col-lg-9">
 											<label for="nama-label">Nama</label>
-											<input readonly type="text" class="form-control text-dark" id="nama-label" value="Abimanyu Bhamakerti" style="background-color:#E8E8E8">
+											<input readonly type="text" class="form-control text-dark" id="nama-label" value="<?php echo $profile['name']; ?>" style="background-color:#E8E8E8">
 										</fieldset>
 									</div>
 
 									<div class="row">
 										<fieldset class="form-group col-lg-9 mt-2" id="datetimepicker3">
 											<label for="date-label">Tanggal Lahir</label>
-											<input readonly type='date' placeholder="10/10/2020" class="form-control text-dark" id="date-label" style="background-color:#E8E8E8"/>
+											<input readonly type='date' placeholder="dd/mm/yyyy" value="<?php echo $profile['birthdate'];?>" class="form-control text-dark" id="date-label" style="background-color:#E8E8E8"/>
 										</fieldset>
-									</div>    
-									
+									</div>
+
 									<div class="row">
-										<fieldset class="form-group col-lg-9 mt-2" style="margin-left: -10px">	
+										<fieldset class="form-group col-lg-9 mt-2" style="margin-left: -10px">
 											<label for="jeniskelamin-label" style="margin-left: 10px">Jenis Kelamin</label>
 											<select disabled class="form-control text-dark" id="jeniskelamin-label" style="background-color:#E8E8E8">
-												<option selected>Pilih...</option>
-												<option value="1">Laki-laki</option>
-												<option value="2">Perempuan</option>
+												<option disabled>- Pilih Jenis Kelamin -</option>
+												<option value="m" <?php if($profile['gender']=='m'){echo "selected";}?>>Laki-laki</option>
+												<option value="f" <?php if($profile['gender']=='f'){echo "selected";}?>>Perempuan</option>
 											</select>
 											<span></span>
 										</fieldset>
@@ -74,18 +65,58 @@
 										<fieldset class="form-group col-lg-9 mt-2" style="margin-left: -10px">
 											<label for="pendidikan-label" style="margin-left: 10px">Pendidikan Terakhir</label>
 											<select disabled class="form-control  text-dark" id="pendidikan-label" style="background-color:#E8E8E8">
-												<option selected>Pilih...</option>
-												<option value="1">Tidak / Belum Sekolah</option>
-												<option value="2">Belum Tamat SD / Sederajat</option>
-												<option value="3">SLTP / Sederajat</option>
-												<option value="4">SLTA / Sederajat</option>
-												<option value="5">Diploma I / II</option>
-												<option value="6">Akademi / Diploma III / Sarjana Muda</option>
-												<option value="7">Diploma IV / Sastra I</option>
-												<option value="8">Sastra II</option>
-												<option value="9">Sastra III</option>
+												<option disabled>- Pilih Pendidikan Terakhir -</option>
+												<?php
+													foreach($lastEdu as $lastEduItem){
+														if($profile['last_education']==$lastEduItem['id']){$LEsel='selected';}else{$LEsel='';}
+														echo "<option value='$lastEduItem[id]' $LEsel>$lastEduItem[nama]</option>";
+													}
+												?>
 											</select>
 										</fieldset>
+									</div>
+
+									<div class="row">
+										<fieldset class="form-group col-lg-9 mt-2">
+											<label for="email-label">Email</label>
+											<input readonly type="email" class="form-control bg-white text-dark" value="<?php echo $profile['email'];?>" style="background-color:#E8E8E8 !important">
+										</fieldset>
+										<div class="align-self-end pb-3	mb-1">
+										<?php if($profile['email_status']==1){
+											echo '<span class="badge badge-pill bg-success text-white mt-3 p-2">
+															<span class="fas fa-check mr-1"></span>
+															Diverifikasi
+														</span>';
+										}else{
+											echo '<span class="badge badge-pill bg-secondary text-white mt-3 p-2">
+															<span class="fas fa-exclamation-circle mr-1"></span>
+															Belum diverifikasi
+														</span>';
+										}
+										?>
+										</div>
+									</div>
+
+									<div class="row">
+										<fieldset class="form-group col-lg-9 mt-2">
+											<label for="telp-label">Nomor Telepon</label>
+											<input  readonly type="number" class="form-control  text-dark" id="telp-label"  pattern="[0-9]" value="<?php echo $profile['phone'];?>" style="background-color:#E8E8E8">
+										</fieldset>
+										<div class="align-self-end pb-3	mb-1">
+										<?php if($profile['phone_status']==1){
+											echo '<span class="badge badge-pill bg-success text-white mt-3 p-2">
+															<span class="fas fa-check mr-1"></span>
+															Diverifikasi
+														</span>';
+										}else{
+											echo '<span class="badge badge-pill bg-secondary text-white mt-3 p-2">
+															<span class="fas fa-exclamation-circle mr-1"></span>
+															Belum diverifikasi
+														</span>
+														';
+										}
+										?>
+										</div>
 									</div>
 
 									<div class="row">
@@ -94,58 +125,33 @@
 											<input readonly type="number" class="form-control bg-white text-dark" id="ktp-label"  pattern="[0-9]" value="" style="background-color:#E8E8E8 !important">
 										</fieldset>
 										<div class="align-self-end pb-3	mb-1">
-											<span class="badge badge-pill bg-success text-white mt-3 p-2" style="display:none">
-												<span class="fas fa-check mr-1"></span>
-												Verified
-											</span>
-
-											<span class="badge badge-pill bg-secondary text-white mt-3 p-2">
-												<span class="fas fa-exclamation-circle mr-1"></span>
-												Not verified
-											</span>
+										<?php if($profile['ktp_no']!='' && $profile['ktp_status']==1){
+											echo '<span class="badge badge-pill bg-success text-white mt-3 p-2">
+															<span class="fas fa-check mr-1"></span>
+															Diverifikasi
+														</span>';
+										}else if($profile['ktp_no']!='' && $profile['ktp_status']==2){
+											echo '<span class="badge badge-pill bg-danger text-white mt-3 p-2">
+															<span class="fas fa-times-circle mr-1"></span>
+															Verifikasi ditolak
+														</span>';
+										}else if($profile['ktp_no']!='' && ($profile['ktp_status']!=1 || $profile['ktp_status']!=2)){
+											echo '<span class="badge badge-pill bg-secondary text-white mt-3 p-2">
+															<span class="fas fa-exclamation-circle mr-1"></span>
+															Belum diverifikasi
+														</span>';
+										}
+										?>
 										</div>
 									</div>
-									
-									<div class="row">
-										<fieldset class="form-group col-lg-9 mt-2">
-											<label for="email-label">Email</label>
-											<input readonly type="email" class="form-control bg-white text-dark" id="email-label" value="abimanyu@gmail.com" style="background-color:#E8E8E8 !important">
-										</fieldset>
-										<div class="align-self-end pb-3	mb-1">
-											<span class="badge badge-pill bg-success text-white mt-3 p-2">
-												<span class="fas fa-check mr-1"></span>
-												Verified
-											</span>
 
-											<span class="badge badge-pill bg-secondary text-white mt-3 p-2" style="display:none">
-												<span class="fas fa-exclamation-circle mr-1"></span>
-												Not verified
-											</span>
-										</div>
-									</div>
-								
-									<div class="row">
-										<fieldset class="form-group col-lg-9 mt-2">
-											<label for="telp-label">Nomor Telepon</label>
-											<input  readonly type="number" class="form-control  text-dark" id="telp-label"  pattern="[0-9]" value="0913123123123123" style="background-color:#E8E8E8">
-										</fieldset>
-										<div class="align-self-end pb-3	mb-1">
-											<span class="badge badge-pill bg-success text-white mt-3 p-2">
-												<span class="fas fa-check mr-1"></span>
-												Verified
-											</span>
-
-											<span class="badge badge-pill bg-secondary text-white mt-3 p-2" style="display:none">
-												<span class="fas fa-exclamation-circle mr-1"></span>
-												Not verified
-											</span>
-										</div>
-									</div>
 
 									<div class="row">
 										<div class="col-lg-9 mt-2 d-flex justify-content-end">
-											<div class="btn btn-success" id="btnEdit" onClick="editProfile();">Edit</div>
-											<div class="btn btn-success" id="btnSave" onClick="saveProfile();" style="display:none">Save</div>
+											<div class="btn btn-success" id="btnEdit" onClick="editProfile();" style="cursor:pointer;">Sunting Data Profile</div>
+											<div class="btn btn-secondary" id="btnCancel" onClick="location.reload();" style="display:none;cursor:pointer;">Batal</div>&nbsp;
+											<div class="btn btn-success" id="btnSave" onClick="saveProfile();" style="display:none;cursor:pointer;">Simpan Perubahan</div>
+
 										</div>
 									</div>
 								</form>
@@ -153,7 +159,26 @@
 						</div>
 					</div>
 				</div>
+				<div id="uploadimageModal" class="modal" role="dialog">
+				 <div class="modal-dialog">
+				  <div class="modal-content">
+				        <div class="modal-header">
+				          <button type="button" class="close" data-dismiss="modal">&times;</button>
+				        </div>
+				        <div class="modal-body">
+				          <div class="row">
+							       <div class="col-md-12 text-center">
+							        <div id="image_to_crop" style="width:100%; margin-top:5px;height:auto"></div>
+											<br>
+											<button class="btn btn-success crop_image">Crop & Upload Image</button>
+							       </div>
+				    			</div>
+				       </div>
+
+				     </div>
+				    </div>
+				</div>
 			</div>
-		</div>	
+		</div>
 	</div>
 </body>

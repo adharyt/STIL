@@ -210,10 +210,10 @@
           <div class="card-body">
             <div class="row">
               <div class="col-2" style="padding-right:0px">
-                  <img style="margin-right:0px" src="<?php echo $this->userModel->getPhoto($productQV['store_link'],$productQV['photo'],$productQV['gender']); ?>" class="img-profile" alt="User-Profile-Image">
+                  <img style="margin-right:0px" src="<?php echo $this->userModel->getStorePhoto($productQV['store_link'],$productQV['store_photo']); ?>" class="img-profile-quickview" alt="User-Profile-Image">
               </div>
               <div class="col-9">
-                <?php echo $productQV['store_name']; ?><br>
+                <a href="<?php echo base_url().'s/'.$productQV['store_link'];?>" style="color:black"><?php echo $productQV['store_name']; ?></a><br>
                 <font style="font-size:13px;text-decoration-line: underline;text-decoration-style:dashed;">
                   <?php if($storeFeedbackCount==0){$storeFeedbackCountDivider=1;}else{$storeFeedbackCountDivider=$storeFeedbackCount;} echo number_format(($storeFeedbackCountPositive/$storeFeedbackCountDivider)*100,0,'.',','); ?>% (<?php echo $storeFeedbackCount; ?> feedback)
                 </font><br>

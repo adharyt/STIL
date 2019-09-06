@@ -51,11 +51,27 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 */
 $route['default_controller'] = 'Home';
 
+
+
+
+//Filter atau Search produk
+$route['c/(:any)']='products/index/$1';
+
+//Tentang toko dan penjual
+$route['s/(:any)']='store/index/$1';
+$route['s/(:any)/label/(:any)']='store/index/$1/$2';
+
 //Detail Produk (aktor: pembeli, penjual)
 $route['p/(:any)/(:any)'] = 'product/detail/$1/$2';
 
 //Produk Baru (aktor: Penjual)
 $route['product/new'] = 'product/newProduct';
+
+//Profile
+$route['my-account'] = 'profile/profileSummary';
+$route['my-account/profile'] = 'profile/profileEdit';
+$route['my-account/address'] = 'profile/profileAddress';
+$route['my-account/wishlist'] = 'profile/profileWishlist';
 
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;

@@ -1,4 +1,4 @@
-<script src="<?php echo base_url();?>assets/js/jquery-3.3.1.min.js"></script> 
+<script src="<?php echo base_url();?>assets/js/jquery-3.3.1.min.js"></script>
 <script src="<?php echo base_url();?>assets/styles/bootstrap4/popper.js"></script>
 <script src="<?php echo base_url();?>assets/styles/bootstrap4/bootstrap.min.js"></script>
 <script src="<?php echo base_url();?>assets/plugins/greensock/TweenMax.min.js"></script>
@@ -7,7 +7,8 @@
 <script src="<?php echo base_url();?>assets/plugins/greensock/animation.gsap.min.js"></script>
 <script src="<?php echo base_url();?>assets/plugins/greensock/ScrollToPlugin.min.js"></script>
 <script src="<?php echo base_url();?>assets/plugins/easing/easing.js"></script>
-<script src="<?php echo base_url();?>assets/plugins/bootstrap-select/js/bootstrap-select.js"></script>
+<script src="<?php echo base_url();?>assets/plugins/bootstrap-select/bootstrap-select.js"></script>
+<script src="<?php echo base_url();?>assets/plugins/croppie/croppie.js"></script>
 <script src="<?php echo base_url();?>assets/https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyCIwF204lFZg1y4kPSIhKaHEXMLYxxuMhA"></script>
 
 <!-- Edit Profile JQuery -->
@@ -15,115 +16,171 @@
 
   function editProfile() {
     $('#btnEdit').hide();
+    $('#btnCancel').show();
     $('#btnSave').show();
     $('#nama-label').css("background-color","white").prop( "readonly", false );
     $('#date-label').css("background-color","white").prop( "readonly", false );
     $('#jeniskelamin-label').css("background-color","white").prop( "disabled", false );
     $('#pendidikan-label').css("background-color","white").prop( "disabled", false );
     $('#ktp-label').css("background-color","white").prop( "readonly", false );
-    $('#email-label').css("background-color","white").prop( "readonly", false );
     $('#telp-label').css("background-color","white").prop( "readonly", false );
   }
 
   function saveProfile() {
-    $('#btnEdit').show();
-    $('#btnSave').hide();
-    $('#nama-label').attr("style","background-color:  #E8E8E8 !important").prop( "readonly", true );
-    $('#date-label').attr("style","background-color:  #E8E8E8 !important").prop( "readonly", true );
-    $('#jeniskelamin-label').attr("style","background-color:  #E8E8E8 !important").prop( "disabled", true );
-    $('#pendidikan-label').attr("style","background-color:  #E8E8E8 !important").prop( "disabled", true );
-    $('#ktp-label').attr("style", "background-color :#E8E8E8 !important").prop( "readonly", true );
-    $('#email-label').attr("style","background-color:  #E8E8E8 !important").prop( "readonly", true );
-    $('#telp-label').attr("style","background-color:  #E8E8E8 !important").prop( "readonly", true );
+    var nama=$('#nama-label').val();
+    var birthdate=$('#date-label').val();
+    var gender=$('#jeniskelamin-label').val();
+    var education=$('#pendidikan-label').val();
+    var ktp_no=$('#ktp-label').val();
+    var phone=$('#telp-label').val();
+
+    Swal.fire({
+      text:'Menyimpan perubahan...',
+      background:'#FFFFFF',
+      width:'300px',
+      height:'100px',
+      confirmButtonColor:'#009245',
+      showConfirmButton:false,
+      allowOutsideClick: false,
+      allowEscapeKey: false,
+      allowEnterKey: false,
+      onBeforeOpen: () =>{
+      },
+      onOpen: () => {
+        swal.showLoading()
+      }
+    });
+    $.ajax({
+          url: "<?php echo base_url();?>profile/editSave",
+          type: "post",
+          data: {
+            nama:nama,
+            birthdate:birthdate,
+            gender:gender,
+            education:education,
+            ktp_no:ktp_no,
+            phone:phone,
+          },
+          success: function (response) {
+            swal.close();
+            if(response=="OK"){
+                Swal.fire({
+                  type: 'success',
+                  html:   "Perubahan berhasil disimpan!",
+                  showCloseButton: false,
+                  showCancelButton: false,
+                  showConfirmButton:true,
+                  allowEnterKey:true,
+                  confirmButtonColor:'#009245'
+                }).then((result) => {
+                  $('#btnEdit').show();
+                  $('#btnCancel').hide();
+                  $('#btnSave').hide();
+                  $('#nama-label').attr("style","background-color:  #E8E8E8 !important").prop( "readonly", true );
+                  $('#date-label').attr("style","background-color:  #E8E8E8 !important").prop( "readonly", true );
+                  $('#jeniskelamin-label').attr("style","background-color:  #E8E8E8 !important").prop( "disabled", true );
+                  $('#pendidikan-label').attr("style","background-color:  #E8E8E8 !important").prop( "disabled", true );
+                  $('#ktp-label').attr("style", "background-color :#E8E8E8 !important").prop( "readonly", true );
+                  $('#telp-label').attr("style","background-color:  #E8E8E8 !important").prop( "readonly", true );
+                  location.reload();
+                });
+
+            }else{
+              Swal.fire({
+                type: 'warning',
+                html:   "Ada kesalahan dalam pengisian form!",
+                showCloseButton: false,
+                showCancelButton: false,
+                showConfirmButton:true,
+                allowEnterKey:true,
+                confirmButtonColor:'#009245'
+              });
+            }
+
+          },
+          error: function(jqXHR, textStatus, errorThrown) {
+             console.log(textStatus, errorThrown);
+          }
+
+      });
+
+
   }
 
-  // Enable Bootstrap Select plugins 
+  // Enable Bootstrap Select plugins
   $('.selectpicker').selectpicker();
 </script>
 
-<script type="text/javascript">
-function send(){
-  var contact_form_name=$('#contact_form_name').val();
-  var contact_form_email=$('#contact_form_email').val();
-  var contact_form_phone=$('#contact_form_phone').val();
-  var contact_form_message=$('#contact_form_message').val();
 
 
+<!-- CROPPIE -->
+<script>
+$(document).ready(function(){
 
-if(contact_form_name!='' && contact_form_email!='' &&   contact_form_phone!='' && contact_form_message!=''){
-$.ajax({
-        url: "<?php echo base_url();?>contact/send",
-        type: "post",
-        data: {
-            name:contact_form_name,
-            email:contact_form_email,
-            phone:contact_form_phone,
-            message:contact_form_message
-        } ,
-        success: function (response) {
-           // you will get response from your php page (what you echo or print)
-           if(response=='OK'){
-             Swal.fire({
-               type: 'success',
-               title: 'Pengiriman pesan berhasil',
-               html:   "STIL akan membalas pesan Anda melalui email atau telepon<br>&nbsp;"+
-                                 '<div class="contact-form-area">'+
-                                             '<div class="row">'+
-                                             '<div class="col-12">'+
-                                                 '<div class="button "><a href="javascript:window.location.reload();">Ok</a></div>'+
-                                             '</div>'+
-                                             '</div>'+
-                                 '</div>',
-               showCloseButton: false,
-               showCancelButton: false,
-               showConfirmButton:false,
-               allowEnterKey:false
-             });
-           }else{
-             Swal.fire({
-               type: 'error',
-               title: 'Gagal mengirim pesan',
-               html:   "Pastikan koneksi internet Anda stabil!<br>&nbsp;"+
-                                 '<div class="contact-form-area">'+
-                                             '<div class="row">'+
-                                             '<div class="col-12">'+
-                                                 '<div class="button "><a href="javascript:swal.close();">Ok</a></div>'+
-                                             '</div>'+
-                                             '</div>'+
-                                 '</div>',
-               showCloseButton: false,
-               showCancelButton: false,
-               showConfirmButton:false,
-               allowEnterKey:false
-             });
-         }
+ $image_crop = $('#image_to_crop').croppie({
+    enableExif: true,
+    viewport: {
+      width:200,
+      height:200,
+      type:'circle' //square
+    },
+    boundary:{
+      width:300,
+      height:300
+    }
+  });
 
+  $('#upload_image').on('change', function(){
+    var reader = new FileReader();
+    reader.onload = function (event) {
+      $image_crop.croppie('bind', {
+        url: event.target.result
+      }).then(function(){
+        //console.log('jQuery bind complete');
+      });
+    }
+    reader.readAsDataURL(this.files[0]);
+    $('#uploadimageModal').modal('show');
+  });
+
+  $('.crop_image').click(function(event){
+    $image_crop.croppie('result', {
+      type: 'canvas',
+      size: 'viewport'
+    }).then(function(response){
+      Swal.fire({
+        text:'Mengganti foto profil...',
+        background:'#FFFFFF',
+        width:'300px',
+        height:'100px',
+        confirmButtonColor:'#009245',
+        showConfirmButton:false,
+        allowOutsideClick: false,
+        allowEscapeKey: false,
+        allowEnterKey: false,
+        onBeforeOpen: () =>{
         },
-        error: function(jqXHR, textStatus, errorThrown) {
-           console.log(textStatus, errorThrown);
+        onOpen: () => {
+          swal.showLoading()
         }
-
-
+      });
+      $.ajax({
+        url:"<?php echo base_url();?>profile/photo_upload",
+        type: "POST",
+        data:{"image": response},
+        success:function(data)
+        {
+          $('#uploadimageModal').modal('hide');
+          $('#currentpic').attr("src",data);
+          $('#imgProfileHeader').attr("src",data);
+          swal.close();
+          //location.reload();
+        }
+      });
     })
-  }else{
-    Swal.fire({
-      type: 'warning',
-      title: 'Gagal mengirim pesan',
-      html:   "Setiap field tidak boleh kosong!<br>&nbsp;"+
-                        '<div class="contact-form-area">'+
-                                    '<div class="row">'+
-                                    '<div class="col-12">'+
-                                        '<div class="button "><a href="javascript:swal.close();">Ok</a></div>'+
-                                    '</div>'+
-                                    '</div>'+
-                        '</div>',
-      showCloseButton: false,
-      showCancelButton: false,
-      showConfirmButton:false,
-      allowEnterKey:false
-    });
-  }
-}
+  });
+
+});
 </script>
 </body>
 

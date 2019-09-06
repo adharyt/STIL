@@ -1,14 +1,12 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
-
-	class Products extends CI_Controller{
+	class Store extends CI_Controller{
 		public function __construct(){
 			parent::__construct();
+			$this->load->model('storeModel');
 			$this->load->model('productModel');
 		}
 
-
-		public function index($categoryID=''){
+		public function index($unameStoreOwner,$storefront_id=''){
 			if(isset($_GET['page'])){
 				$page=$_GET['page'];
 			}else{
@@ -117,51 +115,75 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				'is_condition_second' => "$is_condition_second",
 				'location_p'	=> "$location_p",
 				'location_c'	=> "$location_c",
-				'category'	=> "$categoryID",
-				'sorting'	=> "$sorting",
-				'activeMenu' => $this->productModel->getProductInCategoryMenuActive($categoryID)
+				'category'	=> "",
+				'sorting'	=> "$sorting"
 				);
 
-			$content_per_page=5;
+			$content_per_page=20;
 			$start=($page>1)?($page*$content_per_page)-$content_per_page:0;
 
 
-			$data['dataProduct']=$this->productModel->getProducts($data_search,$start,$content_per_page,'1')->result_array();
-			$data['dataProductCount']=$this->productModel->getProducts($data_search,'','','')->num_rows();
+			$data['dataProduct']=$this->productModel->getProductsPerStorefront($unameStoreOwner,$storefront_id,$data_search,$start,$content_per_page,'1')->result_array();
+			$data['dataProductCount']=$this->productModel->getProductsPerStorefront($unameStoreOwner,$storefront_id,$data_search,'','','')->num_rows();
 			$data['data_search']=$data_search;
 			$data['lastLink']=0;
 			$data['page']=$page;
 			$data['pages']=ceil($data['dataProductCount']/$content_per_page);
 			$data['content_per_page']=$content_per_page;
 
+			$data['etalasePenjual']=$this->storeModel->getStoreFrontList($unameStoreOwner);
+			$data['profilPenjual']=$this->storeModel->getStoreProfile($unameStoreOwner);
+			$data['activeEtalase']=$storefront_id;
 
 			$this->load->view('appinfo');
-			$this->load->view('filter/filter_s');
+			$this->load->view('dashboard_penjual_s');
 			$this->load->view('header');
-			$this->load->view('filter/filter_v',$data);
+			$this->load->view('dashboard_penjual_v',$data);
 			$this->load->view('footer');
-			$this->load->view('filter/filter_x');
+			$this->load->view('dashboard_penjual_x');
 		}
 
 
-		public function getQuickview(){
-			$produk=$_POST['id'];
-			$store=$_POST['store'];
+		public function store_header_upload(){
+			if(isset($_POST["image"])){
+				 $data = $_POST["image"];
+				 $username=$this->session->userdata('username');
+				 $user_id=$this->session->userdata('user_id');
 
-			//PRODUCT
-			$data['productQV']=$this->productModel->getProductDetail($store,$produk)->result_array()[0];
-			//IMAGE
-			$data['dataProductImg']=$this->productModel->getProductImage($data['productQV']['product_id']);
-			//CATEGORY
-			$node=explode("-",$data['productQV']['id_category']);
-			$data['productQV']['name_category']=$this->productModel->getCategoryNameSummary($node[0],$node[1]);
-			//STOREFEEDBACK
-			$data['storeFeedbackCountPositive']=$this->productModel->getFeedback($data['productQV']['store_id'],'positive')->num_rows();
-			$data['storeFeedbackCount']=$this->productModel->getFeedback($data['productQV']['store_id'],'all')->num_rows();
-			$data['storeFeedback']=$this->productModel->getFeedback($data['productQV']['store_id'],'all')->result_array();
 
-			$this->load->view('template/product_quickviewModal',$data);
+
+				if(exif_imagetype($data)) {
+					// Generate new random name.
+				 $name = sha1(microtime()) . ".png";
+				 $path="$_SERVER[DOCUMENT_ROOT]/stil/document_upload/".$username."/my-data/storeheader";
+				 if (!file_exists($path)) {
+					 mkdir($path, 0777, true);
+				 }
+				 $image_array_1 = explode(";", $data);
+
+				 $image_array_2 = explode(",", $image_array_1[1]);
+
+				 $data = base64_decode($image_array_2[1]);
+
+				 if(file_put_contents($path."/".$name, $data)){
+					 $update=$this->db->query("UPDATE store set store_header='$name' where id_user='$user_id'");
+					 if($update){
+						 $response=$this->userModel->getHeaderPhoto($username,$name);
+					 }else{
+						 $response="FAILED";
+					 }
+				 }else{
+					 $response="FAILED";
+				 }
+				}else{
+					$response="FAILED";
+				}
+			}else{
+				$response="FAILED";
+			}
+			echo $response;
 		}
 
 
-}
+
+	}

@@ -532,14 +532,14 @@
 
 				<div class="row">
 					<div class="col-3">
-							<img src="<?php echo $this->userModel->getPhoto($dataProduct['store_link'],$dataProduct['photo'],$dataProduct['gender']); ?>" class="img-profile" alt="User-Profile-Image">
+							<img src="<?php echo $this->userModel->getStorePhoto($dataProduct['store_link'],$dataProduct['store_photo']); ?>" class="img-profile" alt="User-Profile-Image">
 					</div>
 					<div class="col-9">
 						<?php echo $dataProduct['store_name']; ?><br>
 						<font style="font-size:13px;text-decoration-line: underline;text-decoration-style:dashed;">
 							<?php $storeFeedbackCount==0?$feedbackDiv=1:$feedbackDiv=$storeFeedbackCount; echo number_format(($storeFeedbackCountPositive/$feedbackDiv)*100,0,'.',','); ?>% (<?php echo $storeFeedbackCount; ?> feedback)
 						</font><br>
-							<font style="font-size:12px;color:#7f5994"><i class="fas fa-map-marker-alt"></i> <?php echo $dataProduct['store_city']; ?></font><br>
+							<font style="font-size:12px;color:#7f5994"><i class="fas fa-map-marker-alt"></i> <?php echo ucwords(strtolower($dataProduct['store_city'])); ?></font><br>
 					 </div>
 				</div>
 				<hr>

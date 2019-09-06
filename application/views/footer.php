@@ -6,13 +6,14 @@
 
       <div class="col-lg-3 footer_col">
         <div class="footer_column footer_contact">
+          <!--
           <div class="logo_container">
             <div class="logo"><a href="<?php echo base_url();?>assets/#">STIL</a></div>
           </div>
-          <div class="footer_title">Got question? Call us 24/7</div>
-          <div class="footer_phone">+62 87884 044440</div>
+          <div class="footer_title">Got question? Call us 24/7</div>-->
+          <div class="footer_phone">PT STIL Hutanami Indonesia</div>
           <div class="footer_contact_text">
-            <p>K.H. Mas Mansyur No.12 Kav 121 level 2, Karet Tengsin, Tanah Abang, Central of Jakarta 10220, Indonesia</p>
+            <p>Infiniti Office Permata Regency D/37 Kembangan, Jakarta Barat 11630, Indonesia</p>
           </div>
           <div class="footer_social">
             <ul>
@@ -74,7 +75,7 @@
 
         <div class="copyright_container d-flex flex-sm-row flex-column align-items-center justify-content-start">
           <div class="copyright_content"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i> by <a href="<?php echo base_url();?>assets/https://colorlib.com" target="_blank">Colorlib</a>
+Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This platform is made with <i class="fa fa-heart" aria-hidden="true"></i> by <a href="<?php echo base_url();?>assets/https://colorlib.com" target="_blank">STIL</a>.
 <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
 </div>
           <div class="logos ml-sm-auto">

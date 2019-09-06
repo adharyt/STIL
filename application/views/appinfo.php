@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>STIL - Home</title>
+<title>STIL - Jual produk agriculture terlengkap di Indonesia</title>
+<link rel="icon" href="http://localhost/stil/assets/images/logo.png" type="image/x-icon">
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="description" content="OneTech shop project">

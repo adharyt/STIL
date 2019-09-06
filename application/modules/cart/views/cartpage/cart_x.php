@@ -64,8 +64,12 @@
 
       function updateStock(store_id,product_id,value){
         Swal.fire({
-          title: 'Please wait...',
-          html: "<p align=center>Don't close this page!</p>",
+          text:'Mengupdate cart...',
+          background:'#FFFFFF',
+          width:'300px',
+          height:'100px',
+          confirmButtonColor:'#009245',
+          showConfirmButton:false,
           allowOutsideClick: false,
           allowEscapeKey: false,
           allowEnterKey: false,
@@ -180,4 +184,74 @@
       $('.like-btn').on('click', function() {
         $(this).toggleClass('is-active');
       });
+
+      function deleteItem(id){
+        Swal.fire({
+          title: 'Apakah anda yakin?',
+          type: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#009245',
+          cancelButtonColor: '#868e96',
+          cancelButtonText: 'Tidak',
+          confirmButtonText: 'Ya',
+          reverseButtons: true
+        }).then((result) => {
+          if (result.value) {
+            Swal.fire({
+              text:'Menghapus item...',
+              background:'#FFFFFF',
+              width:'300px',
+              height:'100px',
+              confirmButtonColor:'#009245',
+              showConfirmButton:false,
+              allowOutsideClick: false,
+              allowEscapeKey: false,
+              allowEnterKey: false,
+              onBeforeOpen: () =>{
+              },
+              onOpen: () => {
+                swal.showLoading()
+              }
+            });
+            $.ajax({
+                  url: "<?php echo base_url();?>cart/itemDelete",
+                  type: "post",
+                  data: {
+                    id:id
+                  },
+                  success: function (response) {
+                    swal.close();
+                    if(response=="OK"){
+                        Swal.fire({
+                          position: 'center',
+                          type: 'success',
+                          title: 'Item berhasil dihapus!',
+                          showConfirmButton: false,
+                          timer: 1500
+                        }).then((result) => {
+                          location.reload();
+                        });
+
+                    }else{
+                      Swal.fire({
+                        type: 'danger',
+                        html:   "Gagal menghapus item!",
+                        showCloseButton: false,
+                        showCancelButton: false,
+                        showConfirmButton:true,
+                        allowEnterKey:true,
+                        confirmButtonColor:'#009245'
+                      });
+                    }
+
+                  },
+                  error: function(jqXHR, textStatus, errorThrown) {
+                     console.log(textStatus, errorThrown);
+                  }
+
+              });
+          }
+        });
+
+      }
     </script>

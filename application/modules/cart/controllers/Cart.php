@@ -68,8 +68,22 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		public function mQuantity(){
 			$id=$_POST['id'];
 			$value=$_POST['value'];
-			
+
 			$this->cartModel->editQuantity($id,$value);
+
+		}
+
+		public function itemDelete(){
+			$id=$_POST['id'];
+			$id_user=$this->session->userdata('user_id');
+
+
+			$delete=$this->db->query("DELETE FROM cart where id='$id' and id_user='$id_user'");
+			if($delete){
+				echo "OK";
+			}else{
+				echo "FAILED";
+			}
 
 		}
 

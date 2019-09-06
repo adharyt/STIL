@@ -1,3 +1,23 @@
+<?php
+if($this->session->userdata('is_login')=='y'){
+	$id_member=$this->session->userdata('user_id');
+
+	$cekcart=$this->db->query("SELECT SUM(quantity) as jml FROM cart where id_user='$id_member'");
+	if($cekcart->num_rows()>0){
+		$jumlahcart=$cekcart->result_array()[0]['jml'];
+	}else{
+		$jumlahcart=0;
+	}
+
+	$cekwishlist=$this->db->query("SELECT * FROM wishlist where id_user='$id_member'");
+	if($cekcart->num_rows()>0){
+		$jumlahwishlist=$cekwishlist->num_rows();
+	}else{
+		$jumlahwishlist=0;
+	}
+}
+
+ ?>
 <style media="screen">
 .img-profile {
 	border-radius: 50%;
@@ -6,6 +26,20 @@
 	box-shadow: 0 5px 10px 0 rgba(43, 43, 43, .2);
 	width: 60px;
 	height: 60px;
+}
+.img-profile-quickview {
+	border-radius: 50%;
+	border: 2px solid #fff;
+	-webkit-box-shadow: 0 5px 10px 0 rgba(43, 43, 43, .2);
+	box-shadow: 0 5px 10px 0 rgba(43, 43, 43, .2);
+	width: 60px;
+	height: 60px;
+}
+.img-profile-header-navbar {
+	border-radius: 50%;
+	border: 1px solid #fff;
+	width: 35px;
+	height: 35px;
 }
 .pr-star-rating {
   display: flex;
@@ -36,7 +70,7 @@
   float: right;
   text-align: center;
   padding: 12px;
-  color: black;
+  color: #009245;
   text-decoration: none;
   font-size: 17px;
 	height:100%;
@@ -44,13 +78,57 @@
 
 /* Navbar links on mouse-over */
 .navbar a:hover {
-  background-color: #000;
+  background-color: #009245;
+	color:#FFF;
 }
 
 /* Current/active navbar link */
-.active {
+.activenav {
   background-color: #4CAF50;
 }
+
+/* Dropdown button */
+.dropdown .dropbtn {
+  border: none;
+  outline: none;
+  color: #009245;
+  background-color: inherit;
+  font-family: inherit; /* Important for vertical align on mobile phones */
+  margin: 0; /* Important for vertical align on mobile phones */
+}
+
+/* Dropdown content (hidden by default) */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+	font-size:12px;
+  float: none;
+  color: #009245;
+  padding: 3px 5px;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+}
+
+/* Add a grey background color to dropdown links on hover */
+.dropdown-content a:hover {
+  background-color: #f28f16;
+}
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+
 
 /* Add responsiveness - will automatically display the navbar vertically instead of horizontally on screens less than 500 pixels */
 @media screen and (max-width: 500px) {
@@ -209,6 +287,7 @@ function auth(){
 
 	<header class="header">
 
+
 		<!-- Header Main -->
 
 		<div class="header_main">
@@ -227,9 +306,17 @@ function auth(){
 						<div class="header_search">
 							<div class="header_search_content">
 								<div class="header_search_form_container">
-									<form action="#" class="header_search_form clearfix">
-										<input type="search" required="required" class="header_search_input" placeholder="Cari produk..." style="width:90%">
-
+									<form action="<?php echo base_url();?>products" class="header_search_form clearfix">
+										<input type="search" name="search_keyword" required="required" class="header_search_input" placeholder="Cari produk..." style="width:90%" value="<?php if(isset($_GET['search_keyword'])){echo $_GET['search_keyword'];} ?>">
+										<div class="custom_dropdown" style="display:none">
+											<div class="custom_dropdown_list">
+												<span class="custom_dropdown_placeholder clc">Semua Kategori</span>
+												<i class="fas fa-chevron-down"></i>
+												<ul class="custom_list clc">
+													<li><a class="clc" href="<?php echo base_url();?>assets/#">Semua Kategori</a></li>
+												</ul>
+											</div>
+										</div>
 										<button type="submit" class="header_search_button trans_300" value="Submit"><img src="<?php echo base_url();?>assets/images/search.png" alt=""></button>
 									</form>
 								</div>
@@ -241,10 +328,10 @@ function auth(){
 					<div class="col-lg-4 col-9 order-lg-3 order-2 text-lg-left text-right">
 						<div class="wishlist_cart d-flex flex-row align-items-center justify-content-end">
 							<div class="wishlist d-flex flex-row align-items-center justify-content-end">
-								<div class="wishlist_icon"><img src="<?php echo base_url();?>assets/images/heart.png" alt=""></div>
+								<div class="wishlist_icon"><img src="<?php echo base_url();?>assets/images/icon-img/header-wishlist.png" alt=""></div>
 								<div class="wishlist_content">
-									<div class="wishlist_text"><a href="<?php echo base_url();?>assets/#">Wishlist</a></div>
-									<div class="wishlist_count">0 item</div>
+									<div class="wishlist_text"><a href="<?php echo base_url();?>my-account/wishlist">Wishlist</a></div>
+									<div class="wishlist_count"><span id="wishlistCount"><?php if($this->session->userdata('is_login')!='y'){echo "0";}else{echo $jumlahwishlist;} ?></span> item</div>
 								</div>
 							</div>
 
@@ -252,18 +339,11 @@ function auth(){
 							<div class="cart">
 								<div class="cart_container d-flex flex-row align-items-center justify-content-end">
 									<div class="cart_icon">
-										<img src="<?php echo base_url();?>assets/images/cart.png" alt="">
-										<div class="cart_count"><span>0</span></div>
+										<img src="<?php echo base_url();?>assets/images/icon-img/header-cart.png" alt="">
 									</div>
 									<div class="cart_content">
-										<div class="cart_text">
-											<?php if($this->session->userdata('is_login')!='y'){ ?>
-												<a href="javascript:login();">Cart</a>
-											<?php }else{ ?>
-												<a href="javascript:login();"><?php echo $this->session->userdata('email');?></a>
-											<?php } ?>
-										</div>
-										<div class="cart_price">0 item</div>
+										<div class="cart_text"><a href="<?php echo base_url();?>cart">Cart</a></div>
+										<div class="cart_price"><?php if($this->session->userdata('is_login')!='y'){echo "0";}else{echo $jumlahcart;} ?> item</div>
 									</div>
 								</div>
 							</div>
@@ -295,7 +375,7 @@ function auth(){
                       $mainMenu=$this->db->query("SELECT id,name,is_parent FROM productcategory_main WHERE is_deleted=0 ORDER BY order_pos ASC")->result_array();
                       foreach($mainMenu as $mainItem){ ?>
                         <li <?php if($mainItem['is_parent']==1){echo "class='hassubs'";}?>>
-      										<a href="<?php echo base_url();?>assets/#"><?php echo $mainItem['name'];?><i class="fas fa-chevron-right"></i></a>
+      										<a href="<?php echo base_url().'c/m-'.$mainItem['id'];?>"><?php echo $mainItem['name'];?><i class="fas fa-chevron-right"></i></a>
 
                           <?php if($mainItem['is_parent']==1){ ?>
                             <ul>
@@ -303,13 +383,13 @@ function auth(){
                               $subMenu=$this->db->query("SELECT id,name,is_parent FROM productcategory_sub where id_parent=$mainItem[id] AND is_deleted=0 ORDER BY order_pos ASC")->result_array();
                               foreach($subMenu as $subItem){ ?>
         											<li <?php if($subItem['is_parent']==1){echo "class='hassubs'";}?>>
-        												<a href="<?php echo base_url();?>assets/#"><?php echo $subItem['name']; ?><i class="fas fa-chevron-right"></i></a>
+        												<a href="<?php echo base_url().'c/s-'.$subItem['id'];?>"><?php echo $subItem['name']; ?><i class="fas fa-chevron-right"></i></a>
                                 <?php if($subItem['is_parent']==1){ ?>
           												<ul>
                                     <?php
                                     $subprMenu=$this->db->query("SELECT id,name FROM productcategory_subofsubs where id_parent=$subItem[id] AND is_deleted=0 ORDER BY order_pos ASC")->result_array();
                                     foreach($subprMenu as $subprItem){ ?>
-          													<li><a href="<?php echo base_url();?>assets/#"><?php echo $subprItem['name']; ?><i class="fas fa-chevron-right"></i></a></li>
+          													<li><a href="<?php echo base_url().'c/p-'.$subprItem['id'];?>"><?php echo $subprItem['name']; ?><i class="fas fa-chevron-right"></i></a></li>
                                     <?php } ?>
           												</ul>
                                 <?php } ?>
@@ -329,12 +409,32 @@ function auth(){
 							<!-- Main Nav Menu -->
 
 							<div class="navbar ml-auto">
-							  <a style="border-left:1px solid silver;border-right:1px solid silver;"  href="#"><i class="fa fa-fw fa-wallet"></i></a>
-								<a href="#"><i class="fa fa-fw fa-comment-dots"></i></a>
-								<a href="#" class="active"><i class="fa fa-fw fa-exchange-alt"></i></a>
-							  <a href="#"><i class="fa fa-fw fa-bell"></i></a>
-							  <a href="#" style="border-left:1px solid silver;border-right:0px solid silver;"><i class="fa fa-fw fa-store-alt"></i></a>
-							  <a href="#" style="border-left:1px solid silver;border-right:1px solid silver;"><i class="fa fa-fw fa-user"></i></a>
+								<?php if($this->session->userdata('is_login')=='y'){ ?>
+							  <a href="#" data-toggle="tooltip" data-placement="bottom" title="Saldo STIL"><i class="fa fa-fw fa-wallet"></i></a>
+								<a href="#" data-toggle="tooltip" data-placement="bottom" title="Pesan"><i class="fa fa-fw fa-comment-dots"></i></a>
+								<a href="#" data-toggle="tooltip" data-placement="bottom" title="Transaksi"><i class="fa fa-fw fa-exchange-alt"></i></a>
+							  <a href="#" data-toggle="tooltip" data-placement="bottom" title="Notifikasi"><i class="fa fa-fw fa-bell"></i></a>
+							  <a href="#" data-toggle="tooltip" data-placement="bottom" title="Toko Saya"><i class="fa fa-fw fa-store-alt"></i></a>
+								&nbsp;&nbsp;&nbsp;
+
+								<div class="dropdown">
+    <button class="dropbtn" style="width:100%"><img id="imgProfileHeader" src="<?php echo $this->userModel->getPhoto($this->session->userdata('username'),$this->session->userdata('photo'),$this->session->userdata('gender')); ?>" class="img-profile-header-navbar">
+      <i class="fa fa-caret-down"></i>
+    </button>
+    <div class="dropdown-content">
+			<p style="font-size:14px;padding:5px;line-height:1.1;margin-bottom:0px;border-bottom:1px solid silver;">
+				<span title="Dwi Rizki Manggala Putra">Dwi Rizki Manggala P..</span><br>
+				<small>drizkimp@gmail.com</small>
+			</p>
+      <a href="<?php echo base_url();?>my-account">Ringkasan Akun</a>
+      <a href="#">Pengaturan</a>
+      <a href="<?php echo base_url();?>logout">Logout</a>
+    </div>
+  </div>
+								<?php }else{ ?>
+									<button onClick="login();" class="btn btn-primary btn-sm" style="cursor:pointer;width:85px;background-color:#009245;border-color:#009245">Login</button>&nbsp;
+									<a href="<?php echo base_url();?>register" target="_blank" style="padding:0px;height:auto;cursor:pointer;"><button class="btn btn-primary btn-sm" style="cursor:pointer;width:85px;background-color:#FFFFFF;border:2px solid #009245;color:#009245">Daftar</button></a>
+								<?php } ?>
 							</div>
 
 							<!-- Menu Trigger -->

@@ -54,14 +54,14 @@
         <div class="card">
             <div class="card-header card-header-style">
                 <div class="row">
-                    <div class="input-icons col-lg-9 col-md-6 col-sm-4"> 
-                        <i class="fa fa-search icon"></i> 
-                        <input class="input-field text-default" type="text" placeholder="Cari Produk anda"> 
+                    <div class="input-icons col-lg-9 col-md-6 col-sm-4">
+                        <i class="fa fa-search icon"></i>
+                        <input class="input-field text-default" type="text" placeholder="Cari Produk anda">
                     </div>
 
                     <!-- Flter Dropdown -->
                     <a href="" class="icon-horizontal col-lg-1 mt-2 text-default" data-toggle="dropdown" data-target="filter_semua_barang">
-                        <i class="fa fa-sort-amount-down mt-1"></i> 
+                        <i class="fa fa-sort-amount-down mt-1"></i>
                         <p class="ml-2">Terbaru</p>
                     </a>
                     <div class="dropdown-menu filter_semua_barang">
@@ -71,10 +71,10 @@
                         <a class="dropdown-item text-default" href="#">Termahal</a>
                         <a class="dropdown-item text-default" href="#">Diskon Terbesar</a>
                         <a class="dropdown-item text-default" href="#">Rating Tertinggi</a>
-                    </div> 
+                    </div>
 
                     <a href="" class="icon-horizontal col-lg-1 mt-2 text-default" data-toggle="modal" data-target="#filterModal">
-                        <i class="fa fa-sort-amount-down mt-1"></i> 
+                        <i class="fa fa-sort-amount-down mt-1"></i>
                         <p class="ml-2">Filter</p>
                     </a>
 
@@ -93,15 +93,15 @@
                                     <div class="col-4 bg-light p-3 ">
                                         <ul>
                                             <li class="m-0 mt-2">
-                                                <span id="rentang_harga_label" class="mt-2 p-1 text-default" 
+                                                <span id="rentang_harga_label" class="mt-2 p-1 text-default"
                                                     onClick="rentangHarga();">Rentang Harga</span>
                                             </li>
                                             <li class="m-0 mt-2">
-                                                <span id="kondisi_barang_label" class="mt-2 p-1 text-default" 
+                                                <span id="kondisi_barang_label" class="mt-2 p-1 text-default"
                                                     onClick="kondisiBarang();">Kondisi Barang</span>
                                             </li>
                                             <li class="m-0 mt-2">
-                                                <span id="rating_label" class="mt-2 p-1 text-default" 
+                                                <span id="rating_label" class="mt-2 p-1 text-default"
                                                     onClick="rating();">Rating</span>
                                             </li>
                                             <li class="m-0 mt-2">
@@ -121,11 +121,11 @@
 
                                     <!-- Rentang Harga -->
                                     <div class="col-8 p-3" id="rentang_harga">
-										<fieldset class="form-group col-12">	
+										<fieldset class="form-group col-12">
 											<label for="min-label" class="text-default">Harga Minimal</label>
 											<input type="text" class="form-control text-default text-dark" id="min-label">
 										</fieldset>
-                                        <fieldset class="form-group col-12">	
+                                        <fieldset class="form-group col-12">
 											<label for="max-label" class="text-default">Harga Maksimal</label>
 											<input type="text" class="form-control text-default text-dark" id="max-label">
 										</fieldset>
@@ -143,7 +143,7 @@
                                             <label><input type="radio" name="optradio"> Barang Bekas</label>
                                         </div>
                                     </div>
-                                    
+
                                     <!-- Rating -->
                                     <div class="col-8 p-3" id="rating" style="display:none">
                                         <div class="checkbox">
@@ -198,8 +198,8 @@
 
                                      <!-- Gratis Ongkir -->
                                      <div class="col-8 p-3" id="gratisOngkir" style="display: none; overflow: auto; height: 375px">
-                                        <fieldset class="form-group col-12">	
-                                            <input type="text" class="form-control text-default text-dark" 
+                                        <fieldset class="form-group col-12">
+                                            <input type="text" class="form-control text-default text-dark"
                                                 id="go-label" placeholder="Cari nama wilayah">
 										</fieldset>
                                         <label for="" style="font-weight: bold">Daerah Populer</label>
@@ -328,8 +328,8 @@
 
                                      <!-- Jasa Pengiriman -->
                                      <div class="col-8 p-3 pb-5" id="jasaPengiriman" style="display: none; overflow: auto; height: 375px">
-                                        <fieldset class="form-group col-12">	
-                                            <input type="text" class="form-control text-default text-dark" 
+                                        <fieldset class="form-group col-12">
+                                            <input type="text" class="form-control text-default text-dark"
                                                 id="jp-label" placeholder="Cari nama jasa pengiriman">
 										</fieldset>
                                         <div class="checkbox">
@@ -441,7 +441,7 @@
                         </div>
                 </div>
                 <p class="text-bold">Semua Barang</p>
-                
+
                 <!-- Empty Product State Semua barang -->
                 <div class="no-product">
                     <img src="<?php echo base_url();?>assets/images/profile/TidakAdaBarang.png" alt="No Product" class="img-no-product">
@@ -457,10 +457,10 @@
         <div class="card">
             <div class="card-header card-header-style">
                 <div class="row">
-                    <div class="col-lg-3 col-md-4 col-sm-4 pr-1"> 
-                        <input class="form-control text-default" type="text" placeholder="Cari Produk anda"> 
+                    <div class="col-lg-3 col-md-4 col-sm-4 pr-1">
+                        <input class="form-control text-default" type="text" placeholder="Cari Produk anda">
                     </div>
-                    <!-- Flter Dropdown --> 
+                    <!-- Flter Dropdown -->
                     <form class="col-lg-2 p-0">
                         <div class="form-group text-dark">
                         <select class="form-control text-dark text-default">
@@ -471,7 +471,7 @@
                         </select>
                         </div>
                     </form>
-                    <!-- Flter Dropdown --> 
+                    <!-- Flter Dropdown -->
                     <form class="col-2">
                         <div class="form-group text-dark">
                         <select class="form-control text-dark text-default">
@@ -496,8 +496,8 @@
                             <div class="modal-content p-3" style="overflow: auto;">
                                 <div class="modal-body justify-content-center p-0 pl-3 pr-3">
                                     <div class="p-3 pb-5" id="jasaPengiriman" style="overflow: auto; height: 375px">
-                                        <fieldset class="form-group col-12">	
-                                            <input type="text" class="form-control text-default text-dark" 
+                                        <fieldset class="form-group col-12">
+                                            <input type="text" class="form-control text-default text-dark"
                                                 id="jp-label" placeholder="Cari nama jasa pengiriman">
                                         </fieldset>
                                         <div class="checkbox">
@@ -589,7 +589,7 @@
                             </div>
                         </div>
                     </div>
-                     <!-- Flter Dropdown --> 
+                     <!-- Flter Dropdown -->
                     <form class="col-3 pl-0">
                         <div class="form-group text-dark">
                         <select class="form-control text-dark text-default">
@@ -616,10 +616,10 @@
         <div class="card">
             <div class="card-header card-header-style">
                 <div class="row">
-                    <div class="col-lg-3 col-md-4 col-sm-4 pr-1"> 
-                        <input class="form-control text-default" type="text" placeholder="Cari Produk anda"> 
+                    <div class="col-lg-3 col-md-4 col-sm-4 pr-1">
+                        <input class="form-control text-default" type="text" placeholder="Cari Produk anda">
                     </div>
-                    <!-- Flter Dropdown --> 
+                    <!-- Flter Dropdown -->
                     <form class="col-lg-2 p-0">
                         <div class="form-group text-dark">
                         <select class="form-control text-dark text-default">
@@ -630,7 +630,7 @@
                         </select>
                         </div>
                     </form>
-                    <!-- Flter Dropdown --> 
+                    <!-- Flter Dropdown -->
                     <form class="col-2">
                         <div class="form-group text-dark">
                         <select class="form-control text-dark text-default">
@@ -655,8 +655,8 @@
                             <div class="modal-content p-3" style="overflow: auto;">
                                 <div class="modal-body justify-content-center p-0 pl-3 pr-3">
                                     <div class="p-3 pb-5" id="jasaPengiriman" style="overflow: auto; height: 375px">
-                                        <fieldset class="form-group col-12">	
-                                            <input type="text" class="form-control text-default text-dark" 
+                                        <fieldset class="form-group col-12">
+                                            <input type="text" class="form-control text-default text-dark"
                                                 id="jp-label" placeholder="Cari nama jasa pengiriman">
                                         </fieldset>
                                         <div class="checkbox">
@@ -748,7 +748,7 @@
                             </div>
                         </div>
                     </div>
-                     <!-- Flter Dropdown --> 
+                     <!-- Flter Dropdown -->
                     <form class="col-3 pl-0">
                         <div class="form-group text-dark">
                         <select class="form-control text-dark text-default">
@@ -763,7 +763,7 @@
             <div class="no-product">
                 <img src="<?php echo base_url();?>assets/images/profile/TidakAdaBarang.png" alt="No Product" class="img-no-product">
                 <h4>Belum ada Barang di halaman ini</h4>
-                <p class="text-default text-center">Barang jualan kamu yang stoknya habis atau sedang kamu nonaktifkan akan muncul di halaman ini. 
+                <p class="text-default text-center">Barang jualan kamu yang stoknya habis atau sedang kamu nonaktifkan akan muncul di halaman ini.
                     <br> Ayo mulai berjualan di STIL sekarang!</p>
                 <button class="btn btn-success">Jual barang</button>
             </div>
@@ -776,7 +776,7 @@
                 <h4>Batas Penyimpanan Barang Draf</h4>
                 <ul>
                     <li>Barang yang disimpan di draf maksimum 20 barang.</li>
-                    <li>Jika barang tidak dijual dalam waktu 2 minggu setelah draf disimpan, akan dihapus secara otomatis.</li> 
+                    <li>Jika barang tidak dijual dalam waktu 2 minggu setelah draf disimpan, akan dihapus secara otomatis.</li>
                 </ul>
             </div>
         </div>

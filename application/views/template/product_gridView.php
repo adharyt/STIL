@@ -1,6 +1,6 @@
 <!-- Shop Content -->
 
-<div class="shop_content">
+<div class="shop_content" style="min-height:350px">
   <div class="shop_bar clearfix">
     <div class="shop_product_count"><span><?php echo $dataProductCount;?></span> produk ditemukan</div>
     <div class="shop_sorting">
@@ -33,7 +33,7 @@
   </div>
 
   <div class="product_grid" style="margin-left:10px">
-
+<?php if($dataProductCount>0){ ?>
     <?php foreach($dataProduct as $product){ ?>
     <!-- Product Item -->
     <div class="product_item <?php if($product['is_discount']==1){ echo 'discount';}?> <?php if($product['pr_condition']==0){echo 'is_new';}?>">
@@ -91,7 +91,14 @@
 
     <?php } ?>
 
-
+  <?php }else{
+   echo "
+   <center style='margin-top:10%'>
+   <img src='".base_url()."assets/images/profile/TidakAdaBarang.png' width='25%'><br>
+   Barang tidak ditemukan
+   </center>";
+  }
+    ?>
 
 
   </div>
@@ -133,6 +140,9 @@
   <?php } ?>
 
 </div>
+
+
+
 
 <!-- Modal: modalQuickView -->
 <div class="modal fade" id="modalQuickView" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"

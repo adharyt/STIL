@@ -11,9 +11,9 @@
 						<div class="col-lg-12">
 								<div class="card">
 									<div class="card-header" style="background-color:#009245;color:white;">
-										<div class="pretty p-svg p-curve" style="background-color:white;margin-right:5px">
-												<input type="checkbox" name="store" value="<?php echo $cartData['id_store'];?>" />
-												<div class="state p-warning">
+										<div class="pretty p-svg p-curve" style="margin-right:5px;background-color:white">
+												<input style="width:14px;height:14px;" type="checkbox" name="store" value="<?php echo $cartData['id_store'];?>" />
+												<div class="state p-warning" style="width:15px;height:14px;">
 														<!-- svg path -->
 														<svg class="svg svg-icon" viewBox="0 0 20 20">
 																<path d="M7.629,14.566c0.125,0.125,0.291,0.188,0.456,0.188c0.164,0,0.329-0.062,0.456-0.188l8.219-8.221c0.252-0.252,0.252-0.659,0-0.911c-0.252-0.252-0.659-0.252-0.911,0l-7.764,7.763L4.152,9.267c-0.252-0.251-0.66-0.251-0.911,0c-0.252,0.252-0.252,0.66,0,0.911L7.629,14.566z" style="stroke: white;fill:white;"></path>
@@ -97,7 +97,7 @@
 																			<table width="100%">
 																				<tr>
 																					<td align="left" width="22px">
-																						<i class="fas fa-trash" style="color:#d4362a"></i>
+																						<i class="fas fa-trash" style="color:#d4362a;cursor:pointer;" onClick="deleteItem('<?php echo $productData['cart_id'];?>');"></i>
 																						<hr style="border-color:white">
 																					</td>
 																					<td align="center">

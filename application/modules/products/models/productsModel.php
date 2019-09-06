@@ -17,6 +17,7 @@ class productsModel extends CI_Model{
     s.store_name,
     s.store_notes,
     s.store_city,
+    s.store_photo,
     s.store_lup_active,
     u.username as store_link,
     u.photo

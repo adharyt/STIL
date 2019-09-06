@@ -104,11 +104,11 @@ p a:hover::after
 }
 ::selection
 {
-	
+
 }
 p::selection
 {
-	
+
 }
 h1{font-size: 48px;}
 h2{font-size: 36px;}
@@ -123,14 +123,14 @@ h1, h2, h3, h4, h5, h6
 	-webkit-text-shadow: rgba(0,0,0,.01) 0 0 1px;
 	text-shadow: rgba(0,0,0,.01) 0 0 1px;
 }
-h1::selection, 
-h2::selection, 
-h3::selection, 
-h4::selection, 
-h5::selection, 
+h1::selection,
+h2::selection,
+h3::selection,
+h4::selection,
+h5::selection,
 h6::selection
 {
-	
+
 }
 .form-control
 {
@@ -223,7 +223,7 @@ section
 .button
 {
 	display: inline-block;
-	background: #0e8ce4;
+	background: #009245;
 	border-radius: 5px;
 	height: 48px;
 	-webkit-transition: all 200ms ease;
@@ -402,7 +402,7 @@ section
 }
 .standard_dropdown li a:hover
 {
-	color: #0e8ce4;
+	color: #009245;
 }
 .standard_dropdown li a i
 {
@@ -542,7 +542,7 @@ section
 {
 	font-size: 36px;
 	font-weight: 500;
-	color: #0e8ce4;
+	color: #009245;
 }
 .header_search
 {
@@ -596,15 +596,15 @@ section
 	line-height: 50px;
 	color: #a3a3a3 !important;
 }
-.header_search_input::-moz-placeholder /* Firefox 19+ */ 
+.header_search_input::-moz-placeholder /* Firefox 19+ */
 {
 	font-size: 16px !important;
 	font-weight: 300;
 	line-height: 50px;
 	color: #a3a3a3 !important;
-} 
+}
 .header_search_input:-ms-input-placeholder
-{ 
+{
 	font-size: 16px !important;
 	font-weight: 300;
 	line-height: 50px;
@@ -663,7 +663,7 @@ section
 }
 .custom_dropdown_placeholder i
 {
-	
+
 }
 .custom_list
 {
@@ -714,7 +714,7 @@ section
 }
 .custom_list li a:hover
 {
-	color: #0e8ce4;
+	color: #009245;
 }
 select
 {
@@ -749,7 +749,7 @@ select option
 	right: 0;
 	width: 50px;
 	height: 100%;
-	background: #0e8ce4;
+	background: #009245;
 	border: none;
 	outline: none;
 	cursor: pointer;
@@ -785,7 +785,7 @@ select option
 }
 .wishlist_text a:hover
 {
-	color: #0e8ce4;
+	color: #009245;
 }
 .wishlist_count
 {
@@ -800,7 +800,7 @@ select option
 	right: -14px;
 	width: 23px;
 	height: 23px;
-	background: #0e8ce4;
+	background: #009245;
 	border-radius: 50%;
 	text-align: center;
 }
@@ -837,7 +837,7 @@ select option
 }
 .cart_text a:hover
 {
-	color: #0e8ce4;
+	color: #009245;
 }
 .cart_price
 {
@@ -877,7 +877,7 @@ select option
 {
 	width: 293px;
 	height: 100%;
-	background: #0e8ce4;
+	background: #009245;
 	padding-left: 35px;
 	cursor: pointer;
 	z-index: 1;
@@ -973,7 +973,7 @@ select option
 }
 .cat_menu li a:hover
 {
-	color: #0e8ce4;
+	color: #009245;
 }
 .cat_menu li a i
 {
@@ -1069,7 +1069,7 @@ select option
 .page_menu_content
 {
 	height: 0px;
-	background: #0e8ce4;
+	background: #009245;
 	padding-left: 15px;
 	padding-right: 15px;
 	overflow: hidden;
@@ -1338,8 +1338,8 @@ select option
 }
 .cart_button_clear:hover
 {
-	border-color: #0e8ce4;
-	color: #0e8ce4;
+	border-color: #009245;
+	color: #009245;
 }
 .cart_button_checkout
 {
@@ -1421,7 +1421,7 @@ select option
 	padding-left: 25px;
 	font-size: 16px;
 	outline: none;
-	color: #0e8ce4;
+	color: #009245;
 }
 .newsletter_input:focus
 {
@@ -1442,9 +1442,9 @@ select option
 {
 	font-size: 16px;
 	color: rgba(0,0,0,0.3);
-} 
+}
 .newsletter_input:-ms-input-placeholder
-{ 
+{
 	font-size: 16px;
 	color: rgba(0,0,0,0.3);
 }
@@ -1460,7 +1460,7 @@ select option
 	right: 0;
 	width: 153px;
 	height: 50px;
-	background: #0e8ce4;
+	background: #009245;
 	color: #FFFFFF;
 	line-height: 50px;
 	font-size: 18px;
@@ -1483,7 +1483,7 @@ select option
 .newsletter_unsubscribe_link a
 {
 	font-size: 10px;
-	color: #0e8ce4;
+	color: #009245;
 	font-weight: 500;
 	text-transform: uppercase;
 	letter-spacing: 0.1em;
@@ -1532,7 +1532,7 @@ select option
 {
 	font-size: 18px;
 	font-weight: 500;
-	color: #0e8ce4;
+	color: #009245;
 	margin-top: 13px;
 }
 .footer_contact_text
@@ -1571,7 +1571,7 @@ select option
 }
 .footer_social ul li:hover i
 {
-	color: #0e8ce4;
+	color: #009245;
 }
 .footer_subtitle
 {
@@ -1603,11 +1603,11 @@ select option
 }
 .footer_list li a:hover
 {
-	color: #0e8ce4;
+	color: #009245;
 }
 .footer_list_2
 {
-	margin-top: 42px !important; 
+	margin-top: 42px !important;
 }
 
 .copyright
@@ -1631,7 +1631,7 @@ select option
 }
 .logos
 {
-	
+
 }
 .logos_list li
 {

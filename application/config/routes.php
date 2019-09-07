@@ -73,5 +73,10 @@ $route['my-account/profile'] = 'profile/profileEdit';
 $route['my-account/address'] = 'profile/profileAddress';
 $route['my-account/wishlist'] = 'profile/profileWishlist';
 
+//My Store
+$route['my-store/shipping'] = 'seller_center/courierShippingSchedule';
+$route['my-store/address'] = 'seller_center/address';
+$route['my-store/rekening'] = 'seller_center/rekening';
+
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;

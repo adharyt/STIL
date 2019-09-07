@@ -205,8 +205,8 @@ hr {
     text-align: center;
 }
 .logo-jnt {
-    width: 120px !important;
-    margin-bottom: 22px;
+    width: 165px !important;
+    margin-bottom: 4px;
 }
 .logo-sicepat {
     margin-bottom: 2px;
@@ -216,20 +216,25 @@ hr {
     margin-bottom: 2px;
 }
 .logo-lion-parcel {
-    margin-bottom: -13px;
+    margin-top: 25PX;
+    margin-bottom: 19px;
 }
 .logo-grab {
     width: 120px !important;
-    margin-bottom: 22px;
-    margin-top: 29px;
 }
 .logo-ninja {
     width: 120px !important;
     margin-top: 8px;
+    margin-bottom: 19px;
+}
+.logo-wahana {
+    width: 120px !important;
+    margin-top: 25px;
+    margin-bottom: 19px;
 }
 .logo-jne {
     width: 85px !important;
-    margin-bottom: 10px;
+    margin-bottom: 18px;
     margin-top: 29px;
 }
 .logo-tiki {
@@ -237,11 +242,22 @@ hr {
     margin-bottom: 12px;
     margin-top: 29px;
 }
+.logo-pos {
+    width: 120px !important;
+    margin-bottom: 12px;
+    margin-top: 29px;
+}
 .logo-gosend {
     width: 120px !important;
-    margin-bottom: 45px;
-    margin-top: 48px;
+    margin-bottom: 32px;
+    margin-top: 60px;
 }
+.logo-rpx {
+    width: 120px !important;
+    margin-bottom: 25px;
+    margin-top: 30px;
+}
+
 
 
 /* Address Style */

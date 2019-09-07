@@ -147,7 +147,7 @@
                 </div>
                 
                 <div class="col-4">
-                    <img src="<?php echo base_url();?>assets/images/courier-logo/wahana-express.png" alt="Photo Profile" class="img-courier-logo logo-grab">  
+                    <img src="<?php echo base_url();?>assets/images/courier-logo/wahana-express.png" alt="Photo Profile" class="img-courier-logo logo-wahana">  
                     <div class="checkbox">
                         <label><input type="checkbox" value=""> Wahana Tarif Normal</label>
                     </div>
@@ -187,7 +187,7 @@
                 </div>
 
                 <div class="col-4">
-                    <img src="<?php echo base_url();?>assets/images/courier-logo/pos.png" alt="Photo Profile" class="img-courier-logo logo-grab">  
+                    <img src="<?php echo base_url();?>assets/images/courier-logo/pos.png" alt="Photo Profile" class="img-courier-logo logo-pos">  
                     <div class="checkbox">
                         <label><input type="checkbox" value=""> Pos Kilat Khusus</label>
                     </div>
@@ -197,7 +197,7 @@
                 </div>
                 
                 <div class="col-4">
-                    <img src="<?php echo base_url();?>assets/images/courier-logo/rpx.png" alt="Photo Profile" class="img-courier-logo logo-grab">  
+                    <img src="<?php echo base_url();?>assets/images/courier-logo/rpx.png" alt="Photo Profile" class="img-courier-logo logo-rpx">  
                     <div class="checkbox">
                         <label><input type="checkbox" value=""> RPX Economy Package</label>
                     </div>

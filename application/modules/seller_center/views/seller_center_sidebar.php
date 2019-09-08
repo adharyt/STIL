@@ -2,7 +2,7 @@
     <div class="col-md-3">
         <div class="sidebar-seller-center-container">
             <div class="row sidebar-seller-center-profile-container">
-                <img src="<?php echo base_url();?>assets/images/image-user/default_user_m.png" alt="Photo Profile" class="img-profile-sidebar">
+                <img src="<?php echo base_url();?>assets/images/image-default/default_user_m.png" alt="Photo Profile" class="img-profile-sidebar">
                 <div class="name-text">Abimanyu Bhamakerti</div>
             </div>
             <ul>

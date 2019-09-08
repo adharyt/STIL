@@ -42,12 +42,12 @@
 
 		public function rekening() {
 			$this->load->view('appinfo');
-			$this->load->view('rekening/seller_center_rekening_s');
+			$this->load->view('rekening/seller_center_rekening_bank_s');
 			$this->load->view('seller_center_header');
 			$this->load->view('seller_center_sidebar');
-			$this->load->view('rekening/seller_center_rekening_v');
+			$this->load->view('rekening/seller_center_rekening_bank_v');
 			$this->load->view('footer');
-			$this->load->view('rekening/seller_center_rekening_x');			
+			$this->load->view('rekening/seller_center_rekening_bank_x');			
 		}
 
 

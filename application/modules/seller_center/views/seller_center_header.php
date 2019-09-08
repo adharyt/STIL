@@ -8,7 +8,7 @@
       <i class="fa fa-envelope icon-style" aria-hidden="true"></i>
       <div class="horizontal-divider"></div>
       <div class="seller-center-profile-header-container">
-        <img src="<?php echo base_url();?>assets/images/image-user/default_user_m.png" alt="Photo Profile" class="img-profile-header">
+        <img src="<?php echo base_url();?>assets/images/image-default/default_user_m.png" alt="Photo Profile" class="img-profile-header">
         <i class="fa fa-sort-down icon-style" aria-hidden="true"></i>
       </div>
     </div>

@@ -52,13 +52,22 @@
 
 		public function store() {
 			$this->load->view('appinfo');
-			$this->load->view('store/seller_center_store_s');
+			$this->load->view('store/main/seller_center_store_s');
 			$this->load->view('seller_center_header');
 			$this->load->view('seller_center_sidebar');
-			$this->load->view('store/seller_center_store_v');
+			$this->load->view('store/main/seller_center_store_v');
 			$this->load->view('footer');
-			$this->load->view('store/seller_center_store_x');			
+			$this->load->view('store/main/seller_center_store_x');			
 		}
-
+		
+		public function editStoreInfo() {
+			$this->load->view('appinfo');
+			$this->load->view('store/store-info/seller_center_edit_store_info_s');
+			$this->load->view('seller_center_header');
+			$this->load->view('seller_center_sidebar');
+			$this->load->view('store/store-info/seller_center_edit_store_info_v');
+			$this->load->view('footer');
+			$this->load->view('store/store-info/seller_center_edit_store_info_x');			
+		}
 
 	}

@@ -71,7 +71,7 @@
 .modal-custom-container {
     z-index: 999999 !important;
 }
-.store-row-container {
+.store-row-sb-container {
     display: flex !important;
     flex-direction: row !important;
     align-items: center !important;
@@ -80,6 +80,11 @@
 .header-photo-container {
     height:100px;
     background-size: 100% 100%;
+}
+.store-row-container {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
 }
 
 /* Image */

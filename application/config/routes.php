@@ -77,6 +77,7 @@ $route['my-account/wishlist'] = 'profile/profileWishlist';
 $route['my-store/shipping'] = 'seller_center/courierShippingSchedule';
 $route['my-store/address'] = 'seller_center/address';
 $route['my-store/rekening'] = 'seller_center/rekening';
+$route['my-store/store'] = 'seller_center/store';
 
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;

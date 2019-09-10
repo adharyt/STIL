@@ -49,7 +49,7 @@
             </div>
             <div class="col">
                 <div class="card mb-3">
-                    <div class="card-settings-container">
+                    <a class="card-settings-container" href="<?php echo base_url();?>my-store/store">
                         <div class="card-settings-body-container">
                             <i class="card-settings-icon fa fa-store"></i>
                             <div>
@@ -60,7 +60,7 @@
                         <div class="">
                             <i class="fa fa-chevron-circle-right"></i>
                         </div>
-                    </div>
+                    </a>
                 </div>
 
                 <div class="card mb-3">

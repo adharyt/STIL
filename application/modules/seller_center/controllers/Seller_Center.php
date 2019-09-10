@@ -50,5 +50,15 @@
 			$this->load->view('rekening/seller_center_rekening_bank_x');			
 		}
 
+		public function store() {
+			$this->load->view('appinfo');
+			$this->load->view('store/seller_center_store_s');
+			$this->load->view('seller_center_header');
+			$this->load->view('seller_center_sidebar');
+			$this->load->view('store/seller_center_store_v');
+			$this->load->view('footer');
+			$this->load->view('store/seller_center_store_x');			
+		}
+
 
 	}

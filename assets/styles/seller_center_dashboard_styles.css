@@ -71,6 +71,16 @@
 .modal-custom-container {
     z-index: 999999 !important;
 }
+.store-row-container {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: space-between;
+}
+.header-photo-container {
+    height:100px;
+    background-size: 100% 100%;
+}
 
 /* Image */
 .logo-img {
@@ -118,6 +128,12 @@
     font-size: 0.9rem;
     margin-left: 10px;   
 }
+.default-bold-text {
+    font-family: Helvetica;
+    font-size: 0.9rem;
+    margin-left: 10px;
+    font-weight: bold;   
+}
 .title-text {
     font-family: Helvetica;
     font-size: 1.3rem;
@@ -152,6 +168,26 @@
 .icon-style:hover {
     color: #009245;
     cursor: pointer;
+}
+
+/* Button */
+.btn-store-edit {
+    background-color: #009245 !important;
+    padding-top: 5px !important;
+    padding-bottom: 5px !important;
+    padding-left: 15px !important;
+    padding-right: 15px !important;
+    color:white;
+    border-radius: 5px; 
+}
+.btn-store-edit:hover {
+    background-color: #136e3d !important;
+    padding-top: 5px !important;
+    padding-bottom: 5px !important;
+    padding-left: 15px !important;
+    padding-right: 15px !important;
+    color:white;
+    border-radius: 5px; 
 }
 
 /* General Styles */

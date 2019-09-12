@@ -70,4 +70,14 @@
 			$this->load->view('store/store-info/seller_center_edit_store_info_x');			
 		}
 
+		public function closeStore() {
+			$this->load->view('appinfo');
+			$this->load->view('store/close-store/seller_center_close_store_s');
+			$this->load->view('seller_center_header');
+			$this->load->view('seller_center_sidebar');
+			$this->load->view('store/close-store/seller_center_close_store_v');
+			$this->load->view('footer');
+			$this->load->view('store/close-store/seller_center_close_store_x');			
+		}
+
 	}

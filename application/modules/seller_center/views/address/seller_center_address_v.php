@@ -50,17 +50,17 @@
                                 <div class="row">
                                     <fieldset class="form-group col-md-12">
                                         <label for="addressName-label">Nama</label>
-                                        <input value="<?php echo $memberAddress['alias'];?>" type="text" class="form-control text-dark i-address-name" id="edit-name" placeholder="Contoh: Rumah, Kos">
+                                        <input value="" type="text" class="form-control text-dark i-address-name" id="edit-name" placeholder="Contoh: Rumah, Kos">
                                     </fieldset>
                                 </div>
                                 <div class="row">
                                     <fieldset class="form-group col">
                                         <label for="recipientName-label">Nama Penerima</label>
-                                        <input value="<?php echo $memberAddress['receiver'];?>" type="text" class="form-control text-dark i-address-name" id="edit-penerima" >
+                                        <input value="" type="text" class="form-control text-dark i-address-name" id="edit-penerima" >
                                     </fieldset>
                                     <fieldset class="form-group col">
                                         <label for="telp-label">Nomer Telepon</label>
-                                        <input value="<?php echo $memberAddress['phone'];?>" type="text" class="form-control text-dark i-address-name" id="edit-telepon">
+                                        <input value="" type="text" class="form-control text-dark i-address-name" id="edit-telepon">
                                     </fieldset>
                                 </div>
                                 <div class="row">
@@ -148,8 +148,6 @@
                             </div>
                             <div class="modal-body d-flex justify-content-center p-2 delete-address-body" id="kontenDeleteModal">
                                 <div class="body-text mt-1"> Apakah kamu yakin ingin mengapus Alamat ini:</div>
-                                <div class="body-bold-text mt-1"> BCA</div>
-                                <div class="body-text mt-1">Atas nama Abimanyu bhamakerti (0773490391)</div>
 
                             </div>
                                 <div class="modal-footer">

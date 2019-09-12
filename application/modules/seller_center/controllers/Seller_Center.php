@@ -60,14 +60,14 @@
 			$this->load->view('store/main/seller_center_store_x');			
 		}
 		
-		public function editStoreInfo() {
+		public function storeInfo() {
 			$this->load->view('appinfo');
-			$this->load->view('store/store-info/seller_center_edit_store_info_s');
+			$this->load->view('store/store-info/seller_center_store_info_s');
 			$this->load->view('seller_center_header');
 			$this->load->view('seller_center_sidebar');
-			$this->load->view('store/store-info/seller_center_edit_store_info_v');
+			$this->load->view('store/store-info/seller_center_store_info_v');
 			$this->load->view('footer');
-			$this->load->view('store/store-info/seller_center_edit_store_info_x');			
+			$this->load->view('store/store-info/seller_center_store_info_x');			
 		}
 
 		public function closeStore() {
@@ -78,6 +78,26 @@
 			$this->load->view('store/close-store/seller_center_close_store_v');
 			$this->load->view('footer');
 			$this->load->view('store/close-store/seller_center_close_store_x');			
+		}
+
+		public function merchantNotes() {
+			$this->load->view('appinfo');
+			$this->load->view('store/merchant-notes/seller_center_merchant_notes_s');
+			$this->load->view('seller_center_header');
+			$this->load->view('seller_center_sidebar');
+			$this->load->view('store/merchant-notes/seller_center_merchant_notes_v');
+			$this->load->view('footer');
+			$this->load->view('store/merchant-notes/seller_center_merchant_notes_x');			
+		}
+
+		public function storeVerification() {
+			$this->load->view('appinfo');
+			$this->load->view('store/store-verification/seller_center_store_verification_s');
+			$this->load->view('seller_center_header');
+			$this->load->view('seller_center_sidebar');
+			$this->load->view('store/store-verification/seller_center_store_verification_v');
+			$this->load->view('footer');
+			$this->load->view('store/store-verification/seller_center_store_verification_x');			
 		}
 
 	}

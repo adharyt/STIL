@@ -4,7 +4,7 @@
     <div class="card p-4 mt-3">
         <div class="store-row-sb-container">
             <div class="body-bold-text">Informasi Lapak</div> 
-            <a class="btn-store-edit" href="">Edit</a>   
+            <a class="btn-store-edit" href="<?php echo base_url();?>my-store/store-info">Edit</a>   
         </div>
         <div class="default-bold-text m-0">Foto Header Toko</div>
         <img class="header-photo-container" src="<?php echo base_url();?>assets/images/profile/header-profile-penjual.png">
@@ -16,7 +16,7 @@
     <div class="card p-4 mt-3">
         <div class="store-row-sb-container">
             <div class="body-bold-text m-0">Verifikasi Toko</div> 
-            <a class="btn-store-edit" href="<?php echo base_url();?>my-store/edit-store-info">Edit</a>   
+            <a class="btn-store-edit" href="<?php echo base_url();?>my-store/store-verification">Edit</a>   
         </div>
         <div class="store-row-container">
             <div style="width: 250px;">
@@ -73,7 +73,7 @@
     <div class="card p-4 mt-3">
         <div class="store-row-sb-container">
             <div class="body-bold-text m-0">Catatan Penjual</div> 
-            <a class="btn-store-edit" href="">Edit</a>   
+            <a class="btn-store-edit"  href="<?php echo base_url();?>my-store/merchant-notes">Edit</a>   
         </div>
         <div class="alert alert-warning alert-custom-container">
             <i class="fa fa-info-circle icon-style" aria-hidden="true"></i>
@@ -88,7 +88,7 @@
     <div class="card p-4 mt-3">
         <div class="store-row-sb-container">
             <div class="body-bold-text m-0">Tutup Toko</div> 
-            <a class="btn-store-edit" href="">Edit</a>   
+            <a class="btn-store-edit"  href="<?php echo base_url();?>my-store/close-store">Edit</a>   
         </div>
         <div class="alert alert-warning alert-custom-container">
             <i class="fa fa-info-circle icon-style" aria-hidden="true"></i>

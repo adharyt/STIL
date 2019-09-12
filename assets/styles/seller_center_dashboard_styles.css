@@ -87,6 +87,13 @@
     align-items: center !important;
 }
 
+.close-store-reason-container {
+    display: flex !important;
+    flex-direction: row !important;
+    justify-content: space-between;
+    text-align: center;
+}
+
 /* Image */
 .logo-img {
     width: 40px;
@@ -317,7 +324,17 @@ hr {
     font-size: 0.9rem;
     color: black !important;
 }
-
+.close-store-reason {
+    margin-top: 10px;
+    padding: 10px;
+    width: 120px;
+    height: auto;
+    border: 1px solid black;
+    text-align: center;
+}
+.close-store-reason:hover {
+    cursor: pointer;
+}
 
 /* Address Style */
 .circle {

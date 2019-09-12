@@ -78,8 +78,10 @@ $route['my-store/shipping'] = 'seller_center/courierShippingSchedule';
 $route['my-store/address'] = 'seller_center/address';
 $route['my-store/rekening'] = 'seller_center/rekening';
 $route['my-store/store'] = 'seller_center/store';
-$route['my-store/edit-store-info'] = 'seller_center/editStoreInfo';
+$route['my-store/store-info'] = 'seller_center/storeInfo';
 $route['my-store/close-store'] = 'seller_center/closeStore';
+$route['my-store/merchant-notes'] = 'seller_center/merchantNotes';
+$route['my-store/store-verification'] = 'seller_center/storeVerification';
 
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;

@@ -100,4 +100,14 @@
 			$this->load->view('store/store-verification/seller_center_store_verification_x');			
 		}
 
+		public function editStoreAddress() {
+			$this->load->view('appinfo');
+			$this->load->view('store/address/seller_center_edit_store_address_s');
+			$this->load->view('seller_center_header');
+			$this->load->view('seller_center_sidebar');
+			$this->load->view('store/address/seller_center_edit_store_address_v');
+			$this->load->view('footer');
+			$this->load->view('store/address/seller_center_edit_store_address_x');			
+		}
+
 	}

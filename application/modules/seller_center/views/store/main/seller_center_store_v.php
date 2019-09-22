@@ -66,7 +66,7 @@
     <div class="card p-4 mt-3">
         <div class="store-row-sb-container">
             <div class="body-bold-text m-0">Alamat Fisik Toko</div> 
-            <a class="btn-store-edit" href="">Edit</a>   
+            <a class="btn-store-edit" href="<?php echo base_url();?>my-store/edit-store-address">Edit</a>   
         </div>
         <div class="default-text ml-0">Kamu belum mengatur alamat fisik lapakmu</div>
     </div>

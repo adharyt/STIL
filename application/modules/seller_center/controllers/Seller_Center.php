@@ -16,17 +16,17 @@
 			$this->load->view('seller_center_sidebar',$dataInfo);
 			$this->load->view('dashboard/seller_center_dashboard_v',$dataInfo);
 			$this->load->view('footer');
-			$this->load->view('dashboard/seller_center_dashboard_x');
+			$this->load->view('main/seller_center_main_x');
 		}
 
-		public function dashboard() {
+		public function mainDashboard() {
 			$this->load->view('appinfo');
-			$this->load->view('dashboard/seller_center_dashboard_s');
+			$this->load->view('main/seller_center_main_s');
 			$this->load->view('seller_center_header');
 			$this->load->view('seller_center_sidebar');
-			$this->load->view('dashboard/seller_center_dashboard_v');
+			$this->load->view('main/seller_center_main_v');
 			$this->load->view('footer');
-			$this->load->view('dashboard/seller_center_dashboard_x');
+			$this->load->view('main/seller_center_main_x');
 		}
 
 		// SHIPPING START //
@@ -178,6 +178,26 @@
 			$this->load->view('store/store-verification/seller_center_store_verification_v');
 			$this->load->view('footer');
 			$this->load->view('store/store-verification/seller_center_store_verification_x');
+		}
+
+		public function editStoreAddress() {
+			$this->load->view('appinfo');
+			$this->load->view('store/address/seller_center_edit_store_address_s');
+			$this->load->view('seller_center_header');
+			$this->load->view('seller_center_sidebar');
+			$this->load->view('store/address/seller_center_edit_store_address_v');
+			$this->load->view('footer');
+			$this->load->view('store/address/seller_center_edit_store_address_x');			
+		}
+
+		public function storefront() {
+			$this->load->view('appinfo');
+			$this->load->view('storefront/seller_center_storefront_s');
+			$this->load->view('seller_center_header');
+			$this->load->view('seller_center_sidebar');
+			$this->load->view('storefront/seller_center_storefront_v');
+			$this->load->view('footer');
+			$this->load->view('storefront/seller_center_storefront_x');			
 		}
 
 	}

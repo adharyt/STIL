@@ -83,6 +83,8 @@ $route['my-store/store-info'] = 'seller_center/storeInfo';
 $route['my-store/close-store'] = 'seller_center/closeStore';
 $route['my-store/merchant-notes'] = 'seller_center/merchantNotes';
 $route['my-store/store-verification'] = 'seller_center/storeVerification';
+$route['my-store/edit-store-address'] = 'seller_center/editStoreAddress';
+$route['my-store/storefront'] = 'seller_center/storefront';
 
 //My store action
 $route['my-store/shipping-courier-update'] = 'seller_center/shippingCourierUpdate';

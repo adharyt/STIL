@@ -201,6 +201,12 @@
     color:white;
     border-radius: 5px; 
 }
+.btn-edit {
+    background-color: #f28f16;
+}
+.btn-edit:hover {
+    background-color: #ee950f;
+}
 
 /* General Styles */
 .horizontal-divider {
@@ -348,12 +354,6 @@ hr {
     height: 30px;
     border-radius: 20px;
 }
-.btn-edit {
-    background-color: #f4f459;
-}
-.btn-edit:hover {
-    background-color: #e5e54a;
-}
 .btn-tambah {
     background-color: #f4f459;
 }
@@ -393,3 +393,12 @@ hr {
 .i-address-name {
     width: 100%;
 }
+
+/* Dragable List */
+.list-group-item {
+	cursor: move !important;
+}
+  
+  
+  
+  

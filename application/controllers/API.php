@@ -3,10 +3,10 @@ class API extends CI_Controller{
 
 	function __construct(){
 		parent::__construct();
-		$this->load->model('locationModel');
 	}
 
 	public function getLocation($STATE,$TYPE){
+		$this->load->model('locationModel');
 		switch($TYPE){
 			case 'PROVINCE':
 				$data1=$this->locationModel->getProvince($STATE);
@@ -50,6 +50,20 @@ class API extends CI_Controller{
 		echo json_encode($data1);
 
 	}
+
+	public function getCourier($param){
+		$this->load->model('courierModel');
+		$id=explode('_',$param);
+		if($id[0]=='store'){
+			$data=$this->courierModel->getCourierListStore($id[1]);
+		}else{
+			$data=$this->courierModel->getCourierListProduct($id[1]);
+		}
+		header("Content-Type: application/json; charset=UTF-8");
+		echo json_encode($data);
+	}
+
+	
 
 
 

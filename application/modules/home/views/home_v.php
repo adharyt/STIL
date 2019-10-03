@@ -10,8 +10,7 @@
 				<div class="col-lg-5 offset-lg-4 fill_height">
 					<div class="banner_content">
 						<h1 class="banner_text">Biji kopi robusta</h1>
-						<div class="banner_price"><span>IDR 100.000</span>IDR 90.000/kg</div>
-						<div class="banner_product_name">belum termasuk ongkir</div>
+						<p>Robusta sering digambarkan sebagai kopi yang pahit atau tajam dengan karakter rasa seperti kayu dan karet. Pahit atau bitter ini berasal dari kandungan kafein yang lebih tinggi pada Robusta jika dibandingkan dengan Arabika. Jika Anda hanya sekedar mencari kafein Robusta adalah pilihan terbaik! :)</p>
 						<div class="button banner_button"><a href="<?php echo base_url();?>assets/#">Belanja Sekarang</a></div>
 					</div>
 				</div>
@@ -29,10 +28,10 @@
 				<div class="col-lg-3 col-md-6 char_col">
 
 					<div class="char_item d-flex flex-row align-items-center justify-content-start">
-						<div class="char_icon"><img src="<?php echo base_url();?>assets/images/char_1.png" alt=""></div>
+						<div class="char_icon"><img src="<?php echo base_url();?>assets/images/icon-img/tag.png" alt="" style="height:30px"></div>
 						<div class="char_content">
-							<div class="char_title">Free Delivery</div>
-							<div class="char_subtitle">from $50</div>
+							<div class="char_title">Produk Beragam</div>
+							<div class="char_subtitle">Tersedia 10000+ produk</div>
 						</div>
 					</div>
 				</div>
@@ -41,10 +40,10 @@
 				<div class="col-lg-3 col-md-6 char_col">
 
 					<div class="char_item d-flex flex-row align-items-center justify-content-start">
-						<div class="char_icon"><img src="<?php echo base_url();?>assets/images/char_2.png" alt=""></div>
+						<div class="char_icon"><img src="<?php echo base_url();?>assets/images/icon-img/refresh-button.png" alt="" style="height:30px"></div>
 						<div class="char_content">
-							<div class="char_title">Free Delivery</div>
-							<div class="char_subtitle">from $50</div>
+							<div class="char_title">Transaksi Mudah</div>
+							<div class="char_subtitle">Transksi kurang dari 1 menit!</div>
 						</div>
 					</div>
 				</div>
@@ -53,10 +52,10 @@
 				<div class="col-lg-3 col-md-6 char_col">
 
 					<div class="char_item d-flex flex-row align-items-center justify-content-start">
-						<div class="char_icon"><img src="<?php echo base_url();?>assets/images/char_3.png" alt=""></div>
+						<div class="char_icon"><img src="<?php echo base_url();?>assets/images/icon-img/wallet.png" alt="" style="height:30px"></div>
 						<div class="char_content">
-							<div class="char_title">Free Delivery</div>
-							<div class="char_subtitle">from $50</div>
+							<div class="char_title">Pembayaran Aman</div>
+							<div class="char_subtitle">100% jaminan uang kembali</div>
 						</div>
 					</div>
 				</div>
@@ -65,13 +64,19 @@
 				<div class="col-lg-3 col-md-6 char_col">
 
 					<div class="char_item d-flex flex-row align-items-center justify-content-start">
-						<div class="char_icon"><img src="<?php echo base_url();?>assets/images/char_4.png" alt=""></div>
+						<div class="char_icon"><img src="<?php echo base_url();?>assets/images/icon-img/shipped.png" alt="" style="height:50px"></div>
 						<div class="char_content">
-							<div class="char_title">Free Delivery</div>
-							<div class="char_subtitle">from $50</div>
+							<div class="char_title">Mudah Dijangkau</div>
+							<div class="char_subtitle">Tersedia 20+ kurir</div>
 						</div>
 					</div>
 				</div>
+
+
+
+
+
+
 			</div>
 		</div>
 	</div>
@@ -191,8 +196,8 @@
 						<div class="tabbed_container">
 							<div class="tabs">
 								<ul class="clearfix">
-									<li class="active">Featured</li>
-									<li>On Sale</li>
+									<li class="active sliderTab">Featured</li>
+									<li class="sliderTab">On Sale</li>
 								</ul>
 								<div class="tabs_line"><span></span></div>
 							</div>
@@ -201,199 +206,10 @@
 							<div class="product_panel panel active">
 								<div class="featured_slider slider">
 
-									<!-- Slider Item -->
-									<div class="featured_slider_item">
-										<div class="border_active"></div>
-										<div class="product_item discount is_new d-flex flex-column align-items-center justify-content-center text-center">
-											<div class="product_image d-flex flex-column align-items-center justify-content-center"><img src="<?php echo base_url();?>assets/images/image-not-available.png" alt=""></div>
-											<div class="product_content">
+									<?php
+										$this->load->view('template/product_gridViewFeatured',$dataProductFeatured);
+									 ?>
 
-
-												<div class="product_name"><div><a href="<?php echo base_url();?>assets/product.html">Sample Product 1</a></div></div>
-												<span><strike style="font-size:10px">IDR 300.000,00</strike></span>
-												<div class="product_price discount">IDR 200.000,00</div>
-												<div class="product_extras">
-
-													<button class="product_cart_button">Tambahkan ke Keranjang</button>
-												</div>
-											</div>
-											<div class="product_fav"><i class="fas fa-heart"></i></div>
-											<ul class="product_marks">
-												<li class="product_mark product_discount">-50%</li>
-												<li class="product_mark product_new">new</li>
-											</ul>
-										</div>
-									</div>
-
-									<!-- Slider Item -->
-									<div class="featured_slider_item">
-										<div class="border_active"></div>
-										<div class="product_item is_new d-flex flex-column align-items-center justify-content-center text-center">
-											<div class="product_image d-flex flex-column align-items-center justify-content-center"><img src="<?php echo base_url();?>assets/images/image-not-available.png" alt=""></div>
-											<div class="product_content">
-
-												<div class="product_name"><div><a href="<?php echo base_url();?>assets/product.html">Sample Product 2</a></div></div>
-												<div class="product_price">IDR 110.000,00</div>
-												<div class="product_extras">
-
-													<button class="product_cart_button active">Tambahkan ke Keranjang</button>
-												</div>
-											</div>
-											<div class="product_fav"><i class="fas fa-heart"></i></div>
-											<ul class="product_marks">
-												<li class="product_mark product_discount"></li>
-												<li class="product_mark product_new">new</li>
-											</ul>
-										</div>
-									</div>
-
-									<!-- Slider Item -->
-									<div class="featured_slider_item">
-										<div class="border_active"></div>
-										<div class="product_item d-flex flex-column align-items-center justify-content-center text-center">
-											<div class="product_image d-flex flex-column align-items-center justify-content-center"><img src="<?php echo base_url();?>assets/images/image-not-available.png" alt=""></div>
-											<div class="product_content">
-
-												<div class="product_name"><div><a href="<?php echo base_url();?>assets/product.html">Sample Product</a></div></div>
-												<div class="product_price">IDR 50.000,00</div>
-												<div class="product_extras">
-
-													<button class="product_cart_button">Tambahkan ke Keranjang</button>
-												</div>
-											</div>
-											<div class="product_fav"><i class="fas fa-heart"></i></div>
-											<ul class="product_marks">
-												<li class="product_mark product_discount"></li>
-												<li class="product_mark product_new"></li>
-											</ul>
-										</div>
-									</div>
-
-									<!-- Slider Item -->
-									<div class="featured_slider_item">
-										<div class="border_active"></div>
-										<div class="product_item d-flex flex-column align-items-center justify-content-center text-center">
-											<div class="product_image d-flex flex-column align-items-center justify-content-center"><img src="<?php echo base_url();?>assets/images/image-not-available.png" alt=""></div>
-											<div class="product_content">
-												<div class="product_price">IDR 50.000,00</div>
-												<div class="product_name"><div><a href="<?php echo base_url();?>assets/product.html">Sample Product</a></div></div>
-												<div class="product_extras">
-
-													<button class="product_cart_button">Tambahkan ke Keranjang</button>
-												</div>
-											</div>
-											<div class="product_fav"><i class="fas fa-heart"></i></div>
-											<ul class="product_marks">
-												<li class="product_mark product_discount"></li>
-												<li class="product_mark product_new"></li>
-											</ul>
-										</div>
-									</div>
-
-									<!-- Slider Item -->
-									<div class="featured_slider_item">
-										<div class="border_active"></div>
-										<div class="product_item d-flex flex-column align-items-center justify-content-center text-center">
-											<div class="product_image d-flex flex-column align-items-center justify-content-center"><img src="<?php echo base_url();?>assets/images/image-not-available.png" alt=""></div>
-											<div class="product_content">
-												<div class="product_price">IDR 50.000,00</div>
-												<div class="product_name"><div><a href="<?php echo base_url();?>assets/product.html">Sample Product</a></div></div>
-												<div class="product_extras">
-
-													<button class="product_cart_button">Tambahkan ke Keranjang</button>
-												</div>
-											</div>
-											<div class="product_fav"><i class="fas fa-heart"></i></div>
-											<ul class="product_marks">
-												<li class="product_mark product_discount"></li>
-												<li class="product_mark product_new"></li>
-											</ul>
-										</div>
-									</div>
-
-									<!-- Slider Item -->
-									<div class="featured_slider_item">
-										<div class="border_active"></div>
-										<div class="product_item d-flex flex-column align-items-center justify-content-center text-center">
-											<div class="product_image d-flex flex-column align-items-center justify-content-center"><img src="<?php echo base_url();?>assets/images/image-not-available.png" alt=""></div>
-											<div class="product_content">
-												<div class="product_price">IDR 50.000,00</div>
-												<div class="product_name"><div><a href="<?php echo base_url();?>assets/product.html">Sample Product</a></div></div>
-												<div class="product_extras">
-
-													<button class="product_cart_button">Tambahkan ke Keranjang</button>
-												</div>
-											</div>
-											<div class="product_fav"><i class="fas fa-heart"></i></div>
-											<ul class="product_marks">
-												<li class="product_mark product_discount"></li>
-												<li class="product_mark product_new"></li>
-											</ul>
-										</div>
-									</div>
-
-									<!-- Slider Item -->
-									<div class="featured_slider_item">
-										<div class="border_active"></div>
-										<div class="product_item d-flex flex-column align-items-center justify-content-center text-center">
-											<div class="product_image d-flex flex-column align-items-center justify-content-center"><img src="<?php echo base_url();?>assets/images/image-not-available.png" alt=""></div>
-											<div class="product_content">
-												<div class="product_price">IDR 50.000,00</div>
-												<div class="product_name"><div><a href="<?php echo base_url();?>assets/product.html">Sample Product</a></div></div>
-												<div class="product_extras">
-
-													<button class="product_cart_button">Tambahkan ke Keranjang</button>
-												</div>
-											</div>
-											<div class="product_fav"><i class="fas fa-heart"></i></div>
-											<ul class="product_marks">
-												<li class="product_mark product_discount"></li>
-												<li class="product_mark product_new"></li>
-											</ul>
-										</div>
-									</div>
-
-									<!-- Slider Item -->
-									<div class="featured_slider_item">
-										<div class="border_active"></div>
-										<div class="product_item d-flex flex-column align-items-center justify-content-center text-center">
-											<div class="product_image d-flex flex-column align-items-center justify-content-center"><img src="<?php echo base_url();?>assets/images/image-not-available.png" alt=""></div>
-											<div class="product_content">
-												<div class="product_price">IDR 50.000,00</div>
-												<div class="product_name"><div><a href="<?php echo base_url();?>assets/product.html">Sample Product</a></div></div>
-												<div class="product_extras">
-
-													<button class="product_cart_button">Tambahkan ke Keranjang</button>
-												</div>
-											</div>
-											<div class="product_fav"><i class="fas fa-heart"></i></div>
-											<ul class="product_marks">
-												<li class="product_mark product_discount"></li>
-												<li class="product_mark product_new"></li>
-											</ul>
-										</div>
-									</div>
-
-									<!-- Slider Item -->
-									<div class="featured_slider_item">
-										<div class="border_active"></div>
-										<div class="product_item d-flex flex-column align-items-center justify-content-center text-center">
-											<div class="product_image d-flex flex-column align-items-center justify-content-center"><img src="<?php echo base_url();?>assets/images/image-not-available.png" alt=""></div>
-											<div class="product_content">
-												<div class="product_price">IDR 50.000,00</div>
-												<div class="product_name"><div><a href="<?php echo base_url();?>assets/product.html">Sample Product</a></div></div>
-												<div class="product_extras">
-
-													<button class="product_cart_button">Tambahkan ke Keranjang</button>
-												</div>
-											</div>
-											<div class="product_fav"><i class="fas fa-heart"></i></div>
-											<ul class="product_marks">
-												<li class="product_mark product_discount"></li>
-												<li class="product_mark product_new"></li>
-											</ul>
-										</div>
-									</div>
 
 								</div>
 								<div class="featured_slider_dots_cover"></div>
@@ -403,193 +219,9 @@
 
 							<div class="product_panel panel">
 								<div class="featured_slider slider">
-
-									<!-- Slider Item -->
-									<div class="featured_slider_item">
-										<div class="border_active"></div>
-										<div class="product_item discount d-flex flex-column align-items-center justify-content-center text-center">
-											<div class="product_image d-flex flex-column align-items-center justify-content-center"><img src="<?php echo base_url();?>assets/images/image-not-available.png" alt=""></div>
-											<div class="product_content">
-												<div class="product_price discount">
-												<span><strike>IDR 100.000,00</strike></span><br>
-												IDR 75.000,00</div>
-												<div class="product_name"><div><a href="<?php echo base_url();?>assets/product.html">Sample Product</a></div></div>
-												<div class="product_extras">
-
-													<button class="product_cart_button">Tambahkan ke Keranjang</button>
-												</div>
-											</div>
-											<div class="product_fav"><i class="fas fa-heart"></i></div>
-											<ul class="product_marks">
-												<li class="product_mark product_discount">-25%</li>
-												<li class="product_mark product_new">new</li>
-											</ul>
-										</div>
-									</div>
-
-									<!-- Slider Item -->
-									<div class="featured_slider_item">
-										<div class="border_active"></div>
-										<div class="product_item discount d-flex flex-column align-items-center justify-content-center text-center">
-											<div class="product_image d-flex flex-column align-items-center justify-content-center"><img src="<?php echo base_url();?>assets/images/image-not-available.png" alt=""></div>
-											<div class="product_content">
-												<div class="product_price discount">
-												<span><strike>IDR 100.000,00</strike></span><br>
-												IDR 75.000,00</div>
-												<div class="product_name"><div><a href="<?php echo base_url();?>assets/product.html">Sample Product</a></div></div>
-												<div class="product_extras">
-
-													<button class="product_cart_button">Tambahkan ke Keranjang</button>
-												</div>
-											</div>
-											<div class="product_fav"><i class="fas fa-heart"></i></div>
-											<ul class="product_marks">
-												<li class="product_mark product_discount">-25%</li>
-												<li class="product_mark product_new">new</li>
-											</ul>
-										</div>
-									</div>
-
-									<!-- Slider Item -->
-									<div class="featured_slider_item">
-										<div class="border_active"></div>
-										<div class="product_item discount d-flex flex-column align-items-center justify-content-center text-center">
-											<div class="product_image d-flex flex-column align-items-center justify-content-center"><img src="<?php echo base_url();?>assets/images/image-not-available.png" alt=""></div>
-											<div class="product_content">
-												<div class="product_price discount">
-												<span><strike>IDR 100.000,00</strike></span><br>
-												IDR 75.000,00</div>
-												<div class="product_name"><div><a href="<?php echo base_url();?>assets/product.html">Sample Product</a></div></div>
-												<div class="product_extras">
-
-													<button class="product_cart_button">Tambahkan ke Keranjang</button>
-												</div>
-											</div>
-											<div class="product_fav"><i class="fas fa-heart"></i></div>
-											<ul class="product_marks">
-												<li class="product_mark product_discount">-25%</li>
-												<li class="product_mark product_new">new</li>
-											</ul>
-										</div>
-									</div>
-
-									<!-- Slider Item -->
-									<div class="featured_slider_item">
-										<div class="border_active"></div>
-										<div class="product_item discount d-flex flex-column align-items-center justify-content-center text-center">
-											<div class="product_image d-flex flex-column align-items-center justify-content-center"><img src="<?php echo base_url();?>assets/images/image-not-available.png" alt=""></div>
-											<div class="product_content">
-												<div class="product_price discount">
-												<span><strike>IDR 100.000,00</strike></span><br>
-												IDR 75.000,00</div>
-												<div class="product_name"><div><a href="<?php echo base_url();?>assets/product.html">Sample Product</a></div></div>
-												<div class="product_extras">
-
-													<button class="product_cart_button">Tambahkan ke Keranjang</button>
-												</div>
-											</div>
-											<div class="product_fav"><i class="fas fa-heart"></i></div>
-											<ul class="product_marks">
-												<li class="product_mark product_discount">-25%</li>
-												<li class="product_mark product_new">new</li>
-											</ul>
-										</div>
-									</div>
-
-									<!-- Slider Item -->
-									<div class="featured_slider_item">
-										<div class="border_active"></div>
-										<div class="product_item discount d-flex flex-column align-items-center justify-content-center text-center">
-											<div class="product_image d-flex flex-column align-items-center justify-content-center"><img src="<?php echo base_url();?>assets/images/image-not-available.png" alt=""></div>
-											<div class="product_content">
-												<div class="product_price discount">
-												<span><strike>IDR 100.000,00</strike></span><br>
-												IDR 75.000,00</div>
-												<div class="product_name"><div><a href="<?php echo base_url();?>assets/product.html">Sample Product</a></div></div>
-												<div class="product_extras">
-
-													<button class="product_cart_button">Tambahkan ke Keranjang</button>
-												</div>
-											</div>
-											<div class="product_fav"><i class="fas fa-heart"></i></div>
-											<ul class="product_marks">
-												<li class="product_mark product_discount">-25%</li>
-												<li class="product_mark product_new">new</li>
-											</ul>
-										</div>
-									</div>
-
-									<!-- Slider Item -->
-									<div class="featured_slider_item">
-										<div class="border_active"></div>
-										<div class="product_item discount d-flex flex-column align-items-center justify-content-center text-center">
-											<div class="product_image d-flex flex-column align-items-center justify-content-center"><img src="<?php echo base_url();?>assets/images/image-not-available.png" alt=""></div>
-											<div class="product_content">
-												<div class="product_price discount">
-												<span><strike>IDR 100.000,00</strike></span><br>
-												IDR 75.000,00</div>
-												<div class="product_name"><div><a href="<?php echo base_url();?>assets/product.html">Sample Product</a></div></div>
-												<div class="product_extras">
-
-													<button class="product_cart_button">Tambahkan ke Keranjang</button>
-												</div>
-											</div>
-											<div class="product_fav"><i class="fas fa-heart"></i></div>
-											<ul class="product_marks">
-												<li class="product_mark product_discount">-25%</li>
-												<li class="product_mark product_new">new</li>
-											</ul>
-										</div>
-									</div>
-
-									<!-- Slider Item -->
-									<div class="featured_slider_item">
-										<div class="border_active"></div>
-										<div class="product_item discount d-flex flex-column align-items-center justify-content-center text-center">
-											<div class="product_image d-flex flex-column align-items-center justify-content-center"><img src="<?php echo base_url();?>assets/images/image-not-available.png" alt=""></div>
-											<div class="product_content">
-												<div class="product_price discount">
-												<span><strike>IDR 100.000,00</strike></span><br>
-												IDR 75.000,00</div>
-												<div class="product_name"><div><a href="<?php echo base_url();?>assets/product.html">Sample Product</a></div></div>
-												<div class="product_extras">
-
-													<button class="product_cart_button">Tambahkan ke Keranjang</button>
-												</div>
-											</div>
-											<div class="product_fav"><i class="fas fa-heart"></i></div>
-											<ul class="product_marks">
-												<li class="product_mark product_discount">-25%</li>
-												<li class="product_mark product_new">new</li>
-											</ul>
-										</div>
-									</div>
-
-									<!-- Slider Item -->
-									<div class="featured_slider_item">
-										<div class="border_active"></div>
-										<div class="product_item discount d-flex flex-column align-items-center justify-content-center text-center">
-											<div class="product_image d-flex flex-column align-items-center justify-content-center"><img src="<?php echo base_url();?>assets/images/image-not-available.png" alt=""></div>
-											<div class="product_content">
-												<div class="product_price discount">
-												<span><strike>IDR 100.000,00</strike></span><br>
-												IDR 75.000,00</div>
-												<div class="product_name"><div><a href="<?php echo base_url();?>assets/product.html">Sample Product</a></div></div>
-												<div class="product_extras">
-
-													<button class="product_cart_button">Tambahkan ke Keranjang</button>
-												</div>
-											</div>
-											<div class="product_fav"><i class="fas fa-heart"></i></div>
-											<ul class="product_marks">
-												<li class="product_mark product_discount">-25%</li>
-												<li class="product_mark product_new">new</li>
-											</ul>
-										</div>
-									</div>
-
-
-
+									<?php
+										$this->load->view('template/product_gridViewFeatured',$dataProductSale);
+									 ?>
 								</div>
 								<div class="featured_slider_dots_cover"></div>
 							</div>

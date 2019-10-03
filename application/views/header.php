@@ -414,7 +414,7 @@ function auth(){
 								<a href="#" data-toggle="tooltip" data-placement="bottom" title="Pesan"><i class="fa fa-fw fa-comment-dots"></i></a>
 								<a href="#" data-toggle="tooltip" data-placement="bottom" title="Transaksi"><i class="fa fa-fw fa-exchange-alt"></i></a>
 							  <a href="#" data-toggle="tooltip" data-placement="bottom" title="Notifikasi"><i class="fa fa-fw fa-bell"></i></a>
-							  <a href="#" data-toggle="tooltip" data-placement="bottom" title="Toko Saya"><i class="fa fa-fw fa-store-alt"></i></a>
+							  <a href="<?php echo base_url();?>my-store" target="_blank" data-toggle="tooltip" data-placement="bottom" title="Toko Saya"><i class="fa fa-fw fa-store-alt"></i></a>
 								&nbsp;&nbsp;&nbsp;
 
 								<div class="dropdown">

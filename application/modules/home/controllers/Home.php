@@ -3,10 +3,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 	class Home extends CI_Controller{
 		public function index(){
+
+			$dataFeatured=array('1','28','29','30','31','32','33');
+			$dataSale=array('33','28','29','30','31','32','1');
+			$data['dataProductFeatured']['dataProduct']=$this->productModel->getProductsFeatured($dataFeatured)->result_array();
+			$data['dataProductSale']['dataProduct']=$this->productModel->getProductsFeatured($dataSale)->result_array();
+
 			$this->load->view('appinfo');
 			$this->load->view('home_s');
 			$this->load->view('header');
-			$this->load->view('home_v');
+			$this->load->view('home_v',$data);
 			$this->load->view('template/subscribe_panel');
 			$this->load->view('footer');
 			$this->load->view('home_x');

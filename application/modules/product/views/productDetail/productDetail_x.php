@@ -21,6 +21,22 @@ $(document).ready(function(){
       quantity=1;
       $('#quantity_input').val('1');
     }
+    Swal.fire({
+      text:'Membuat invoice...',
+      background:'#FFFFFF',
+      width:'300px',
+      height:'100px',
+      confirmButtonColor:'#009245',
+      showConfirmButton:false,
+      allowOutsideClick: false,
+      allowEscapeKey: false,
+      allowEnterKey: false,
+      onBeforeOpen: () =>{
+      },
+      onOpen: () => {
+        swal.showLoading()
+      }
+    });
     $.ajax({
           url: "<?php echo base_url();?>cart/addToCart",
           type: "post",
@@ -30,8 +46,9 @@ $(document).ready(function(){
               src:'WEB'
           },
           success: function (response) {
+            Swal.close();
             if(response=="OK"){
-              alert("ok");
+              //alert("ok");
             }
 
 

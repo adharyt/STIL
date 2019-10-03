@@ -10,6 +10,49 @@
 <script src="<?php echo base_url();?>assets/plugins/easing/easing.js"></script>
 <script src="<?php echo base_url();?>assets/js/cart_custom.js"></script>
 <script type="text/javascript">
+      function checkout(){
+        var checkoutItem = [];
+            $.each($("input[name='item']:checked"), function(){
+                checkoutItem.push({"id":$('#quan'+$(this).val()).attr('rp_id'),"store_id":$('#quan'+$(this).val()).attr('st_id'),"quantity":$('#quan'+$(this).val()).val()});
+
+            });
+            var checkoutJSON=JSON.stringify(checkoutItem);
+            Swal.fire({
+              text:'Mohon menunggu...',
+              background:'#FFFFFF',
+              width:'300px',
+              height:'100px',
+              confirmButtonColor:'#009245',
+              showConfirmButton:false,
+              allowOutsideClick: false,
+              allowEscapeKey: false,
+              allowEnterKey: false,
+              onBeforeOpen: () =>{
+              },
+              onOpen: () => {
+                swal.showLoading()
+              }
+            });
+            $.ajax({
+                  url: "<?php echo base_url();?>checkout/process",
+                  type: "post",
+                  data: {
+                      data:checkoutJSON
+                  },
+                  success: function (response) {
+                    swal.close();
+                    if(response!="FALSE"){
+                      //alert(response);
+                      location.href="http://localhost/stil/checkout"
+                    }
+                  },
+                  error: function(jqXHR, textStatus, errorThrown) {
+                     console.log(textStatus, errorThrown);
+                  }
+
+              });
+      }
+
       function updateSummary(){
         var selected = [];
         var store=[];

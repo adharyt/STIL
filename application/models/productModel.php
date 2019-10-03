@@ -4,6 +4,34 @@ class productModel extends CI_Model{
     $this->load->database();
   }
 
+  public function getProductsFeatured($data){
+    $array= implode(',', array_map('intval', $data));
+
+    $sql = "SELECT
+    p.*,
+    p.id as product_id,
+    p.lup as product_lup,
+    p.is_visibility as product_visibility,
+    p.is_deleted as product_availability,
+    s.id as store_id,
+    s.store_name,
+    s.store_notes,
+    s.store_photo,
+    l.nama as store_city,
+    u.username as store_link,
+    u.photo
+    FROM user_client as u
+    LEFT JOIN product as p on p.id_user=u.id
+    LEFT JOIN store as s on u.id=s.id_user
+    LEFT join zone_id as l on s.store_city=l.kode_wilayah
+    where s.is_store_active='1'
+    and p.is_visibility=1
+    and p.is_deleted=0
+    and p.id in($array)
+    ";
+    return $this->db->query($sql);
+  }
+
   public function getProducts($data,$start='',$end='',$is_pagination='0'){
     if($is_pagination==1){
       $pagination="limit $start,$end";
@@ -427,13 +455,23 @@ class productModel extends CI_Model{
         if($data['stock_type']==1){
           $new_value=1;
         }else if($data['stock_type']==2){
-          if($value<=$data['stock']){
+          $id_user=$this->session->userdata('user_id');
+          $query=$this->db->query("SELECT sum(quantity) as q from cart_tempcheckout where status=0 and id_user!='$id_user' and id_product='$id'");
+          $cek_fix_quantity=$query->num_rows();
+
+          if($cek_fix_quantity>0){
+            $fix_quantity_val=$query->result_array()[0]['q'];
+          }else{
+            $fix_quantity_val=0;
+          }
+
+          if($value+$fix_quantity_val<=$data['stock']){
             $new_value=$value;
           }else{
-            $new_value=$data['stock'];
+            $new_value=$data['stock']-$fix_quantity_val;
             $msg=2;
           }
-          if($value>=$data['buy_minimum']){
+          if($value+$fix_quantity_val>=$data['buy_minimum']){
             $new_value=$new_value;
           }else{
             $new_value=$data['buy_minimum'];

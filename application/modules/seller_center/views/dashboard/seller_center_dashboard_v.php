@@ -2,19 +2,8 @@
     <div class="title-text">Pengaturan Toko</div>
         <div class="row mt-2">
             <div class="col">
-                <div class="card mb-3">
-                    <a class="card-settings-container" href="<?php echo base_url();?>my-store/address">
-                        <div class="card-settings-body-container">
-                            <i class="card-settings-icon fa fa-map-marker-alt"></i>
-                            <div>
-                                <div class="card-settings-title-text">Alamat</div>
-                                <div class="card-settings-body-text">Atur alamat dengan mudah dan efisien</div>
-                            </div>
-                        </div>    
-                        <i class="fa fa-chevron-circle-right"></i>
-                    </a>
-                </div>
                 
+
 
                 <div class="card mb-3">
                     <a class="card-settings-container" href="<?php echo base_url();?>my-store/rekening">
@@ -31,7 +20,7 @@
                     </a>
                 </div>
 
-                
+
                 <div class="card mb-3">
                     <a class="card-settings-container" href="<?php echo base_url();?>my-store/shipping">
                         <div class="card-settings-body-container">

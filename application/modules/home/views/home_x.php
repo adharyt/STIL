@@ -14,6 +14,15 @@
 $(document).ready(function(){
   $('[data-toggle="tooltip"]').tooltip();
 });
+
+$('.sliderTab').on('click',function(e){
+  setTimeout(
+  function()
+  {
+    $('.featured_slider_item').css('padding','10px');
+  }, 500);
+
+});
 </script>
 </body>
 

@@ -74,6 +74,7 @@ $route['my-account/address'] = 'profile/profileAddress';
 $route['my-account/wishlist'] = 'profile/profileWishlist';
 
 //My Store
+$route['my-store'] = 'seller_center';
 $route['my-store/shipping'] = 'seller_center/courierShippingSchedule';
 $route['my-store/address'] = 'seller_center/address';
 $route['my-store/rekening'] = 'seller_center/rekening';
@@ -82,6 +83,12 @@ $route['my-store/store-info'] = 'seller_center/storeInfo';
 $route['my-store/close-store'] = 'seller_center/closeStore';
 $route['my-store/merchant-notes'] = 'seller_center/merchantNotes';
 $route['my-store/store-verification'] = 'seller_center/storeVerification';
+
+//My store action
+$route['my-store/shipping-courier-update'] = 'seller_center/shippingCourierUpdate';
+$route['my-store/shipping-openday-update'] = 'seller_center/shippingDayUpdate';
+$route['my-store/shipping-openhour-update'] = 'seller_center/shippingHourUpdate';
+
 
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;

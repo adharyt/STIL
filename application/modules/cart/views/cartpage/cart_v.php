@@ -105,7 +105,7 @@
 			                												<button style="background-color:#f28f16" class="minus-btn" type="button" name="button">
 			                							            <b style="font-size:16px;color:white">-</b>
 			                							          </button>
-			                							          <input  id='quan<?php echo $productData['cart_id'];?>' st_id="<?php echo $cartData['id_store'];?>" pr_id="<?php echo $productData['cart_id'];?>" class="quan" type="number" name="quantity" id="quantity" value="<?php echo $quantity;?>">
+			                							          <input  id='quan<?php echo $productData['cart_id'];?>' rp_id="<?php echo $productData['product_id'];?>" st_id="<?php echo $cartData['id_store'];?>" pr_id="<?php echo $productData['cart_id'];?>" class="quan" type="number" name="quantity" id="quantity" value="<?php echo $quantity;?>">
 			                												<button style="background-color:#f28f16" class="plus-btn" type="button" name="button">
 			                							            <b style="font-size:16px;color:white">+</b>
 			                							          </button>
@@ -179,7 +179,7 @@
 										<hr>
 										<div class="row">
 											<div class="col-12 text-right">
-												<a href="http://localhost/stil/assets/#"><div class="btn btn-md" style="color:white;background-color:#009245">Checkout</div></a>
+												<a href="javascript:void(0);"><div class="btn btn-md" style="color:white;background-color:#009245" onClick="checkout();">Checkout</div></a>
 											</div>
 										</div>
 

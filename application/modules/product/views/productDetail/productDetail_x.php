@@ -1,4 +1,4 @@
-<script src="<?php echo base_url();?>assets/js/jquery-3.3.1.min.js"></script>
+
 <script src="<?php echo base_url();?>assets/styles/bootstrap4/popper.js"></script>
 <script src="<?php echo base_url();?>assets/styles/bootstrap4/bootstrap.min.js"></script>
 <script src="<?php echo base_url();?>assets/plugins/greensock/TweenMax.min.js"></script>
@@ -9,20 +9,16 @@
 <script src="<?php echo base_url();?>assets/plugins/OwlCarousel2-2.2.1/owl.carousel.js"></script>
 <script src="<?php echo base_url();?>assets/plugins/easing/easing.js"></script>
 <script src="<?php echo base_url();?>assets/js/product_custom.js"></script>
-<script>
-$(document).ready(function(){
-    $('[data-toggle="popover"]').popover();
-});
-</script>
 <script type="text/javascript">
   function addToCart(product_id){
+    <?php if($this->session->userdata('is_login')=='y'){ ?>
     var quantity=$('#quantity_input').val();
     if(quantity=='' || quantity<1){
       quantity=1;
       $('#quantity_input').val('1');
     }
     Swal.fire({
-      text:'Membuat invoice...',
+      text:'Loading...',
       background:'#FFFFFF',
       width:'300px',
       height:'100px',
@@ -47,8 +43,22 @@ $(document).ready(function(){
           },
           success: function (response) {
             Swal.close();
-            if(response=="OK"){
-              //alert("ok");
+            if(response!="FAILED"){
+              $('#cartcount').text(response);
+              Swal.fire({
+                title: 'Berhasil!',
+                text: "Barang berhasil ditambahkan ke keranjang! Lihat keranjang Anda sekarang?",
+                type: 'success',
+                reverseButtons:true,
+                showCancelButton: true,
+                confirmButtonColor: '#099235',
+                confirmButtonText: 'Lihat Keranjang',
+                cancelButtonText: 'Nanti Saja'
+              }).then((result) => {
+                if (result.value) {
+                  location.href="<?php echo base_url();?>cart";
+                }
+              })
             }
 
 
@@ -57,8 +67,10 @@ $(document).ready(function(){
              console.log(textStatus, errorThrown);
           }
 
-      })
-
+      });
+      <?php }else{ ?>
+        login();
+        <?php } ?>
   }
 
 
@@ -95,4 +107,85 @@ $(document).ready(function(){
     }
     $('#quantity_input').val(newval);
   }
+</script>
+<script type="text/javascript">
+function swishlist(idProduk,storeLink){
+  <?php if($this->session->userdata('is_login')=='y'){ ?>
+  Swal.fire({
+    text:'Mohon menunggu...',
+    background:'#FFFFFF',
+    width:'300px',
+    height:'100px',
+    confirmButtonColor:'#009245',
+    showConfirmButton:false,
+    allowOutsideClick: false,
+    allowEscapeKey: false,
+    allowEnterKey: false,
+    onBeforeOpen: () =>{
+    },
+    onOpen: () => {
+      swal.showLoading()
+    }
+  });
+  $.ajax({
+        url: "<?php echo base_url();?>product/swishlist",
+        type: "post",
+        data: {
+            id:idProduk,
+            store:storeLink
+        },
+        success: function (response) {
+          if(response=="OKi"){
+            var newVal=parseInt($('#wishlistCount').text())+1;
+            $('#wishlistCount').text(newVal);
+            var newValThis=parseInt($('#thisWishlist').text())+1;
+            $('#thisWishlist').text(newValThis);
+          }else{
+            var newVal=parseInt($('#wishlistCount').text())-1;
+            $('#wishlistCount').text(newVal);
+            var newValThis=parseInt($('#thisWishlist').text())-1;
+            $('#thisWishlist').text(newValThis);
+          }
+
+          swal.close();
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+           console.log(textStatus, errorThrown);
+        }
+
+    });
+    <?php }else{ ?>
+      login();
+      <?php } ?>
+
+}
+</script>
+<script type="text/javascript">
+
+function viewReview(){
+  $.ajax({
+          url: "<?php echo base_url();?>product/getReviews",
+          type: "post",
+          data: {
+              id:$('#product_id').val()
+          } ,
+          success: function (response) {
+             // you will get response from your php page (what you echo or print)
+             $('#reviewContent').html(response);
+             $('#reviewModal').modal('show');
+
+
+          },
+          error: function(jqXHR, textStatus, errorThrown) {
+             console.log(textStatus, errorThrown);
+          }
+
+
+      })
+}
+</script>
+<script>
+$(document).ready(function(){
+  $('[data-toggle="popover"]').popover();
+});
 </script>

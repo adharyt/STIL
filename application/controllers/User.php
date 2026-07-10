@@ -41,7 +41,7 @@ class User extends CI_Controller {
 			$email=$this->session->userdata('email');
 
 
-				$query="UPDATE user_client set birthdate='$date',role='$job',company='$company',phone='$phone',address='$address',bio='$bio' where id=".$this->db->escape($id)." and email=".$this->db->escape($email);
+				$query="UPDATE stil.user_client set birthdate='$date',role='$job',company='$company',phone='$phone',address='$address',bio='$bio' where id=".$this->db->escape($id)." and email=".$this->db->escape($email);
 
 				$insert=$this->db->query($query);
 				$insert_log=$this->db->query("INSERT INTO log_user_client_update VALUES('','$email',".$this->db->escape($query).",now() )" );
@@ -64,14 +64,14 @@ class User extends CI_Controller {
 			$email=$this->session->userdata('email');
 
 
-			$query=$this->db->query("SELECT password FROM user_client where email=".$this->db->escape($email));
+			$query=$this->db->query("SELECT password FROM stil.user_client where email=".$this->db->escape($email));
 			$cek_email=$query->num_rows();
 			if($cek_email>0){
 				$cek_password=$query->result_array();
 				$passworddb=$cek_password[0]['password'];
 
 				if(password_verify($oldpassword,$passworddb)){
-						$updatePassword=$this->db->query("UPDATE user_client set password='$password' where email=".$this->db->escape($email));
+						$updatePassword=$this->db->query("UPDATE stil.user_client set password='$password' where email=".$this->db->escape($email));
 						$updatePasswordLog=$this->db->query("INSERT into log_user_client_pwupdate values('','$email','$passworddb','$password',now())");
 						if($updatePassword && $updatePasswordLog){
 							echo "SUCCESS";

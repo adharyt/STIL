@@ -1,0 +1,18 @@
+.notification-container{
+    padding: 16px;
+    background-color: #a4e3ed;
+}
+.notification-bar-title-text{
+    font-family: Helvetica;
+    font-weight: bold;
+    font-size: 1rem;
+}
+.notification-bar-content-text{
+    font-family: Helvetica;
+    font-size: 0.9rem;
+}
+.notification-bar-timestamp-text{
+    font-family: Helvetica;
+    font-size: 0.7rem;
+    color: grey;
+}

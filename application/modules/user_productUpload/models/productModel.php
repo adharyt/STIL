@@ -6,7 +6,7 @@ class productModel extends CI_Model{
 
   public function getProductDetail($store_id,$product_id){
     $sql = "SELECT p.pr_name,p.price,u.store_name,u.store_notes,u.photo,u.store_notes,u.store_city,u.store_lastdelivery,u.store_lup_active
-    FROM product as p inner join user_client as u on p.id_user=u.id
+    FROM product as p inner join stil.user_client as u on p.id_user=u.id
     where u.username='$store_id'
     and p.id='$product_id'
     and u.is_store_active='1'

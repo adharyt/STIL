@@ -1,4 +1,4 @@
-<script src="<?php echo base_url();?>assets/js/jquery-3.3.1.min.js"></script>
+
 <script src="<?php echo base_url();?>assets/styles/bootstrap4/popper.js"></script>
 <script src="<?php echo base_url();?>assets/styles/bootstrap4/bootstrap.min.js"></script>
 <script src="<?php echo base_url();?>assets/plugins/greensock/TweenMax.min.js"></script>
@@ -13,9 +13,107 @@
 <script src="<?php echo base_url();?>assets/plugins/parallax-js-master/parallax.min.js"></script>
 <script src="<?php echo base_url();?>assets/js/shop_custom.js"></script>
 <script src="<?php echo base_url();?>assets/plugins/croppie/croppie.js"></script>
-<script src="<?php echo base_url();?>assets/https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyCIwF204lFZg1y4kPSIhKaHEXMLYxxuMhA"></script>
+<script type="text/javascript" src="<?php echo base_url();?>assets/js/product_filter.js"></script>
 
 
+<script type="text/javascript">
+
+function storeFavo(idStore){
+  Swal.fire({
+    text:'Mohon menunggu...',
+    background:'#FFFFFF',
+    width:'300px',
+    height:'100px',
+    confirmButtonColor:'#009245',
+    showConfirmButton:false,
+    allowOutsideClick: false,
+    allowEscapeKey: false,
+    allowEnterKey: false,
+    onBeforeOpen: () =>{
+    },
+    onOpen: () => {
+      swal.showLoading()
+    }
+  });
+  $.ajax({
+        url: "<?php echo base_url();?>store/storeFav",
+        type: "post",
+        data: {
+            id:idStore
+        },
+        success: function (response) {
+          swal.close();
+          location.reload();
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+           console.log(textStatus, errorThrown);
+        }
+
+    })
+
+}
+</script>
+<script type="text/javascript">
+  function addToCart(product_id){
+    <?php if($this->session->userdata('is_login')=='y'){ ?>
+    var quantity=1;
+    Swal.fire({
+      text:'Loading...',
+      background:'#FFFFFF',
+      width:'300px',
+      height:'100px',
+      confirmButtonColor:'#009245',
+      showConfirmButton:false,
+      allowOutsideClick: false,
+      allowEscapeKey: false,
+      allowEnterKey: false,
+      onBeforeOpen: () =>{
+      },
+      onOpen: () => {
+        swal.showLoading()
+      }
+    });
+    $.ajax({
+          url: "<?php echo base_url();?>cart/addToCart",
+          type: "post",
+          data: {
+              idProduk:product_id,
+              quantity:quantity,
+              src:'WEB'
+          },
+          success: function (response) {
+            Swal.close();
+            if(response!="FAILED"){
+              $('#cartcount').text(response);
+              Swal.fire({
+                title: 'Berhasil!',
+                text: "Barang berhasil ditambahkan ke keranjang! Lihat keranjang Anda sekarang?",
+                type: 'success',
+                reverseButtons:true,
+                showCancelButton: true,
+                confirmButtonColor: '#099235',
+                confirmButtonText: 'Lihat Keranjang',
+                cancelButtonText: 'Nanti Saja'
+              }).then((result) => {
+                if (result.value) {
+                  location.href="<?php echo base_url();?>cart";
+                }
+              })
+            }
+
+
+          },
+          error: function(jqXHR, textStatus, errorThrown) {
+             console.log(textStatus, errorThrown);
+          }
+
+      });
+      <?php }else{ ?>
+        login();
+        <?php } ?>
+  }
+
+</script>
 <script type="text/javascript">
   function quickview(idProduk,storeLink){
 		Swal.fire({
@@ -164,6 +262,68 @@ $(document).ready(function(){
       });
     })
   });
+
+  $store_image_crop = $('#image_store_to_crop').croppie({
+     enableExif: true,
+     viewport: {
+       width:200,
+       height:200,
+       type:'circle' //square
+     },
+     boundary:{
+       width:300,
+       height:300
+     }
+   });
+
+   $('#upload_image_store').on('change', function(){
+     var reader = new FileReader();
+     reader.onload = function (event) {
+       $store_image_crop.croppie('bind', {
+         url: event.target.result
+       }).then(function(){
+         //console.log('jQuery bind complete');
+       });
+     }
+     reader.readAsDataURL(this.files[0]);
+     $('#uploadimageStoreModal').modal('show');
+   });
+
+   $('#crop_store_image_now').click(function(event){
+     $store_image_crop.croppie('result', {
+       type: 'canvas',
+       size: 'viewport'
+     }).then(function(response){
+       Swal.fire({
+         text:'Mengganti foto toko...',
+         background:'#FFFFFF',
+         width:'300px',
+         height:'100px',
+         confirmButtonColor:'#009245',
+         showConfirmButton:false,
+         allowOutsideClick: false,
+         allowEscapeKey: false,
+         allowEnterKey: false,
+         onBeforeOpen: () =>{
+         },
+         onOpen: () => {
+           swal.showLoading()
+         }
+       });
+       $.ajax({
+         url:"<?php echo base_url();?>store/store_photo_upload",
+         type: "POST",
+         data:{"image": response},
+         success:function(data)
+         {
+           $('#uploadimageStoreModal').modal('hide');
+           $('#storecurrentpic').attr("src",data);
+           swal.close();
+           //location.reload();
+         }
+       });
+     })
+   });
 
 });
 </script>

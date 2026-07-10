@@ -115,13 +115,11 @@ p a:hover::after
 {
 	opacity: 0.2;
 }
-::selection
-{
-
+::selection {
+  background: #f28f16; /* WebKit/Blink Browsers */
 }
-p::selection
-{
-
+::-moz-selection {
+  background: #f28f16; /* Gecko Browsers */
 }
 h1{font-size: 48px;}
 h2{font-size: 36px;}
@@ -136,18 +134,10 @@ h1, h2, h3, h4, h5, h6
 	-webkit-text-shadow: rgba(0,0,0,.01) 0 0 1px;
 	text-shadow: rgba(0,0,0,.01) 0 0 1px;
 }
-h1::selection,
-h2::selection,
-h3::selection,
-h4::selection,
-h5::selection,
-h6::selection
-{
 
-}
 .form-control
 {
-	color: #db5246;
+	color: black;
 }
 section
 {
@@ -906,8 +896,8 @@ select option
 	position: absolute;
 	top: 100%;
 	left: 0;
-	/*visibility: hidden;
-	opacity: 0;*/
+	visibility: hidden;
+	opacity: 0;
 	min-width: 100%;
 	background: #FFFFFF;
 	box-shadow: 0px 10px 25px rgba(0,0,0,0.1);

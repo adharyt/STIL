@@ -132,4 +132,14 @@ $autoload['language'] = array();
 |
 |	$autoload['model'] = array('first_model' => 'first');
 */
-$autoload['model'] = array('currencyModel','timeModel','userModel','productModel');
+$autoload['model'] = array($this->config->item('stil_assets_models').'profileModel',
+                           $this->config->item('stil_assets_models').'userModel',
+                           $this->config->item('stil_assets_models').'timeModel',
+                           $this->config->item('stil_assets_models').'numberingModel',
+                           $this->config->item('stil_assets_models').'stringModel',
+                           $this->config->item('stil_assets_models').'currencyModel',
+                           $this->config->item('stil_assets_models').'optionModel',
+                           $this->config->item('stil_assets_models').'emailModel',
+                           $this->config->item('stil_assets_models').'redisModel',
+                           'storeModel','productModel','statusModel','notificationModel','chatModel'
+                          );

@@ -1,4 +1,4 @@
-<script src="<?php echo base_url();?>assets/js/jquery-3.3.1.min.js"></script>
+
 <script src="<?php echo base_url();?>assets/styles/bootstrap4/popper.js"></script>
 <script src="<?php echo base_url();?>assets/styles/bootstrap4/bootstrap.min.js"></script>
 <script src="<?php echo base_url();?>assets/plugins/greensock/TweenMax.min.js"></script>
@@ -12,6 +12,7 @@
 <script src="<?php echo base_url();?>assets/plugins/jquery-ui-1.12.1.custom/jquery-ui.js"></script>
 <script src="<?php echo base_url();?>assets/plugins/parallax-js-master/parallax.min.js"></script>
 <script src="<?php echo base_url();?>assets/js/shop_custom.js"></script>
+<script type="text/javascript" src="<?php echo base_url();?>assets/js/product_filter.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.9/js/select2.min.js"></script>
 
 <script type="text/javascript">
@@ -22,6 +23,67 @@ $('#kategori').find('i').click(function(e){
     $(this).parent().toggleClass('dd-active dd-nactive');
 });
 });
+</script>
+<script type="text/javascript">
+  function addToCart(product_id){
+    <?php if($this->session->userdata('is_login')=='y'){ ?>
+    var quantity=1;
+    Swal.fire({
+      text:'Loading...',
+      background:'#FFFFFF',
+      width:'300px',
+      height:'100px',
+      confirmButtonColor:'#009245',
+      showConfirmButton:false,
+      allowOutsideClick: false,
+      allowEscapeKey: false,
+      allowEnterKey: false,
+      onBeforeOpen: () =>{
+      },
+      onOpen: () => {
+        swal.showLoading()
+      }
+    });
+    $.ajax({
+          url: "<?php echo base_url();?>cart/addToCart",
+          type: "post",
+          data: {
+              idProduk:product_id,
+              quantity:quantity,
+              src:'WEB'
+          },
+          success: function (response) {
+            Swal.close();
+            if(response!="FAILED"){
+              $('#cartcount').text(response);
+              Swal.fire({
+                title: 'Berhasil!',
+                text: "Barang berhasil ditambahkan ke keranjang! Lihat keranjang Anda sekarang?",
+                type: 'success',
+                reverseButtons:true,
+                showCancelButton: true,
+                confirmButtonColor: '#099235',
+                confirmButtonText: 'Lihat Keranjang',
+                cancelButtonText: 'Nanti Saja'
+              }).then((result) => {
+                if (result.value) {
+                  location.href="<?php echo base_url();?>cart";
+                }
+              })
+            }
+
+
+          },
+          error: function(jqXHR, textStatus, errorThrown) {
+             console.log(textStatus, errorThrown);
+          }
+
+      });
+      <?php }else{ ?>
+        login();
+        <?php } ?>
+  }
+
 </script>
 <script type="text/javascript">
   function quickview(idProduk,storeLink){
@@ -62,6 +124,7 @@ $('#kategori').find('i').click(function(e){
   }
 
 	function swishlist(idProduk,storeLink){
+    <?php if($this->session->userdata('is_login')=='y'){ ?>
 		Swal.fire({
 			text:'Mohon menunggu...',
 			background:'#FFFFFF',
@@ -100,7 +163,10 @@ $('#kategori').find('i').click(function(e){
              console.log(textStatus, errorThrown);
           }
 
-      })
+      });
+      <?php }else{ ?>
+        login();
+      <?php } ?>
 
   }
 
@@ -113,7 +179,7 @@ $('#kategori').find('i').click(function(e){
            placeholder: 'Semua Wilayah/Provinsi',
            ajax: {
               dataType: 'json',
-              url: 'http://localhost/stil/API/getLocation/ID/PROVINCE',
+              url: '<?php echo base_url();?>API/getLocation/ID/PROVINCE',
               delay: 800,
               data: function(params) {
                 return {
@@ -176,7 +242,7 @@ $('#kategori').find('i').click(function(e){
            placeholder: 'Semua Kota/Kabupaten',
            ajax: {
               dataType: 'json',
-              url: 'http://localhost/stil/API/getLocation/ID/CITY',
+              url: '<?php echo base_url();?>API/getLocation/ID/CITY',
               delay: 800,
               data: function(params) {
                 return {

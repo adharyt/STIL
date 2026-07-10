@@ -1,4 +1,4 @@
-<script src="<?php echo base_url();?>assets/js/jquery-3.3.1.min.js"></script>
+
 <script src="<?php echo base_url();?>assets/styles/bootstrap4/popper.js"></script>
 <script src="<?php echo base_url();?>assets/styles/bootstrap4/bootstrap.min.js"></script>
 <script src="<?php echo base_url();?>assets/plugins/greensock/TweenMax.min.js"></script>

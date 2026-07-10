@@ -27,12 +27,6 @@ $profilPenjual=$this->seller_centerModel->getStoreProfile($this->session->userda
                     <a class="default-text">Penjualan</a>
                 </li>
                 <li class="sidebar-item">
-                    <a class="default-text">Promosi</a>
-                </li>
-                <li class="sidebar-item">
-                    <a class="default-text">Statistik</a>
-                </li>
-                <li class="sidebar-item">
                     <a class="default-text" onClick="show_pengaturan_toko();">Pengaturan Toko</a>
                 </li>
             </ul>

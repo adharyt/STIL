@@ -1,0 +1,11 @@
+<link rel="stylesheet" type="text/css" href="<?php echo base_url();?>assets/styles/bootstrap4/bootstrap.min.css">
+<link href="<?php echo base_url();?>assets/plugins/fontawesome-free-5.0.1/css/fontawesome-all.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" type="text/css" href="<?php echo base_url();?>assets/styles/contact_styles.css">
+<link rel="stylesheet" type="text/css" href="<?php echo base_url();?>assets/styles/contact_responsive.css">
+<link rel="stylesheet" type="text/css" href="<?php echo base_url();?>assets/plugins/bootstrap-select/bootstrap-select.css">
+<link rel="stylesheet" type="text/css" href="<?php echo base_url();?>assets/plugins/croppie/croppie.css">
+
+<link rel="stylesheet" type="text/css" href="<?php echo base_url();?>assets/vendor/bootstrap-datatable/dataTables.bootstrap4.min.css">
+<style media="screen">
+  .tabs-left,.tabs-left-content,.tabs-right,.tabs-right-content{display:table-cell}.nav-tabs.tabs-left .slide{height:35px;width:4px;bottom:15px}.nav-tabs.tabs-right .slide{height:35px;width:4px;bottom:15px;right:0}.md-tabs.tabs-left .nav-item,.md-tabs.tabs-right .nav-item,.tabs-left .nav-item,.tabs-right .nav-item{width:100%;position:relative}.md-tabs{position:relative}.md-tabs .nav-item+.nav-item{margin:0}.md-tabs .nav-link{border:none;color:#37474f}.md-tabs .nav-item{-webkit-box-flex:1;-ms-flex:1;flex:1;text-align:center;position:relative}.md-tabs .nav-link:focus,.md-tabs .nav-link:hover{border:none}.md-tabs .nav-item .nav-link.active~.slide{opacity:1;-webkit-transition:all .3s ease-out;transition:all .3s ease-out}.md-tabs .nav-item .nav-link~.slide{opacity:0;-webkit-transition:all .3s ease-out;transition:all .3s ease-out}.md-tabs .nav-item.open .nav-link,.md-tabs .nav-item.open .nav-link:focus,.md-tabs .nav-item.open .nav-link:hover,.md-tabs .nav-link.active,.md-tabs .nav-link.active:focus,.md-tabs .nav-link.active:hover{color:#099235;border:none;background-color:transparent;border-radius:0}.md-tabs .nav-item a{padding:20px 0;color:#37474f}.nav-tabs .slide{background:#099235;width:100%;height:4px;position:absolute;-webkit-transition:left .3s ease-out;transition:left .3s ease-out;bottom:0}.nav-tabs .slide .nav-item.show .nav-link,.nav-tabs .slide .nav-link{color:#099235}
+</style>

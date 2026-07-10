@@ -1,4 +1,3 @@
-
 <link rel="stylesheet" type="text/css" href="<?php echo base_url();?>assets/styles/profile_seller_dashboard_v2.css">
 <link rel="stylesheet" type="text/css" href="<?php echo base_url();?>assets/styles/bootstrap4/bootstrap.min.css">
 <link rel="stylesheet" type="text/css" href="<?php echo base_url();?>assets/plugins/OwlCarousel2-2.2.1/owl.carousel.css">

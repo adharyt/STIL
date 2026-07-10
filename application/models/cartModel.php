@@ -10,8 +10,12 @@ class cartModel extends CI_Model{
     p.id as product_id,
     p.id_user as product_store,
     p.price as product_price,
-    p.is_discount as product_discount,
-    p.discount_value as product_discount_value
+    p.is_wholesale,
+    p.discount_start,
+    p.discount_end,
+    p.is_discount_grosir,
+    p.discount_value,
+    p.stock_type
     FROM product as p
     WHERE p.id='$product_id'
     limit 1";
@@ -24,6 +28,7 @@ class cartModel extends CI_Model{
     FROM cart
     WHERE id_product='$product_id'
     and id_user='$user_id'
+    and is_deleted=0
     limit 1";
 
     return $this->db->query($sql)->num_rows();
@@ -42,12 +47,20 @@ class cartModel extends CI_Model{
     $sql="SELECT distinct c.id_store,s.is_store_active,s.store_name,s.store_city
     FROM cart as c inner join store as s
     ON c.id_store=s.id_user
-    where c.id_user='$id_user' order by c.lup desc";
+    where c.id_user='$id_user'
+    and c.is_deleted=0
+    order by c.lup desc";
 
     $data_final=$this->db->query($sql)->result_array();
 
     for($i=0;$i<count($data_final);$i++){
         $data_final[$i]['id_product']=$this->cartModel->itemPerCartPerStore($id_user,$data_final[$i]['id_store']);
+        $count_availability=0;
+        foreach($data_final[$i]['id_product'] as $productData){
+          $status=$this->productModel->checkAvailability($productData['product_id']);
+          if($status==1){$count_availability++;}
+        }
+        $data_final[$i]['count_availability']=$count_availability;
     }
 
     return $data_final;
@@ -66,6 +79,7 @@ class cartModel extends CI_Model{
     p.pr_slug as product_slug,
     p.pr_uniq as product_uniq,
     p.pr_name as product_name,
+    p.weight,
     p.buy_minimum,
     p.stock_type,
     p.stock,
@@ -81,7 +95,9 @@ class cartModel extends CI_Model{
     p.wh_price4,
     p.wh_unit5,
     p.wh_price5,
-    p.is_discount,
+    p.discount_start,
+    p.discount_end,
+    p.is_discount_grosir,
     p.discount_value,
     p.is_discount_stil,
     p.is_visibility,
@@ -90,10 +106,11 @@ class cartModel extends CI_Model{
     u.username as store_link
     FROM cart as c
     LEFT JOIN product as p on c.id_product=p.id
-    LEFT JOIN user_client as u on c.id_user=u.id
+    LEFT JOIN stil.user_client as u on c.id_store=u.id
     where c.id_user='$id_user'
     and c.id_store='$id_store'
-    order by c.lup desc";
+    and c.is_deleted=0
+    order by p.is_visibility desc,c.lup desc";
 
     return $this->db->query($sql)->result_array();
   }

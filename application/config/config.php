@@ -25,6 +25,17 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 */
 $config['base_url'] = 'http://localhost/stil';
 
+$config['landing_url'] = 'http://localhost/stil_landing';
+$config['landing_url_login'] = 'http://localhost/stil_landing/login';
+$config['landing_url_logout'] = 'http://localhost/stil_landing/logout';
+
+$config['stil_assets_url']='http://localhost/stil_assets';
+$config['stil_assets_dir']=$_SERVER['DOCUMENT_ROOT'].'/stil_assets';
+$config['stil_assets_models']='../../../stil_assets/models/';
+
+
+$config['academy_url'] = 'http://localhost/stil_academy';
+
 /*
 |--------------------------------------------------------------------------
 | Index File
@@ -136,7 +147,7 @@ $config['subclass_prefix'] = 'MY_';
 | Note: This will NOT disable or override the CodeIgniter-specific
 |	autoloading (application/config/autoload.php)
 */
-$config['composer_autoload'] = FALSE;
+$config['composer_autoload'] = "vendor/autoload.php";
 
 /*
 |--------------------------------------------------------------------------
@@ -488,7 +499,9 @@ $config['compress_output'] = FALSE;
 | helper' page of the user guide for information regarding date handling.
 |
 */
-$config['time_reference'] = 'local';
+$config['time_reference'] = 'Asia/Jakarta';
+date_default_timezone_set('Asia/Jakarta');
+$config['current_time'] = date('Y-m-d H:i:s');
 
 /*
 |--------------------------------------------------------------------------

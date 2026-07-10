@@ -13,9 +13,11 @@ class checkoutModel extends CI_Model{
   }
 
   public function inputCheckout($user_id,$datas){
-    $cekDump=$this->db->query("UPDATE cart_tempcheckout set status=2 where status!=1 and id_user='$user_id'");
+    $cekDump=$this->db->query("UPDATE cart_tempcheckout set status=2 where status=0 and id_user='$user_id'");
     $cekInsert=0;
     foreach($datas as $data){
+
+      $fixedQuantity=$this->productModel->cekStokBarang($data['id'],$data['quantity'])['value'];
       $insert=$this->db->query("INSERT into cart_tempcheckout
       (
         id_user,
@@ -31,7 +33,7 @@ class checkoutModel extends CI_Model{
         '$user_id',
         '$data[store_id]',
         '$data[id]',
-        '$data[quantity]',
+        '$fixedQuantity',
         'WEB CART',
         '0',
         now()
@@ -61,7 +63,25 @@ class checkoutModel extends CI_Model{
     $data_final=$this->db->query($sql)->result_array();
 
     for($i=0;$i<count($data_final);$i++){
-        $data_final[$i]['id_product']=$this->checkoutModel->getProductCheckout($id_user,$data_final[$i]['id_store']);
+        $cur_idstore=$data_final[$i]['id_store'];
+        $data_final[$i]['id_product']=$this->checkoutModel->getProductCheckout($id_user,$cur_idstore);
+        $cekSpecialDelivery=$this->db->query("SELECT p.is_specialdelivery from product as p
+                                              INNER JOIN cart_tempcheckout as ct ON p.id=ct.id_product
+                                              WHERE ct.id_store='$cur_idstore' AND ct.id_user='$id_user'
+                                              AND p.is_specialdelivery=1
+                                              AND ct.status=0")->num_rows();
+        if($cekSpecialDelivery>0){
+          $data_final[$i]['is_specialdelivery']=1;
+        }else{
+          $data_final[$i]['is_specialdelivery']=0;
+        }
+
+        $count_availability=0;
+        foreach($data_final[$i]['id_product'] as $productData){
+          $status=$this->productModel->checkAvailability($productData['product_id']);
+          if($status==1){$count_availability++;}
+        }
+        $data_final[$i]['count_availability']=$count_availability;
     }
 
     return $data_final;
@@ -81,6 +101,7 @@ class checkoutModel extends CI_Model{
     p.buy_minimum,
     p.stock_type,
     p.stock,
+    p.weight,
     p.price as product_price,
     p.is_wholesale,
     p.wh_unit1,
@@ -93,7 +114,9 @@ class checkoutModel extends CI_Model{
     p.wh_price4,
     p.wh_unit5,
     p.wh_price5,
-    p.is_discount,
+    p.discount_start,
+    p.discount_end,
+    p.is_discount_grosir,
     p.discount_value,
     p.is_discount_stil,
     p.is_visibility,
@@ -102,7 +125,7 @@ class checkoutModel extends CI_Model{
     u.username as store_link
     FROM cart_tempcheckout as c
     LEFT JOIN product as p on c.id_product=p.id
-    LEFT JOIN user_client as u on c.id_user=u.id
+    LEFT JOIN stil.user_client as u on c.id_user=u.id
     where c.id_user='$id_user'
     and c.id_store='$id_store'
     and c.status=0
@@ -138,7 +161,9 @@ class checkoutModel extends CI_Model{
     p.wh_price4,
     p.wh_unit5,
     p.wh_price5,
-    p.is_discount,
+    p.discount_start,
+    p.discount_end,
+    p.is_discount_grosir,
     p.discount_value,
     p.is_discount_stil,
     p.is_visibility,
@@ -147,7 +172,7 @@ class checkoutModel extends CI_Model{
     u.username as store_link
     FROM cart as c
     LEFT JOIN product as p on c.id_product=p.id
-    LEFT JOIN user_client as u on c.id_user=u.id
+    LEFT JOIN stil.user_client as u on c.id_user=u.id
     where c.id_user='$id_user'
     and c.id_store='$id_store'
     order by c.lup desc";

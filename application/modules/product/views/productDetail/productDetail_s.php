@@ -22,4 +22,10 @@
     vertical-align: baseline;
     border-radius: .25em;
 }
+
+.carousel-control-next-icon, .carousel-control-prev-icon {
+  background-color: black;
+  height: 25px;
+  width: 21px;
+}
 </style>

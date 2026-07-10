@@ -4,9 +4,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	class Home extends CI_Controller{
 		public function index(){
 
-			$dataFeatured=array('1','28','29','30','31','32','33');
-			$dataSale=array('33','28','29','30','31','32','1');
+
+			$dataFlash=array('32','84');
+			$data['dataProductFlash']['dataProduct']=$this->productModel->getProductsFeatured($dataFlash)->result_array();
+			$dataFeatured=array('1','28','29','30','31','32','33','84','83');
 			$data['dataProductFeatured']['dataProduct']=$this->productModel->getProductsFeatured($dataFeatured)->result_array();
+			$dataSale=array('33','28','29','30','31','32','1');
 			$data['dataProductSale']['dataProduct']=$this->productModel->getProductsFeatured($dataSale)->result_array();
 
 			$this->load->view('appinfo');
@@ -16,5 +19,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$this->load->view('template/subscribe_panel');
 			$this->load->view('footer');
 			$this->load->view('home_x');
+			$this->load->view('header_javascript');
 		}
 	}

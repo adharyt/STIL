@@ -1,0 +1,18 @@
+
+<script src="<?php echo base_url();?>assets/styles/bootstrap4/popper.js"></script>
+<script src="<?php echo base_url();?>assets/styles/bootstrap4/bootstrap.min.js"></script>
+<script src="<?php echo base_url();?>assets/plugins/greensock/TweenMax.min.js"></script>
+<script src="<?php echo base_url();?>assets/plugins/greensock/TimelineMax.min.js"></script>
+<script src="<?php echo base_url();?>assets/plugins/scrollmagic/ScrollMagic.min.js"></script>
+<script src="<?php echo base_url();?>assets/plugins/greensock/animation.gsap.min.js"></script>
+<script src="<?php echo base_url();?>assets/plugins/greensock/ScrollToPlugin.min.js"></script>
+<script src="<?php echo base_url();?>assets/plugins/easing/easing.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/RubaXa/Sortable/Sortable.min.js"></script>
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
+
+<!-- (Optional) Latest compiled and minified JavaScript translation files -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/i18n/defaults-*.min.js"></script>
+
+</body>
+</html>

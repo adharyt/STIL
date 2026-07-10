@@ -54,43 +54,103 @@ $route['default_controller'] = 'Home';
 
 
 
+$route['read-notification/(:any)']='User_notification/readNotification/$1';
+$route['read-notification-store/(:any)']='Sc_Notification/readNotification/$1';
+
+$route['checkout-payment/(:any)']='checkout_payment/index/$1';
+$route['checkout-payment/(:any)/confirmation']='checkout_payment/confirmation/$1';
 //Filter atau Search produk
 $route['c/(:any)']='products/index/$1';
 
 //Tentang toko dan penjual
 $route['s/(:any)']='store/index/$1';
+$route['s/(:any)/feedback']='store/store_feedback_list/$1';
 $route['s/(:any)/label/(:any)']='store/index/$1/$2';
 
 //Detail Produk (aktor: pembeli, penjual)
 $route['p/(:any)/(:any)'] = 'product/detail/$1/$2';
 
-//Produk Baru (aktor: Penjual)
-$route['product/new'] = 'product/newProduct';
+
+
 
 //Profile
-$route['my-account'] = 'profile/profileSummary';
+
+
+
+
+$route['my-account'] = 'profile_summary/profileSummary';
 $route['my-account/profile'] = 'profile/profileEdit';
-$route['my-account/address'] = 'profile/profileAddress';
-$route['my-account/wishlist'] = 'profile/profileWishlist';
+$route['my-account/address'] = 'profile_address/profileAddress';
+$route['my-account/wallet'] = 'profile_wallet/profileWallet';
+$route['my-account/saving-account'] = 'profile_rekening/profileRekening';
+$route['my-account/wishlist'] = 'profile_wishlist/profileWishlist';
+$route['my-account/notification'] = 'User_notification/all_notification';
+
+
+$route['my-account/transaction'] = 'profile_transaction/profileTransactionInvoice';
+$route['my-account/transaction/(:any)'] = 'profile_transaction/profileTransactionDetail/$1';
+$route['my-account/transaction-split'] = 'profile_transaction/profileTransactionSingle';
+
+
+$route['my-account/transaction/feedback/(:any)/reviewDelivered/(:any)'] = 'response_feedback/products/$1/$2';
+$route['my-account/transaction/feedback/(:any)/product'] = 'response_feedback/product/$1';
+$route['my-account/transaction/feedback/(:any)/product/(:any)'] = 'response_feedback/productSingle/$1/$2';
+$route['my-account/transaction/feedback/(:any)/product/(:any)/edit'] = 'response_feedback/productSingleEdit/$1/$2';
 
 //My Store
-$route['my-store'] = 'seller_center';
-$route['my-store/shipping'] = 'seller_center/courierShippingSchedule';
 $route['my-store/address'] = 'seller_center/address';
-$route['my-store/rekening'] = 'seller_center/rekening';
+$route['my-store/settings/rekening'] = 'sc_rekening/index';
 $route['my-store/store'] = 'seller_center/store';
 $route['my-store/store-info'] = 'seller_center/storeInfo';
 $route['my-store/close-store'] = 'seller_center/closeStore';
 $route['my-store/merchant-notes'] = 'seller_center/merchantNotes';
 $route['my-store/store-verification'] = 'seller_center/storeVerification';
 $route['my-store/edit-store-address'] = 'seller_center/editStoreAddress';
-$route['my-store/storefront'] = 'seller_center/storefront';
+$route['my-store/notification'] = 'Sc_Notification/all_notification';
 
-//My store action
-$route['my-store/shipping-courier-update'] = 'seller_center/shippingCourierUpdate';
-$route['my-store/shipping-openday-update'] = 'seller_center/shippingDayUpdate';
-$route['my-store/shipping-openhour-update'] = 'seller_center/shippingHourUpdate';
 
+
+
+$route['my-store/register'] = 'sc_register';
+
+$route['my-store'] = 'Sc_dashboard';
+
+$route['my-store/transaction'] = 'sc_transaction';
+
+$route['my-store/transaction'] = 'sc_transaction';
+
+$route['my-store/credit'] = 'sc_credit';
+
+$route['my-store/products'] = 'sc_products';
+$route['my-store/products/new'] = 'Sc_product_new/newProduct';
+$route['my-store/products/edit/(:any)'] = 'Sc_product_edit/editProduct/$1';
+
+$route['my-store/storefront'] = 'Sc_storefront';
+
+
+
+//My store - settings - shipping
+$route['my-store/settings/shipping'] = 'Sc_settings/courierShipping';
+$route['my-store/settings/shipping_schedule'] = 'Sc_settings/courierShippingSchedule';
+$route['my-store/settings/shipping-courier-update'] = 'Sc_settings/shippingCourierUpdate';
+$route['my-store/settings/shipping-openday-update'] = 'Sc_settings/shippingDayUpdate';
+$route['my-store/settings/shipping-openhour-update'] = 'Sc_settings/shippingHourUpdate';
+$route['my-store/settings/shipping-processtime-update'] = 'Sc_settings/shippingProcesstimeUpdate';
+
+//My store - settings - address
+$route['my-store/settings'] = 'Sc_settings/store';
+$route['my-store/settings/general'] = 'Sc_settings/store';
+$route['my-store/settings/general/information-edit'] = 'Sc_settings/storeInfo';
+
+
+//My store - settings - address
+$route['my-store/settings/address'] = 'Sc_settings/address';
+
+
+
+$route['history/transaction/(:any)/p/(:any)'] = 'product_sold/detail/$1/$2';
+
+$route['buy/(:any)/(:any)'] = 'cart/buy/$1/$2';
 
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;

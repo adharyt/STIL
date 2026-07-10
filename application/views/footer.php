@@ -1,10 +1,11 @@
+
 <!-- Footer -->
 
-<footer class="footer">
+<footer class="footer"  style="background-color:white !important">
   <div class="container">
     <div class="row">
 
-      <div class="col-lg-3 footer_col">
+      <div class="col-lg-4 footer_col">
         <div class="footer_column footer_contact">
           <!--
           <div class="logo_container">
@@ -27,9 +28,19 @@
         </div>
       </div>
 
-      <div class="col-lg-2 offset-lg-2">
+      <div class="col-lg-2">
         <div class="footer_column">
-          <div class="footer_title">Kategori Produk</div>
+          <div class="footer_title">Tentang STIL</div>
+          <ul class="footer_list">
+            <li><a href="<?php echo base_url();?>assets/#">Kehutanan</a></li>
+            <li><a href="<?php echo base_url();?>assets/#">Pertanian</a></li>
+            <li><a href="<?php echo base_url();?>assets/#">Peternakan</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-lg-2">
+        <div class="footer_column">
+          <div class="footer_title">Tentang STIL</div>
           <ul class="footer_list">
             <li><a href="<?php echo base_url();?>assets/#">Kehutanan</a></li>
             <li><a href="<?php echo base_url();?>assets/#">Pertanian</a></li>
@@ -40,7 +51,8 @@
 
       <div class="col-lg-2">
         <div class="footer_column">
-          <ul class="footer_list footer_list_2">
+          <div class="footer_title">Pembeli</div>
+          <ul class="footer_list">
             <li><a href="<?php echo base_url();?>assets/#">Hasil Olahan</a></li>
             <li><a href="<?php echo base_url();?>assets/#">Merchandise</a></li>
           </ul>
@@ -49,7 +61,7 @@
 
       <div class="col-lg-2">
         <div class="footer_column">
-          <div class="footer_title">Customer Care</div>
+          <div class="footer_title">Penjual</div>
           <ul class="footer_list">
             <li><a href="<?php echo base_url();?>assets/#">My Account</a></li>
             <li><a href="<?php echo base_url();?>assets/#">Order Tracking</a></li>
@@ -68,8 +80,8 @@
 
 <!-- Copyright -->
 
-<div class="copyright">
-  <div class="container">
+<div class="copyright" style="background-color:white !important">
+  <div class="container" >
     <div class="row">
       <div class="col">
 
@@ -92,3 +104,15 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
   </div>
 </div>
 </div>
+<script src="<?php echo $this->config->item('stil_assets_url'); ?>/javascript/keyboard.js"></script>
+
+<script type="text/javascript" src="<?php echo base_url();?>assets/plugins/datetimerangepicker/moment.min.js"></script>
+<script type="text/javascript" src="<?php echo base_url();?>assets/plugins/datetimerangepicker/daterangepicker.js"></script>
+<link rel="stylesheet" type="text/css" href="<?php echo base_url();?>assets/plugins/datetimerangepicker/daterangepicker.css" />
+<!-- Chat Section -->
+<?php
+  if($this->session->userdata('is_login')=='y'){
+    $this->load->view('template/server/chat');
+    $this->load->view('template/server/notification');
+  }
+?>

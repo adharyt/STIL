@@ -1,0 +1,102 @@
+/* Arrow Box */
+.arrow_box {
+	position: relative;
+	background: white;
+    border: 2px solid lightslategrey;
+    border-radius: 6px;
+    padding: 12px 10px 12px 10px;
+}
+.arrow_box:after, .arrow_box:before {
+	bottom: 100%;
+	left: 50%;
+	border: solid transparent;
+	content: " ";
+	height: 0;
+	width: 0;
+	position: absolute;
+	pointer-events: none;
+}
+
+.arrow_box:after {
+	border-color: rgba(136, 183, 213, 0);
+	border-bottom-color: white;
+	border-width: 15px;
+	margin-left: -15px;
+}
+.arrow_box:before {
+	border-color: rgba(194, 225, 245, 0);
+	border-bottom-color: lightslategrey;
+	border-width: 18px;
+	margin-left: -18px;
+}
+.space25 {
+    margin-right: 25px;
+}
+.transaction-notif-popup{
+        position: absolute !important ;
+        left: -70px;
+        width: 400px;
+        top: 60px;
+    }
+
+.notification-popup{
+    position: absolute !important ;
+	left: -25px;
+	width: 400px;
+    top: 60px;
+}
+.notification-overflow{
+    max-height: 410px;
+    overflow: auto;
+}
+.notification-container{
+    padding: 16px;
+		border-radius:4px;
+    background-color: #09924508;
+		border: 1px solid #09924547;
+}
+.notification-bar-title-text{
+    font-family: Helvetica;
+    font-weight: bold;
+    font-size: 1rem;
+}
+.notification-bar-content-text{
+    font-family: Helvetica;
+    font-size: 0.9rem;
+}
+.notification-bar-timestamp-text{
+    font-family: Helvetica;
+    font-size: 0.7rem;
+    color: grey;
+}
+.notification-bar-small-title-text {
+    font-family: Helvetica;
+    font-size: 0.9rem;
+    font-weight: bold;
+}
+.notification-bar-small-content-text {
+    font-family: Helvetica;
+    font-size: 0.8rem;
+}
+.notification-bar-small-timestamp-text {
+    font-family: Helvetica;
+    font-size: 0.6rem;
+    color: grey;
+}
+.notification-bar-small-showall-text {
+    font-family: Helvetica;
+    font-size: 0.8rem;
+    font-weight: bold;
+    color: #009245;
+    text-align: center;
+    margin-top: 6px;
+}
+.notification-bar-small-showall-text:hover {
+    font-family: Helvetica;
+    font-size: 0.85rem;
+    font-weight: bold;
+    color: #136e3d;
+    text-align: center;
+    margin-top: 6px;
+    cursor: pointer;
+}

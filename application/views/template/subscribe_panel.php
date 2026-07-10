@@ -1,5 +1,5 @@
 <!-- Newsletter -->
-<div class="newsletter">
+<div class="newsletter" style="background-color:white!important">
   <div class="container">
     <div class="row">
       <div class="col">
@@ -27,6 +27,22 @@ function subscribe(){
   if(subs_email!=''){
     var pattern = /^([a-z\d!#$%&'*+\-\/=?^_`{|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+(\.[a-z\d!#$%&'*+\-\/=?^_`{|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+)*|"((([ \t]*\r\n)?[ \t]+)?([\x01-\x08\x0b\x0c\x0e-\x1f\x7f\x21\x23-\x5b\x5d-\x7e\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|\\[\x01-\x09\x0b\x0c\x0d-\x7f\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))*(([ \t]*\r\n)?[ \t]+)?")@(([a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|[a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF][a-z\d\-._~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]*[a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])\.)+([a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|[a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF][a-z\d\-._~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]*[a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])\.?$/i;
     if(pattern.test(subs_email)){
+      Swal.fire({
+  	    text:'Mohon menunggu...',
+  	    background:'#FFFFFF',
+  	    width:'300px',
+  	    height:'100px',
+  	    confirmButtonColor:'#009245',
+  	    showConfirmButton:false,
+  	    allowOutsideClick: false,
+  	    allowEscapeKey: false,
+  	    allowEnterKey: false,
+  	    onBeforeOpen: () =>{
+  	    },
+  	    onOpen: () => {
+  	      swal.showLoading()
+  	    }
+  	  });
     $.ajax({
             url: "<?php echo base_url();?>subscribe",
             type: "post",
@@ -34,14 +50,14 @@ function subscribe(){
                 email:subs_email
             } ,
             success: function (response) {
+              Swal.close();
                // you will get response from your php page (what you echo or print)
-
                if(response=='SUB'){
                  $('#newsletter_email').val('');
                  Swal.fire({
                    type: 'success',
-                   title: 'Berhasil Berlangganan',
-                   html:   "Silahkan buka tautan validasi yang telah dikirim ke email Anda!<br>&nbsp;"+
+                   title: 'Pendaftaran Newsletter Berhasil',
+                   html:   "Untuk memulai berlangganan, silahkan verifikasi email Anda dengan cara menekan tombol konfirmasi yang telah kami kirim ke email Anda!<br>&nbsp;"+
                                      '<div class="contact-form-area">'+
                                                  '<div class="row">'+
                                                  '<div class="col-12">'+
@@ -58,8 +74,8 @@ function subscribe(){
                  $('#newsletter_email').val('');
                  Swal.fire({
                    type: 'info',
-                   title: 'Informasi',
-                   html:   "Email Anda sudah terdaftar!!<br>&nbsp;"+
+                   title: 'Pendaftaran Newsletter',
+                   html:   "Email Anda sudah terdaftar!<br>&nbsp;"+
                                      '<div class="contact-form-area">'+
                                                  '<div class="row">'+
                                                  '<div class="col-12">'+
@@ -84,7 +100,7 @@ function subscribe(){
       }else{
         Swal.fire({
           type: 'warning',
-          title: 'Gagal Berlangganan',
+          title: 'Pendaftaran Newsletter Gagal',
           html:   "Alamat email tidak valid!<br>&nbsp;"+
                             '<div class="contact-form-area">'+
                                         '<div class="row">'+
@@ -102,7 +118,7 @@ function subscribe(){
   }else{
     Swal.fire({
       type: 'warning',
-      title: 'Gagal Berlangganan',
+      title: 'Pendaftaran Newsletter Gagal',
       html:   "Alamat email wajib diisi!<br>&nbsp;"+
                         '<div class="contact-form-area">'+
                                     '<div class="row">'+

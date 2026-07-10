@@ -2,11 +2,9 @@
 <link rel="stylesheet" type="text/css" href="<?php echo base_url();?>assets/plugins/OwlCarousel2-2.2.1/owl.carousel.css">
 <link rel="stylesheet" type="text/css" href="<?php echo base_url();?>assets/plugins/OwlCarousel2-2.2.1/owl.theme.default.css">
 <link rel="stylesheet" type="text/css" href="<?php echo base_url();?>assets/plugins/OwlCarousel2-2.2.1/animate.css">
-
 <link rel="stylesheet" type="text/css" href="<?php echo base_url();?>assets/styles/cart_styles.css">
 <link rel="stylesheet" type="text/css" href="<?php echo base_url();?>assets/styles/cart_responsive.css">
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/pretty-checkbox@3.0/dist/pretty-checkbox.min.css">
-
 <style>
 @import url(https://fonts.googleapis.com/css?family=Roboto:300,400,500);
 
@@ -210,4 +208,7 @@ input:focus {
 }
 
 /* Checkbox */
+.popover-header {
+    background-color: #FFFFFF;
+}
 </style>

@@ -1,4 +1,4 @@
-<script src="<?php echo base_url();?>assets/js/jquery-3.3.1.min.js"></script>
+
 <script src="<?php echo base_url();?>assets/styles/bootstrap4/popper.js"></script>
 <script src="<?php echo base_url();?>assets/styles/bootstrap4/bootstrap.min.js"></script>
 <script src="<?php echo base_url();?>assets/plugins/greensock/TweenMax.min.js"></script>
@@ -10,6 +10,9 @@
 <script src="<?php echo base_url();?>assets/plugins/easing/easing.js"></script>
 <script src="<?php echo base_url();?>assets/js/cart_custom.js"></script>
 <script type="text/javascript">
+$(document).ready(function(){
+    $('[data-toggle="popover"]').popover();
+});
       function checkout(){
         var checkoutItem = [];
             $.each($("input[name='item']:checked"), function(){
@@ -17,6 +20,7 @@
 
             });
             var checkoutJSON=JSON.stringify(checkoutItem);
+            if(checkoutItem.length>0){
             Swal.fire({
               text:'Mohon menunggu...',
               background:'#FFFFFF',
@@ -43,7 +47,7 @@
                     swal.close();
                     if(response!="FALSE"){
                       //alert(response);
-                      location.href="http://localhost/stil/checkout"
+                      location.href="<?php echo base_url();?>checkout"
                     }
                   },
                   error: function(jqXHR, textStatus, errorThrown) {
@@ -51,6 +55,19 @@
                   }
 
               });
+            }else{
+              Swal.fire({
+                text:'Pilih barang terlebih dahulu!',
+                background:'#FFFFFF',
+                width:'300px',
+                height:'100px',
+                confirmButtonColor:'#009245',
+                showConfirmButton:true,
+                allowOutsideClick: true,
+                allowEscapeKey: true,
+                allowEnterKey: true
+              });
+            }
       }
 
       function updateSummary(){

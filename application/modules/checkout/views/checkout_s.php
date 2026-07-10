@@ -146,7 +146,6 @@
 }
 
 button[class*=btn] {
-  width: 30px;
   height: 30px;
   background-color: #E1E8EE;
   border-radius: 6px;

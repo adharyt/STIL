@@ -1,0 +1,29 @@
+{
+  "name": "stil",
+  "version": "1.0.0",
+  "description": "What is CodeIgniter\r ###################",
+  "main": "server_notification.js",
+  "directories": {
+    "test": "tests"
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "redis": "^3.0.2",
+    "socket.io": "^2.3.0",
+    "socket.io-redis": "^5.2.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/drmp13/STIL.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/drmp13/STIL/issues"
+  },
+  "homepage": "https://github.com/drmp13/STIL#readme"
+}

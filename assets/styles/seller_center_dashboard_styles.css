@@ -20,7 +20,7 @@
     margin: 0 !important;
     padding: 15px !important;
     position: fixed;
-    z-index: 99998;
+    z-index: 998;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -69,7 +69,7 @@
     align-items: center !important;
 }
 .modal-custom-container {
-    z-index: 999999 !important;
+    z-index: 999 !important;
 }
 .store-row-sb-container {
     display: flex !important;
@@ -138,19 +138,19 @@
 .default-text {
     font-family: Helvetica;
     font-size: 0.9rem;
-    margin-left: 10px;   
+    margin-left: 10px;
 }
 .default-bold-text {
     font-family: Helvetica;
     font-size: 0.9rem;
     margin-left: 10px;
-    font-weight: bold;   
+    font-weight: bold;
 }
 .title-text {
     font-family: Helvetica;
     font-size: 1.3rem;
     font-weight: bold;
-    margin-left: 10px; 
+    margin-left: 10px;
 }
 .body-bold-text {
     font-family: Helvetica;
@@ -190,7 +190,7 @@
     padding-left: 15px !important;
     padding-right: 15px !important;
     color:white;
-    border-radius: 5px; 
+    border-radius: 5px;
 }
 .btn-store-edit:hover {
     background-color: #136e3d !important;
@@ -199,7 +199,7 @@
     padding-left: 15px !important;
     padding-right: 15px !important;
     color:white;
-    border-radius: 5px; 
+    border-radius: 5px;
 }
 .btn-edit {
     background-color: #f28f16;
@@ -398,7 +398,45 @@ hr {
 .list-group-item {
 	cursor: move !important;
 }
-  
-  
-  
-  
+
+no-transaction-container {
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+}
+.img-no-transaction{
+   margin-top: 20px;
+   width: 350px;
+   height: auto;
+}
+.icon-resi-style {
+   color: #fff;
+   font-size: 1rem;
+   margin-right: 5px;
+}
+.progress-ring {
+}
+.progress-ring__circle {
+ transition: 0.35s stroke-dashoffset;
+ /* axis compensation */
+ transform: rotate(-90deg);
+ transform-origin: 50% 50%;
+}
+.proggress-text {
+   position: fixed;
+   margin-top: -40px;
+}
+.resi {
+   width: 120px;
+   padding: 5px;
+   flex-direction: row !important;
+   align-items: center !important;
+   justify-content: center;
+   font-family: Helvetica;
+   background: #009245;
+   color: #fff;
+}
+.resi:hover {
+   cursor: pointer;
+   background: #136e3d;
+}

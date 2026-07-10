@@ -1,23 +1,51 @@
-
+<?php if($cek=='y'){ ?>
+	<?php
+    $is_discount=$this->productModel->checkDiscountByParam($dataProduct['discount_start'],$dataProduct['discount_end'],$dataProduct['discount_value']);
+    $is_grosir=$this->productModel->checkWholesaleByParam($dataProduct['is_wholesale'],$is_discount,$dataProduct['is_discount_grosir'],$dataProduct['stock_type']);
+  ?>
 <div class="row">
 	<div class="col-lg-9">
 <!-- Single Product -->
 	<div class="single_product">
 		<div class="container">
-			<div class="row">
+			<div class="row"  style="background-color:white!important;padding:10px;padding-top:50px;padding-bottom:50px;margin-left:10px;border:1px solid rgba(0,0,0,.125);">
 
-				<!-- Images -->
-				<div class="col-lg-1 order-lg-1 order-2">
-					<ul class="image_list">
-						<?php foreach($dataProductImg as $productImg){ ?>
-							<li data-image="<?php echo $productImg['img_url']; ?>"><img src="<?php echo $productImg['img_url']; ?>" alt=""></li>
+				<div class="col-lg-4 order-lg-2 order-1">
+					<!--Carousel Wrapper-->
+					<div id="carousel-thumb" class="carousel slide carousel-fade carousel-thumbnails"data-ride="carousel">
+						<!--Slides-->
+						<div class="carousel-inner" role="listbox">
+							<?php $i=0; foreach($dataProductImg as $productImg){ $i++;?>
+								<div class="carousel-item <?php if($i==1){echo 'active';} ?>">
+				          <div style="width:300px;height:300px;vertical-align:middle;display: inline-block;align-items: center; justify-content: center;display:flex" class="text-center">
+
+				              <img src="<?php echo $productImg['img_url'];?>"
+				                style="max-height:100%;max-width:100%;">
+
+				          </div>
+				        </div>
 						<?php } ?>
-					</ul>
-				</div>
-
-				<!-- Selected Image -->
-				<div class="col-lg-3 order-lg-2 order-1">
-					<div class="image_selected"><img src="<?php echo $dataProductImg[0]['img_url'];?>" alt=""></div>
+						</div>
+						<!--/.Slides-->
+						<!--Controls-->
+						<a class="carousel-control-prev" href="#carousel-thumb" role="button" data-slide="prev">
+							<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+							<span class="sr-only">Previous</span>
+						</a>
+						<a class="carousel-control-next" href="#carousel-thumb" role="button" data-slide="next">
+							<span class="carousel-control-next-icon" aria-hidden="true"></span>
+							<span class="sr-only">Next</span>
+						</a>
+						<!--/.Controls-->
+						<ol class="carousel-indicators">
+							<?php $i=0; foreach($dataProductImg as $productImg){ ?>
+							<li data-target="#carousel-thumb" data-slide-to="<?php echo $i;?>" <?php if($i==0){echo 'class="active"';} ?>>
+							<img src="<?php echo $dataProductImg[0]['img_url'];?>" width="60">
+							</li>
+							<?php $i++; } ?>
+						</ol>
+					</div>
+					<!--/.Carousel Wrapper-->
 				</div>
 
 				<!-- Description -->
@@ -33,7 +61,7 @@
 							        <i class="fa fa-star" aria-hidden="true"></i>
 							        <i class="fa fa-star" aria-hidden="true"></i>
 
-							        <div class="pr-front-stars" style="width:<?php echo (($productReviewAverage/5)*100)/2; ?>%;">
+							        <div class="pr-front-stars" style="width:<?php echo ((($productReviewAverage/5)*1.04)*100)/2; ?>%;">
 							            <i class="fa fa-star" aria-hidden="true"></i>
 							            <i class="fa fa-star" aria-hidden="true"></i>
 							            <i class="fa fa-star" aria-hidden="true"></i>
@@ -48,32 +76,42 @@
 
 						<hr style="margin-bottom:10px">
 
-						<div class="product_price" style="margin-top:0px"><?php echo $this->currencyModel->integerToCurrency('rupiah',$dataProduct['price']); ?></div>
-						<div class="product_price" style="margin-bottom:3px;font-size:20px;vertical-align:bottom;color:red"><strike><?php echo $this->currencyModel->integerToCurrency('rupiah',20000000); ?></strike></div>
+						<div class="product_price" style="margin-top:0px"><?php echo $this->currencyModel->integerToCurrency('rupiah',$this->productModel->cekHargaBarang($dataProduct['product_id'],1)); ?></div>
+						<?php if($is_discount==1){?>
+							<div class="product_price" style="margin-bottom:3px;font-size:20px;vertical-align:bottom;color:#7a7a7a"><strike><?php echo $this->currencyModel->integerToCurrency('rupiah',$this->productModel->cekHargaBarang($dataProduct['product_id'],1,FALSE)); ?></strike> <sup><small><?php echo '-'.$dataProduct['discount_value'].'%'; ?></small></sup></div>
+						<?php } ?>
 						<?php
-							if($dataProduct["is_wholesale"]==1){
+							if($is_grosir==1){
 
 							$grosir_html_header="
 							<table width='100%' style='text-align:center'>
 								<tr>
-									<th>
+									<th style='text-align:left'>
 										<u>Unit</u>
 									</th>
-									<th>
+									<th style='padding-left:20px;text-align:left'>
 										<u>Harga</u>
 									</th>
 								</tr>";
 							$grosir_html_content='';
 							for($i=1;$i<=5;$i++){
 								if($dataProduct["wh_unit$i"]!=0 && $dataProduct["wh_unit$i"]!='' && $dataProduct["wh_price$i"]!=0 && $dataProduct["wh_price$i"]!=''){
+									if($is_discount==1){
+									 $discountGrosir='
+									 											<small><font color=gray><strike>'.$this->currencyModel->integerToCurrency('rupiah',$this->productModel->cekHargaBarang($dataProduct["product_id"],$dataProduct["wh_unit$i"],FALSE)).'</strike></font>
+																				<sup>-'.$dataProduct['discount_value'].'%</sup></small>';
+							 	 	}else{
+										$discountGrosir='';
+									}
 									$grosir_html_content.=
 										"	<tr>
-												<td>
+												<td style='text-align:left'>
 													≥".$dataProduct["wh_unit$i"]."
 												</td>
-												<td>
-													".$this->currencyModel->integerToCurrency('rupiah',$dataProduct["wh_price$i"])."
-												</td>
+												<td style='padding-left:20px;text-align:left'>
+													".$this->currencyModel->integerToCurrency('rupiah',$this->productModel->cekHargaBarang($dataProduct["product_id"],$dataProduct["wh_unit$i"])).' '.$discountGrosir
+
+												."</td>
 											</tr>";
 									}
 							}
@@ -89,7 +127,7 @@
 							<?php
 								switch($dataProduct['stock_type']){
 									case '1':
-										echo "<p style='color:black;'>Barang unik hanya ada <font color='red'>satu stock</font>!</p>";
+										echo "<p style='color:black;'>Barang unik hanya ada <font color='#d63a3a'>satu stock</font>!</p>";
 										break;
 									case '2':
 										if($dataProduct['stock']>1000){
@@ -99,7 +137,7 @@
 										}else if($dataProduct['stock']>10){
 												echo "<p style='color:black;'>Tersisa $dataProduct[stock] stok barang lagi!</p>";
 										}else{
-												echo "<p style='color:black;'>Hanya tersisa <font color='red'>$dataProduct[stock] stok</font> barang lagi!</p>";
+												echo "<p style='color:black;'>Hanya tersisa <font color='#d63a3a'>$dataProduct[stock] stok</font> barang lagi!</p>";
 										}
 										break;
 									default:
@@ -113,6 +151,7 @@
 							<form action="#">
 								<div class="clearfix" style="z-index: 1000;<?php if($dataProduct['stock_type']==1){echo 'display:none';} ?>">
 									<!-- Product Quantity -->
+									<?php if($this->session->userdata('username')!=$dataProduct['store_link']){ ?>
 									<div class="product_quantity clearfix" style="width:220px;">
 										<span  style="color:black">Jumlah: </span>
 										<?php if($dataProduct['stock_type']==2){$maxbeli="$dataProduct[stock]";}else{$maxbeli="9999999";}?>
@@ -122,20 +161,47 @@
 											<div id="quantity_dec_buttona" class="quantity_dec quantity_control"><i class="fas fa-chevron-down"></i></div>
 										</div>
 									</div>
+									<?php } ?>
 								</div>
 								<div class="product_quantity_text_after" style="margin-bottom:0px;<?php if($dataProduct['stock_type']==1){echo 'display:none';} ?>"><p style="line-height:1.2"><small>Jumlah minimum pembelian barang adalah <?php echo $dataProduct['buy_minimum']; ?> unit</small></p></div>
 
 
+								<?php if($this->session->userdata('username')!=$dataProduct['store_link']){ ?>
 
-								<div class="button_container">
-									<button type="button" class="button cart_button" onClick="addToCart('<?php echo $dataProduct['product_id']; ?>');">Tambahkan ke Keranjang</button>
-									<div class="product_fav" title="Tambahkan ke Wishlist"><i class="fas fa-heart"></i></div>
-								</div>
-								Jaminan 100% Aman<br>
+									<div class="row mt-5">
+										<div class="col-4" style="padding-right:5px;">
+							          <a href="<?php echo base_url().'buy/'.$dataProduct['store_link'].'/'.$dataProduct['pr_slug'].'-'.$dataProduct['pr_uniq'];?>" style="width:100%;background-color:#009245;border-color:#009245;cursor:pointer" class="btn btn-secondary">
+													<?php if($dataProduct['processtime_id']!=3){
+														echo "Beli Sekarang";
+													}else{
+														echo "Pre-order";
+													}
+													?>
+												</a>
+							      </div>
+
+										<div class="col-6" style="padding-left:5px;">
+							          <button onClick="addToCart('<?php echo $dataProduct['product_id']; ?>');" style="width:100%;background-color:#FFFFFF;border:2px solid #009245;color:#009245;cursor:pointer;" class="btn btn-secondary">Tambahkan ke Keranjang</button>
+							      </div>
+
+										<div class="col-2" style="padding-left:0px;">
+											<?php if($this->session->userdata('is_login')=='y'){ ?>
+												<div style="margin:0px" onClick="swishlist('<?php echo $dataProduct['pr_slug'].'-'.$dataProduct['pr_uniq'];?>','<?php echo $dataProduct['store_link'];?>');" class="product_fav <?php if($this->productModel->isWishlist($dataProduct['product_id'])>0){echo "active";} ?>" title="Tambahkan ke Wishlist"><i class="fas fa-heart"></i></div>
+											<?php } ?>
+							      </div>
+							    </div>
+
+
+
 								<small>
-									<font color="#999">Uang pasti kembali. Sistem pembayaran bebas penipuan.</font> <font color="#009245">Selengkapnya.</font><br>
-									<font color="#999">Barang tidak sesuai pesanan? Ikuti langkah retur barang di <font color="#009245">sini</font>.</font></small>
-
+									<font color="#999">Pembayaran 100% aman, bebas penipuan dan jaminan uang kembali.</font> <font color="#009245">Info Selengkapnya.</font></small><br>
+								<?php }else{ ?>
+									<div class="button_container">
+										<a href="<?php echo base_url();?>product/edit/<?php echo $dataProduct['product_id']; ?>"><button type="button" class="button cart_button">Edit Barang</button></a><br>
+										<small>
+											<font color="#999">Lihat semua barang milik tokomu</font> <a href="<?php echo base_url();?>my-store/products" target="_blank"><font color="#009245">disini</font></a></small>
+									</div>
+								<?php } ?>
 							</form>
 						</div>
 					</div>
@@ -146,15 +212,16 @@
 	</div>
 
 	<!--================Product Description Area =================-->
-    <section class="product_description_area">
-      <div class="container">
+    <section class="product_description_area" style="margin-left:10px">
+      <div class="container"  style="background-color:white!important;padding:0px;">
 
-        <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <ul class="nav nav-tabs" id="myTab" role="tablist" style="background-color:#fafafa;padding-bottom:0px;">
 					&nbsp;&nbsp;
           <li class="nav-item">
             <a
               class="nav-link active"
-              id="home-tab"
+							style="border:0px solid white;"
+							id="home-tab"
               data-toggle="tab"
               href="#home"
               role="tab"
@@ -166,7 +233,8 @@
           <li class="nav-item">
             <a
               class="nav-link"
-              id="contact-tab"
+							style="border:0px solid white;"
+							id="contact-tab"
               data-toggle="tab"
               href="#contact"
               role="tab"
@@ -178,7 +246,8 @@
           <li class="nav-item">
             <a
               class="nav-link"
-              id="review-tab"
+							style="border:0px solid white;"
+							id="review-tab"
               data-toggle="tab"
               href="#review"
               role="tab"
@@ -220,13 +289,13 @@
 								<tr>
 									<td width="100px"><i class="fas fa-shopping-cart"></i> Terjual</td>
 									<td width="10px">:</td>
-									<td>[NOT SET]</td>
+									<td><?php echo $this->productModel->cekTerjual($dataProduct['product_id']); ?></td>
 								</tr>
 								<tr>
 									<td width="100px"><i class="fas fa-eye"></i> Dilihat</td>
 									<td width="10px">:</td>
 									<td>
-										<?php echo "$dataProduct[hits]"; ?>
+										<?php echo "$productViewersCount"; ?>
 									</td>
 								</tr>
 							</table>
@@ -238,39 +307,7 @@
 									<td width="10px">:</td>
 									<td>
 										<?php
-												if($dataProduct['is_processtime_set']==1){
-													switch($dataProduct['processtime_id']){
-														case '1':
-															$waktuProses=$dataProduct['processtime_instan'].' jam';
-															break;
-														case '2':
-															$waktuProses='2 hari';
-															break;
-														case '3':
-															$waktuProses=$dataProduct['processtime_preorder'].' hari';
-															break;
-														default:
-															$waktuProses='2 hari';
-															break;
-													}
-												}else{
-													switch($dataProduct['store_processtime_id']){
-														case '1':
-															$waktuProses=$dataProduct['store_processtime_instan'].' jam';
-															break;
-														case '2':
-															$waktuProses='2 hari';
-															break;
-														case '3':
-															$waktuProses=$dataProduct['store_processtime_preorder'].' hari';
-															break;
-														default:
-															$waktuProses='2 hari';
-															break;
-													}
-												}
-
-												echo $waktuProses;
+												echo $this->productModel->cekWaktuProses($dataProduct['product_id']);
 										 ?>
 
 									</td>
@@ -278,12 +315,12 @@
 								<tr>
 									<td width="130px"><i class="fas fa-heart"></i> Wishlist</td>
 									<td width="10px">:</td>
-									<td>[NOT SET]</td>
+									<td id="thisWishlist"><?php echo $this->productModel->cekWishlist($dataProduct['product_id']); ?></td>
 								</tr>
 								<tr>
 									<td width="130px"><i class="fas fa-edit"></i> Diperbarui</td>
 									<td width="10px">:</td>
-									<td><?php echo $this->timeModel->get_TanggalIndo($dataProduct['product_lastupdated']); ?></td>
+									<td><?php if($dataProduct['product_lastupdated']==''){$lastUpdate=$dataProduct['lup'];}else{$lastUpdate=$dataProduct['product_lastupdated'];}echo $this->timeModel->get_TanggalIndo($lastUpdate); ?></td>
 								</tr>
 							</table>
 						</div>
@@ -337,8 +374,15 @@
 							Catatan Penjual
 						</div>
 						<div class="col-lg-10">
-            <?php echo $dataProduct['store_notes']; ?><br>
-						<small style="color:#999">Catatan Penjual terakhir kali diubah pada tanggal 25 Juli 2019, pukul 12.48 WIB</small>
+            <?php if($dataProduct['store_notes']!=''){
+							 				echo "<p>".$dataProduct['store_notes']."</p>";
+											echo '<br>
+				 							<small style="color:#999">Catatan Penjual terakhir kali diubah pada tanggal 25 Juli 2019, pukul 12.48 WIB</small>';
+						 			}else{
+										echo "<p><i>Belum ada catatan penjual di toko ini.</i></p>";
+									}
+						 ?>
+
 					</div>
           </div>
 				</div>
@@ -351,7 +395,7 @@
 
 						<!-- feedback start -->
 						<?php
-						if(count($storeFeedback)>0){
+						if($storeFeedbackCount>0){
 							$i=0;
 							foreach($storeFeedback as $feedback){
 							$i++;
@@ -364,7 +408,7 @@
                     <div class="media">
                       <div class="d-flex">
                         <img
-                          src="http://localhost/cultivathings/assets/img/user_admin-img/drmp.jpg"
+                          src="<?php echo $this->userModel->getUserPhoto($feedback['user_username']);?>"
                           alt="" class="img-profile"
                         />
                       </div>
@@ -377,7 +421,7 @@
 																echo '<i class="fas fa-thumbs-up" style="color:green"></i>';
 																break;
 															default:
-																echo '<i class="fas fa-thumbs-down" style="color:red"></i>';
+																echo '<i class="fas fa-thumbs-down" style="color:#d63a3a"></i>';
 																break;
 														}
 
@@ -387,7 +431,13 @@
                       </div>
                     </div>
                     <p>
-                      <?php echo $feedback['response_detail']; ?>
+											<?php if($feedback['id_user']==1){
+												if($feedback['response']==1){$resp=" Feedback Positif karena ";}else{$resp=" Feedback Negatif karena ";}
+												echo "Mendapatkan ".$feedback['response_quantity'].$resp.$feedback['response_detail'];
+											}else{
+												 echo $feedback['response_detail'];
+											 }
+											?>
                     </p>
                   </div>
 
@@ -397,8 +447,14 @@
 
             </div>
 						<!-- feedback end -->
-						<?php }
-					}//feedback >0
+						<?php } ?>
+							<?php if($storeFeedbackCount>5){ ?>
+							<br>
+							<a style="color:#099245;cursor:pointer" target="_blank" href="<?php echo base_url().'s/'.$dataProduct['store_link'].'/feedback';?>">
+									Lihat semua feedback
+							</a>
+							<?php } ?>
+				<?php	}//feedback >0
 					else{
 							echo "<center style='color:#999'><img src='".base_url()."assets/images/product/no-feedback.png' width='25%'><br>Penjual ini belum memiliki feedback</center>";
 					}?>
@@ -413,9 +469,9 @@
           >
             <div class="row">
               <div class="col-lg-12">
-								<?php 	if(count($productReview)>0){ ?>
+								<?php 	if($productReviewCount>0){ ?>
                 <div class="row total_rate">
-                  <div class="col-6">
+                  <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                     <div class="box_total">
                       <h5>Rata-rata</h5>
                       <h4><?php echo number_format($productReviewAverage,1,'.',',');?></h4>
@@ -439,7 +495,7 @@
                       <h6>(<?php echo $productReviewCount;?> ulasan)</h6>
                     </div>
                   </div>
-                  <div class="col-6">
+                  <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                     <div class="rating_list">
                       <h3>Penilaian Produk</h3>
                       <ul class="list">
@@ -478,7 +534,7 @@
                      <div class="media">
                        <div class="d-flex">
                          <img
-                           src="http://localhost/cultivathings/assets/img/user_admin-img/drmp.jpg"
+                           src="<?php echo $this->userModel->getUserPhoto($review['user_username']);?>"
                            alt="" class="img-profile"
                          />
                        </div>
@@ -503,7 +559,14 @@
                    </div>
 									</div>
  									<!-- REVIEWEND -->
- 									<?php }
+								<?php } ?>
+										<?php if($productReviewCount>5){ ?>
+										<br>
+										<a style="color:#099245;cursor:pointer" onClick="viewReview();">
+												Lihat semua ulasan
+										</a>
+										<?php } ?>
+										<?php
 										}//review >0
 										else{
 												echo "<center style='color:#999'><img src='".base_url()."assets/images/product/no-review.png' width='25%'><br>Belum ada ulasan untuk produk ini</center>";
@@ -524,223 +587,156 @@
 			<div class="single_product">
 				<div class="container">
 					<div class="card">
-			<div class="card-header" style="background-color:#009245;color:white;">
-				INFORMASI PENJUAL
-			</div>
-			<div class="card-body">
-
-
-				<div class="row">
-					<div class="col-3">
-							<img src="<?php echo $this->userModel->getStorePhoto($dataProduct['store_link'],$dataProduct['store_photo']); ?>" class="img-profile" alt="User-Profile-Image">
+						<div class="card-header" style="background-color:#009245;color:white;">
+							INFORMASI PENJUAL
+						</div>
+						<div class="card-body">
+							<div class="row">
+								<div class="col-3">
+										<img src="<?php echo $this->storeModel->getStorePhoto($dataProduct['store_link'],$dataProduct['store_photo']); ?>" class="img-profile" alt="User-Profile-Image">
+								</div>
+								<div class="col-9">
+									<a style="color:#099245" target="_blank" href="<?php echo base_url().'s/'.$dataProduct['store_link'];?>">
+										<?php echo $dataProduct['store_name']; ?>
+									</a>
+									<br>
+									<font style="font-size:13px;text-decoration-line: underline;text-decoration-style:dashed;">
+										<?php $storeFeedbackCount==0?$feedbackDiv=1:$feedbackDiv=$storeFeedbackCount; echo number_format(($storeFeedbackCountPositive/$feedbackDiv)*100,0,'.',','); ?>% (<?php echo $storeFeedbackCount; ?> feedback)
+									</font><br>
+										<font style="font-size:12px;color:#7f5994"><i class="fas fa-map-marker-alt"></i> <?php echo ucwords(strtolower($dataProduct['store_city'])); ?></font><br>
+								 </div>
+							</div>
+							<hr>
+							<?php
+							$todayDate=date('Y-m-d');
+							if(1<0 && $dataProduct['store_open_'.strtolower(date('l'))]==1 && strtotime(date('Y-m-d H:i:s',strtotime($todayDate.' '.$dataProduct['store_lastdelivery'])))>strtotime(date('Y-m-d H:i:s'))){ ?>
+							<div class="card">
+								<div class="card-body" style="background-color:#f28f16">
+									<font style="color:#F0F0F0">
+										PESAN SEBELUM
+									</font><br>
+									<font style="color:white;font-size:20px;font-weight:bold">
+										<?php echo $dataProduct['store_lastdelivery']; ?> WIB<br>
+									</font>
+									<font style="color:white;font-size:13px">
+										Agar barang dikirim hari ini
+									</font>
+								</div>
+							</div>
+							<br>
+							<?php } ?>
+							<div style="font-size:11px">
+								<div class="row">
+									<div class="col-6">Waktu Kirim</div>
+									<div class="col-6"><?php echo $storeAverageSentTime;?></div>
+								</div>
+								<div class="row">
+									<div class="col-6">Pelanggan</div>
+									<div class="col-6"><?php echo $storeBuyersCount;?> orang</div>
+								</div>
+								<?php if($storeOrderTotal>0){ ?>
+								<div class="row">
+									<div class="col-6">Pesanan Diterima</div>
+									<div class="col-6">Menerima <?php echo $storeOrderAccepted;?> dari <?php echo $storeOrderTotal;?> pesanan (<?php $storeOrderTotal==0?$orderCountDiv=1:$orderCountDiv=$storeOrderTotal; echo number_format(($storeOrderAccepted/$orderCountDiv)*100,0,'.',','); ?>%)</div>
+								</div>
+								<?php } ?>
+								<div class="row">
+									<div class="col-6">Tanggal Bergabung</div>
+									<div class="col-6"><?php echo $this->timeModel->get_TanggalIndo($dataProduct['store_lup_active']); ?></div>
+								</div>
+							</div>
+							<?php if($this->session->userdata('username')!=$dataProduct['store_link']){ ?>
+								<br>
+								<button onClick='<?php if($this->session->userdata("is_login")=="y"){ echo "startChatFromUser(`$dataProduct[store_real_id]`)";}else{ echo "login()";}?>' style="width:100%;background-color:#FFFFFF;border:2px solid #009245;color:#009245;cursor:pointer;" class="btn btn-secondary"><i class="fas fa-comment" style="transform: scale(1, 1);"></i> Chat Penjual</button>
+							<?php } ?>
+						</div>
 					</div>
-					<div class="col-9">
-						<?php echo $dataProduct['store_name']; ?><br>
-						<font style="font-size:13px;text-decoration-line: underline;text-decoration-style:dashed;">
-							<?php $storeFeedbackCount==0?$feedbackDiv=1:$feedbackDiv=$storeFeedbackCount; echo number_format(($storeFeedbackCountPositive/$feedbackDiv)*100,0,'.',','); ?>% (<?php echo $storeFeedbackCount; ?> feedback)
-						</font><br>
-							<font style="font-size:12px;color:#7f5994"><i class="fas fa-map-marker-alt"></i> <?php echo ucwords(strtolower($dataProduct['store_city'])); ?></font><br>
-					 </div>
+					<br>
+					<div class="card">
+						<div class="card-header" style="background-color:#009245;color:white;">
+							INFORMASI PENGIRIMAN
+						</div>
+						<div class="card-body">
+							<table>
+							<?php
+
+							foreach($couriers as $courier){ ?>
+							<tr>
+								<td valign="top" style="padding-bottom:10px;">
+									<img  src="<?php echo base_url();?>assets/images/courier-logo/<?php echo $courier['logo'];?>" alt="<?php echo $courier['name'];?>" title="<?php echo $courier['name'];?>" class="img-courier-logo" style="height:20px;width:auto;margin-bottom:10px">
+								</td>
+								<td valign="top" style="padding-bottom:10px;">
+									<p style="line-height:15px">
+									<?php
+										foreach($courier['courier_services'] as $courier_service){
+											echo $courier_service['service_name'].'<br>';
+								  } ?>
+								</p>
+								</td>
+							</tr>
+							<?php } ?>
+							</table>
+
+
+						</div>
+					</div>
+
+
+	</div>
+</div>
+
+</div>
+
+	</div>
+<?php }else{ ?>
+<div class="row text-center">
+	<div class="col-lg-6 offset-lg-3">
+	<!-- Single Product -->
+		<div class="single_product">
+			<div class="container text-center">
+				<div class="card" style="padding:50px">
+					<center><img src="<?php echo base_url();?>assets/images/logoName.png" width="200px"></center><br>
+					<h2>Maaf, produk yang Anda cari tidak ditemukan, silahkan lihat produk lainnya <a style="color:#099245" href="<?php echo base_url();?>products">disini</a>.</h2>
 				</div>
-				<hr>
-
-
-
-				<div class="card">
-		<div class="card-body" style="background-color:#f28f16">
-			<font style="color:#F0F0F0">
-				PESAN SEBELUM
-			</font><br>
-			<font style="color:white;font-size:20px;font-weight:bold">
-				<?php echo $dataProduct['store_lastdelivery']; ?> WIB<br>
-			</font>
-			<font style="color:white;font-size:13px">
-				Agar barang dikirim hari ini
-			</font>
+			</div>
 		</div>
-
-	</div>
-	<br>
-	<div style="font-size:11px">
-				<div class="row">
-					<div class="col-6">Waktu Kirim</div>
-					<div class="col-6">± 1 hari</div>
-				</div>
-				<div class="row">
-					<div class="col-6">Pelanggan</div>
-					<div class="col-6">0 orang</div>
-				</div>
-				<div class="row">
-					<div class="col-6">Pesanan Diterima</div>
-					<div class="col-6">Menerima 0 dari 0 pesanan (0%)</div>
-				</div>
-				<div class="row">
-					<div class="col-6">Tanggal Bergabung</div>
-					<div class="col-6"><?php echo $this->timeModel->get_TanggalIndo($dataProduct['store_lup_active']); ?></div>
-				</div>
-			</div>
-			</div>
-			</div>
-
-
 	</div>
 </div>
-</div>
-
-	</div>
-
+<?php } ?>
     <!--================End Product Description Area =================-->
 
-	<!-- Recently Viewed -->
+		<!-- Feedback Modal -->
+    <div class="modal fade" id="feedbackModal" role="dialog" aria-labelledby="feedbackLabel" aria-hidden="true" style="margin-top:50px;">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header new-address-header">
+                    <h5 class="modal-title new-address-title">Daftar Feedback</h5>
+                    <button type="button" class="close new-address-btn-close" data-dismiss="modal" aria-label="Close" style="cursor:pointer;">
+                    <span aria-hidden="true" class="fas fa-times-circle"></span>
+                    </button>
+                </div>
+								<input value="<?php echo $dataProduct['store_id'];?>" type="hidden" class="form-control text-dark i-address-name" id="store_id">
+                <div class="modal-body" id="feedbackContent" style="padding-left:20px;padding-right:20px;width:100%;height:400px;overflow:scroll">
 
-	<div class="viewed">
-		<div class="container">
-			<div class="row">
-				<div class="col">
-					<div class="viewed_title_container">
-						<h3 class="viewed_title">Recently Viewed</h3>
-						<div class="viewed_nav_container">
-							<div class="viewed_nav viewed_prev"><i class="fas fa-chevron-left"></i></div>
-							<div class="viewed_nav viewed_next"><i class="fas fa-chevron-right"></i></div>
-						</div>
-					</div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-					<div class="viewed_slider_container">
+		<!-- Review Modal -->
+    <div class="modal fade" id="reviewModal" role="dialog" aria-labelledby="reviewLabel" aria-hidden="true" style="margin-top:50px;">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header new-address-header">
+                    <h5 class="modal-title new-address-title">Daftar Review</h5>
+                    <button type="button" class="close new-address-btn-close" data-dismiss="modal" aria-label="Close" style="cursor:pointer;">
+                    <span aria-hidden="true" class="fas fa-times-circle"></span>
+                    </button>
+                </div>
+								<input value="<?php echo $dataProduct['product_id'];?>" type="hidden" class="form-control text-dark i-address-name" id="product_id">
+                <div class="modal-body" id="reviewContent" style="padding-left:20px;padding-right:20px;width:100%;height:400px;overflow:scroll">
 
-						<!-- Recently Viewed Slider -->
-
-						<div class="owl-carousel owl-theme viewed_slider">
-
-							<!-- Recently Viewed Item -->
-							<div class="owl-item">
-								<div class="viewed_item discount d-flex flex-column align-items-center justify-content-center text-center">
-									<div class="viewed_image"><img src="images/view_1.jpg" alt=""></div>
-									<div class="viewed_content text-center">
-										<div class="viewed_price">$225<span>$300</span></div>
-										<div class="viewed_name"><a href="#">Beoplay H7</a></div>
-									</div>
-									<ul class="item_marks">
-										<li class="item_mark item_discount">-25%</li>
-										<li class="item_mark item_new">new</li>
-									</ul>
-								</div>
-							</div>
-
-							<!-- Recently Viewed Item -->
-							<div class="owl-item">
-								<div class="viewed_item d-flex flex-column align-items-center justify-content-center text-center">
-									<div class="viewed_image"><img src="images/view_2.jpg" alt=""></div>
-									<div class="viewed_content text-center">
-										<div class="viewed_price">$379</div>
-										<div class="viewed_name"><a href="#">LUNA Smartphone</a></div>
-									</div>
-									<ul class="item_marks">
-										<li class="item_mark item_discount">-25%</li>
-										<li class="item_mark item_new">new</li>
-									</ul>
-								</div>
-							</div>
-
-							<!-- Recently Viewed Item -->
-							<div class="owl-item">
-								<div class="viewed_item d-flex flex-column align-items-center justify-content-center text-center">
-									<div class="viewed_image"><img src="images/view_3.jpg" alt=""></div>
-									<div class="viewed_content text-center">
-										<div class="viewed_price">$225</div>
-										<div class="viewed_name"><a href="#">Samsung J730F...</a></div>
-									</div>
-									<ul class="item_marks">
-										<li class="item_mark item_discount">-25%</li>
-										<li class="item_mark item_new">new</li>
-									</ul>
-								</div>
-							</div>
-
-							<!-- Recently Viewed Item -->
-							<div class="owl-item">
-								<div class="viewed_item is_new d-flex flex-column align-items-center justify-content-center text-center">
-									<div class="viewed_image"><img src="images/view_4.jpg" alt=""></div>
-									<div class="viewed_content text-center">
-										<div class="viewed_price">$379</div>
-										<div class="viewed_name"><a href="#">Huawei MediaPad...</a></div>
-									</div>
-									<ul class="item_marks">
-										<li class="item_mark item_discount">-25%</li>
-										<li class="item_mark item_new">new</li>
-									</ul>
-								</div>
-							</div>
-
-							<!-- Recently Viewed Item -->
-							<div class="owl-item">
-								<div class="viewed_item discount d-flex flex-column align-items-center justify-content-center text-center">
-									<div class="viewed_image"><img src="images/view_5.jpg" alt=""></div>
-									<div class="viewed_content text-center">
-										<div class="viewed_price">$225<span>$300</span></div>
-										<div class="viewed_name"><a href="#">Sony PS4 Slim</a></div>
-									</div>
-									<ul class="item_marks">
-										<li class="item_mark item_discount">-25%</li>
-										<li class="item_mark item_new">new</li>
-									</ul>
-								</div>
-							</div>
-
-
-
-							<!-- Recently Viewed Item -->
-							<div class="owl-item">
-								<div class="viewed_item d-flex flex-column align-items-center justify-content-center text-center">
-									<div class="viewed_image"><img src="images/view_6.jpg" alt=""></div>
-									<div class="viewed_content text-center">
-										<div class="viewed_price">$375</div>
-										<div class="viewed_name"><a href="#">Speedlink...</a></div>
-									</div>
-									<ul class="item_marks">
-										<li class="item_mark item_discount">-25%</li>
-										<li class="item_mark item_new">new</li>
-									</ul>
-								</div>
-							</div>
-						</div>
-
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-
-
-
-	<!-- Brands -->
-
-	<div class="brands">
-		<div class="container">
-			<div class="row">
-				<div class="col">
-					<div class="brands_slider_container">
-
-						<!-- Brands Slider -->
-
-						<div class="owl-carousel owl-theme brands_slider">
-
-							<div class="owl-item"><div class="brands_item d-flex flex-column justify-content-center"><img src="images/brands_1.jpg" alt=""></div></div>
-							<div class="owl-item"><div class="brands_item d-flex flex-column justify-content-center"><img src="images/brands_2.jpg" alt=""></div></div>
-							<div class="owl-item"><div class="brands_item d-flex flex-column justify-content-center"><img src="images/brands_3.jpg" alt=""></div></div>
-							<div class="owl-item"><div class="brands_item d-flex flex-column justify-content-center"><img src="images/brands_4.jpg" alt=""></div></div>
-							<div class="owl-item"><div class="brands_item d-flex flex-column justify-content-center"><img src="images/brands_5.jpg" alt=""></div></div>
-							<div class="owl-item"><div class="brands_item d-flex flex-column justify-content-center"><img src="images/brands_6.jpg" alt=""></div></div>
-							<div class="owl-item"><div class="brands_item d-flex flex-column justify-content-center"><img src="images/brands_7.jpg" alt=""></div></div>
-							<div class="owl-item"><div class="brands_item d-flex flex-column justify-content-center"><img src="images/brands_8.jpg" alt=""></div></div>
-
-						</div>
-
-						<!-- Brands Slider Navigation -->
-						<div class="brands_nav brands_prev"><i class="fas fa-chevron-left"></i></div>
-						<div class="brands_nav brands_next"><i class="fas fa-chevron-right"></i></div>
-
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+                </div>
+            </div>
+        </div>
+    </div>

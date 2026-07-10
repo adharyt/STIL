@@ -1,4 +1,5 @@
-<script src="<?php echo base_url();?>assets/js/jquery-3.3.1.min.js"></script>
+
+<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
 <script src="<?php echo base_url();?>assets/styles/bootstrap4/popper.js"></script>
 <script src="<?php echo base_url();?>assets/styles/bootstrap4/bootstrap.min.js"></script>
 <script src="<?php echo base_url();?>assets/plugins/greensock/TweenMax.min.js"></script>
@@ -11,8 +12,69 @@
 <script src="<?php echo base_url();?>assets/plugins/croppie/croppie.js"></script>
 <script src="<?php echo base_url();?>assets/https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyCIwF204lFZg1y4kPSIhKaHEXMLYxxuMhA"></script>
 
-<!-- Edit Profile JQuery -->
+<!-- Profile Summary -->
 <script>
+  $(function() {
+    $('#newsletterstatus').bootstrapToggle({
+      on: 'Enabled',
+      off: 'Disabled'
+    });
+  });
+
+  $('#newsletterstatus').on('change',function(e) {
+    if($(this).prop('checked')==true){
+      var val=1;
+      var popup="Berlangganan...";
+    }else{
+      var val=0;
+      var popup="Berhenti berlangganan...";
+    }
+    Swal.fire({
+      text:popup,
+      background:'#FFFFFF',
+      width:'300px',
+      height:'100px',
+      confirmButtonColor:'#009245',
+      showConfirmButton:false,
+      allowOutsideClick: false,
+      allowEscapeKey: false,
+      allowEnterKey: false,
+      onBeforeOpen: () =>{
+      },
+      onOpen: () => {
+        swal.showLoading()
+      }
+    });
+    $.ajax({
+          url: "<?php echo base_url();?>subscribe/fromPanel",
+          type: "post",
+          data: {
+            prop:val
+          },
+          success: function (response) {
+            swal.close();
+            Swal.fire({
+              type: 'success',
+              html:   response,
+              showCloseButton: false,
+              showCancelButton: false,
+              showConfirmButton:true,
+              allowEnterKey:true,
+              confirmButtonColor:'#009245'
+            })
+
+
+          },
+          error: function(jqXHR, textStatus, errorThrown) {
+             console.log(textStatus, errorThrown);
+          }
+
+      });
+  });
+</script>
+<!-- Profile Summary -->
+<script>
+
 
   function editProfile() {
     $('#btnEdit').hide();

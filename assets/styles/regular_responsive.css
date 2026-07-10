@@ -27,7 +27,7 @@
 
 @media only screen and (max-width: 1600px)
 {
-	
+
 }
 
 /************
@@ -36,7 +36,7 @@
 
 @media only screen and (max-width: 1440px)
 {
-	
+
 }
 
 /************
@@ -45,7 +45,7 @@
 
 @media only screen and (max-width: 1380px)
 {
-	
+
 }
 
 /************
@@ -54,7 +54,7 @@
 
 @media only screen and (max-width: 1280px)
 {
-	
+
 }
 
 /************
@@ -92,7 +92,7 @@
 
 @media only screen and (max-width: 1100px)
 {
-	
+
 }
 
 /************
@@ -101,7 +101,7 @@
 
 @media only screen and (max-width: 1024px)
 {
-	
+
 }
 
 /************
@@ -137,7 +137,7 @@
 	}
 	.main_nav_content
 	{
-		background: #0e8ce4;
+		background: #099245;
 	}
 	.menu_trigger_container
 	{
@@ -226,7 +226,7 @@
 
 @media only screen and (max-width: 959px)
 {
-	
+
 }
 
 /************
@@ -235,7 +235,7 @@
 
 @media only screen and (max-width: 880px)
 {
-	
+
 }
 
 /************
@@ -244,7 +244,7 @@
 
 @media only screen and (max-width: 768px)
 {
-	
+
 }
 
 /************
@@ -482,13 +482,13 @@
 	{
 		position: relative;
 		width: 40px;
-		top: auto; 
-		-webkit-transform: translate(-50%, 0px); 
-		-moz-transform: translate(-50%, 0px); 
-		-ms-transform: translate(-50%, 0px); 
-		-o-transform: translate(-50%, 0px); 
-		transform: translate(-50%, 0px); 
-		left: 50%; 
+		top: auto;
+		-webkit-transform: translate(-50%, 0px);
+		-moz-transform: translate(-50%, 0px);
+		-ms-transform: translate(-50%, 0px);
+		-o-transform: translate(-50%, 0px);
+		transform: translate(-50%, 0px);
+		left: 50%;
 		margin-bottom: 20px;
 	}
 	.newsletter_button
@@ -504,7 +504,7 @@
 	    transform: translateX(-50%);
 	    width: 113px;
 	    height: 40px;
-	    background: #0e8ce4;
+	    background: #099245;
 	    color: #FFFFFF;
 	    line-height: 40px;
 	    font-size: 12px;
@@ -535,9 +535,9 @@
 	.newsletter_input::-moz-placeholder
 	{
 		font-size: 13px;
-	} 
+	}
 	.newsletter_input:-ms-input-placeholder
-	{ 
+	{
 		font-size: 13px;
 	}
 	.newsletter_input::input-placeholder
@@ -562,7 +562,7 @@
 
 @media only screen and (max-width: 539px)
 {
-	
+
 }
 
 /************
@@ -587,7 +587,7 @@
 
 @media only screen and (max-width: 479px)
 {
-	
+
 }
 
 /************
@@ -596,5 +596,5 @@
 
 @media only screen and (max-width: 400px)
 {
-	
+
 }

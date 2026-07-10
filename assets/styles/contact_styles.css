@@ -104,11 +104,11 @@ p a:hover::after
 }
 ::selection
 {
-
+background: #f28f16;
 }
 p::selection
 {
-
+background: #f28f16;
 }
 h1{font-size: 48px;}
 h2{font-size: 36px;}
@@ -130,11 +130,11 @@ h4::selection,
 h5::selection,
 h6::selection
 {
-
+background: #f28f16;
 }
 .form-control
 {
-	color: #db5246;
+	color: black;
 }
 section
 {
@@ -723,7 +723,7 @@ select
 	width: auto;
 	margin-left: 10px;
 	outline: none;
-	-webkit-appearance: none;
+	-webkit-appearance: menulist;
 	-moz-appearance: none;
 	border-bottom: 2px solid #555;
 	color: #7b00ff;

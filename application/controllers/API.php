@@ -51,19 +51,19 @@ class API extends CI_Controller{
 
 	}
 
-	public function getCourier($param){
+	public function getCourier($user_id,$param_id){
 		$this->load->model('courierModel');
-		$id=explode('_',$param);
+		$id=explode('_',$param_id);
 		if($id[0]=='store'){
-			$data=$this->courierModel->getCourierListStore($id[1]);
+			$data=$this->courierModel->getCourierListStore($user_id,$id[1]);
 		}else{
-			$data=$this->courierModel->getCourierListProduct($id[1]);
+			$data=$this->courierModel->getCourierListProduct($user_id,$id[1]);
 		}
 		header("Content-Type: application/json; charset=UTF-8");
 		echo json_encode($data);
 	}
 
-	
+
 
 
 

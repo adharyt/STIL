@@ -1,4 +1,4 @@
-<script src="<?php echo base_url();?>assets/js/jquery-3.3.1.min.js"></script>
+
 <script src="<?php echo base_url();?>assets/styles/bootstrap4/popper.js"></script>
 <script src="<?php echo base_url();?>assets/styles/bootstrap4/bootstrap.min.js"></script>
 <script src="<?php echo base_url();?>assets/plugins/greensock/TweenMax.min.js"></script>
@@ -14,7 +14,6 @@
 <!-- kurir -->
 <script type="text/javascript">
 $('#receiveraddress').on('change', function (evt) {
-
   var val=this.value;
   Swal.fire({
     text:'Mohon menunggu...',
@@ -65,27 +64,53 @@ function formatState (state) {
   }
 
 
-  var $state = $(
-    '<span><img height="20px" src="<?php echo base_url();?>assets/images/courier-logo/'+state.logo+'" class="img-flag" /> ' + state.text +' ('+state.time+') - Rp '+ribuan_format(state.cost)+'</span>'
-  );
+  if(state.id!=0){
+    var $state = $(
+      '<span><img height="20px" src="<?php echo base_url();?>assets/images/courier-logo/'+state.logo+'" class="img-flag" /> ' + state.text +' ('+state.time+') - Rp '+ribuan_format(state.cost)+'</span>'
+    );
+  }else{
+    var $state = $(
+      '<span>'+ state.text+ '</span>'
+    );
+  }
+  return $state;
+};
+
+function formatStateProduct (state) {
+  if (!state.id) {
+    return state.text;
+  }
+
+
+  if(state.id!=0){
+    var $state = $(
+      '<span><img height="20px" src="<?php echo base_url();?>assets/images/courier-logo/'+state.logo+'" class="img-flag" /> ' + state.text +' ('+state.time+') - Rp '+ribuan_format(state.cost)+' (estimasi)</span>'
+    );
+  }else{
+    var $state = $(
+      '<span>'+ state.text+ '</span>'
+    );
+  }
   return $state;
 };
 
     $(document).ready(function() {
       updateSummary();
       // Initialize "states" example
-      $('.js-source-states').each(function () {
+      $('.select_cour_by_store').each(function () {
           var id=$('#'+this.id).attr('sh_id');
+          var id_user='<?php echo $this->session->userdata('user_id'); ?>';
           //alert(this.id);
            $('#'+this.id).select2({
                minimumInputLength: 0,
                allowClear: false,
+               cache:false,
                placeholder: 'Pilih kurir pengiriman',
                templateResult: formatState,
                templateSelection: formatState,
                ajax: {
                   dataType: 'json',
-                  url: '<?php echo base_url();?>API/getCourier/'+id,
+                  url: '<?php echo base_url();?>API/getCourier/'+id_user+'/'+id,
                   delay: 800,
                   data: function(params) {
                     if(params.term==null){
@@ -104,13 +129,91 @@ function formatState (state) {
 
           }).on('change', function (evt) {
             var store_id=$('#'+this.id).attr('st_id');
+            var id_cour=$('#ship_store_'+store_id).select2('data')[0].id;
+            if(id_cour!=0){
+              var totalprice=0;
+              $.each($(".pprice"+store_id), function(){
+                  totalprice+=parseInt($(this).text().replace('Rp','').split('.').join(''));
+              });
+              var subtotal=parseInt(totalprice)+parseInt($('#ship_store_'+store_id).select2('data')[0].cost);
+              $('#subtotalval'+store_id).text('Rp '+ribuan_format(subtotal));
+              $('#ship_store_'+store_id+'_ongkir').text('Sudah termasuk ongkos kirim');
+              updateSummary();
+              $('.cour_by_product'+store_id).hide();
+            }else{
+              var totalprice=0;
+              $.each($(".pprice"+store_id), function(){
+                  totalprice+=parseInt($(this).text().replace('Rp','').split('.').join(''));
+              });
+              $('#subtotalval'+store_id).text('Rp '+ribuan_format(totalprice));
+              $('#ship_store_'+store_id+'_ongkir').text('Belum termasuk ongkos kirim');
+              $('.cour_by_product'+store_id).show();
+              updateSummary();
+            }
+
+          });
+
+          if($('#is_specialdelivery_'+id).val()=='y'){
+            var newOption = new Option('Pilih kurir yang berbeda untuk setiap produk', '0', true, true);
+            $('#ship_'+id).append(newOption).trigger('change');
+
+          }
+
+
+      });
+
+
+      $('.select_cour_by_product').each(function () {
+          var id=$('#'+this.id).attr('sh_id');
+          var id_user='<?php echo $this->session->userdata('user_id'); ?>';
+          //alert(this.id);
+           $('#'+this.id).select2({
+               minimumInputLength: 0,
+               allowClear: false,
+               placeholder: 'Pilih kurir pengiriman',
+               templateResult: formatStateProduct,
+               templateSelection: formatStateProduct,
+               ajax: {
+                  dataType: 'json',
+                  url: '<?php echo base_url();?>API/getCourier/'+id_user+'/'+id,
+                  delay: 800,
+                  data: function(params) {
+                    if(params.term==null){
+                      params.term='';
+                    }
+                    return {
+                      search: params.term
+                    }
+                  },
+                  processResults: function (data, page) {
+                  return {
+                    results: data
+                  };
+                },
+                cache:true
+              }
+
+          }).on('change', function (evt) {
+            var product_id=$('#'+this.id).attr('pr_id');
+            var store_id=$('#'+this.id).attr('st_id');
+            //var id_cour=$('#ship_product_'+product_id).select2('data')[0].id;
+
             var totalprice=0;
             $.each($(".pprice"+store_id), function(){
                 totalprice+=parseInt($(this).text().replace('Rp','').split('.').join(''));
             });
-            var subtotal=parseInt(totalprice)+parseInt($('#ship_store_'+store_id).select2('data')[0].cost);
-            $('#subtotalval'+store_id).text('Rp '+ribuan_format(subtotal));
-            $('#ship_store_'+store_id+'_ongkir').text('Sudah termasuk ongkos kirim');
+
+            $.each($(".cour_store"+store_id), function(){
+                if(typeof($(this).select2('data')[0])=='undefined'){
+                  var cour_price=0;
+                }else{
+                  var cour_price=parseInt($(this).select2('data')[0].cost);
+                }
+                totalprice+=cour_price;
+            });
+
+            $('#subtotalval'+store_id).text('Rp '+ribuan_format(totalprice));
+            $('#ship_store_'+store_id+'_ongkir').text('');
             updateSummary();
           });
 
@@ -308,65 +411,223 @@ function formatState (state) {
       });
 
       function checkout(){
-        var data=[];
-        $.each($(".seller"), function(){
-            //var store=[];
-            var product=[];
+        if(<?php echo $this->userModel->checkIsHaveAddress($this->session->userdata('user_id'));?>>0){
+          var data=[];
+          var cour_not_selected=0;
+          $.each($(".seller"), function(){
+              //var store=[];
+              var product=[];
 
-            var id_store=$(this).attr('id');
-            var id_address=$('#receiveraddress').val();
-            var id_cour='';
-              if(typeof($('#ship_store_'+id_store).select2('data')[0])!='undefined'){
-                id_cour=$('#ship_store_'+id_store).select2('data')[0].id;
-              }
+              var id_store=$(this).attr('id');
+              var notes=$('#notes'+id_store).val();
+              var id_address=$('#receiveraddress').val();
+              var id_cour='';
+                  if(typeof($('#ship_store_'+id_store).select2('data')[0])!='undefined'){
+                    id_cour=$('#ship_store_'+id_store).select2('data')[0].id;
+                  }
 
 
 
-            $.each($(".items"+id_store), function(){
-                var c_id=$(this).attr('c_id');
-                var p_id=$(this).attr('p_id');
-                product.push({"id_cart_temp":c_id,"id_product":p_id});
+                if(id_cour!=''){
+                  $.each($(".items"+id_store), function(){
+                      var c_id=$(this).attr('c_id');
+                      var p_id=$(this).attr('p_id');
 
-            });
+                      if(id_cour!=0){
+                        product.push({"id_cart_temp":c_id,"id_product":p_id,"id_courier_service":id_cour});
+                      }else{
+                        var cour_id='';
+                        if(typeof($('#ship_product_'+p_id).select2('data')[0])!='undefined'){
+                          cour_id=$('#ship_product_'+p_id).select2('data')[0].id;
+                        }
+                        if(cour_id!=''){
+                          product.push({"id_cart_temp":c_id,"id_product":p_id,"id_courier_service":cour_id});
+                        }else{
+                          cour_not_selected++;
+                        }
+                      }
 
-            data.push({"id_store":id_store,"id_courier_service":id_cour,"products":product});
-            //data.push(store);
-        });
-        Swal.fire({
-          text:'Membuat invoice...',
-          background:'#FFFFFF',
-          width:'300px',
-          height:'100px',
-          confirmButtonColor:'#009245',
-          showConfirmButton:false,
-          allowOutsideClick: false,
-          allowEscapeKey: false,
-          allowEnterKey: false,
-          onBeforeOpen: () =>{
-          },
-          onOpen: () => {
-            swal.showLoading()
-          }
-        });
-        $.ajax({
-              url: "<?php echo base_url();?>checkout/checkout_process",
-              type: "post",
-              data: {
-                  id_address:$('#receiveraddress').val(),
-                  data:JSON.stringify(data)
-              },
-              success: function (response) {
-                swal.close();
-                console.log(response);
 
-              },
-              error: function(jqXHR, textStatus, errorThrown) {
-                 console.log(textStatus, errorThrown);
-              }
+                  });
 
+                  data.push({"id_store":id_store,"products":product,"notes":notes});
+                }else{
+                  cour_not_selected++;
+                }
+
+
+              //data.push(store);
           });
+          if(cour_not_selected==0){
+            if($(".seller").length>0){
+              Swal.fire({
+                text:'Membuat invoice...',
+                background:'#FFFFFF',
+                width:'300px',
+                height:'100px',
+                confirmButtonColor:'#009245',
+                showConfirmButton:false,
+                allowOutsideClick: false,
+                allowEscapeKey: false,
+                allowEnterKey: false,
+                onBeforeOpen: () =>{
+                },
+                onOpen: () => {
+                  swal.showLoading()
+                }
+              });
+              $.ajax({
+                    url: "<?php echo base_url();?>checkout/checkout_process",
+                    type: "post",
+                    data: {
+                        id_address:$('#receiveraddress').val(),
+                        data:JSON.stringify(data)
+                    },
+                    success: function (response) {
+                      swal.close();
+                      window.location.href='<?php echo base_url();?>checkout-payment/'+response;
+
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {
+                       console.log(textStatus, errorThrown);
+                    }
+
+                });
+              }else{
+                location.href='<?php echo base_url();?>';
+              }
+          }else{
+            Swal.fire({
+              type:'warning',
+              text:'Pilih kurir pengiriman!',
+              background:'#FFFFFF',
+              width:'300px',
+              height:'100px',
+              confirmButtonColor:'#009245'
+            });
+          }
+        }else{
+          Swal.fire({
+            type:'warning',
+            text:'Anda harus menentukan alamat tujuan pengiriman terlebih dahulu!',
+            background:'#FFFFFF',
+            width:'400px',
+            confirmButtonColor:'#009245'
+          }).then((result) => {
+            if (result.value) {
+              $('#newAddressModal').modal('show');
+            }
+          });
+        }
+
       }
 
 
 
+    </script>
+    <script type="text/javascript">
+    $(function(){
+       $('#add-kecamatan').select2({
+           minimumInputLength: 3,
+           allowClear: true,
+           placeholder: 'Ketik nama Kota/Kabupaten',
+           ajax: {
+              dataType: 'json',
+              url: '<?php echo base_url();?>API/getLocation/ID/ALLCITYANDBELOW',
+              delay: 800,
+              data: function(params) {
+                return {
+                  search: params.term
+                }
+              },
+              processResults: function (data, page) {
+              return {
+                results: data
+              };
+            },
+          }
+      }).on('change', function (evt) {
+         var data = $("#add-kecamatan option:selected").val();
+      });
+    });
+
+    function insertNewAddress() {
+      var name=$('#add-name').val();
+      var penerima=$('#add-penerima').val();
+      var telepon=$('#add-telepon').val();
+      var kecamatan=$('#add-kecamatan').val();
+      var kodepos=$('#add-kodepos').val();
+      var alamat=$('#add-alamat').val();
+
+      Swal.fire({
+        text:'Menyimpan alamat baru...',
+        background:'#FFFFFF',
+        width:'300px',
+        height:'100px',
+        confirmButtonColor:'#009245',
+        showConfirmButton:false,
+        allowOutsideClick: false,
+        allowEscapeKey: false,
+        allowEnterKey: false,
+        onBeforeOpen: () =>{
+        },
+        onOpen: () => {
+          swal.showLoading()
+        }
+      });
+      $.ajax({
+            url: "<?php echo base_url();?>profile_address/addressAdd",
+            type: "post",
+            data: {
+              name:name,
+              penerima:penerima,
+              telepon:telepon,
+              kecamatan:kecamatan,
+              kodepos:kodepos,
+              alamat:alamat
+            },
+            success: function (response) {
+              swal.close();
+              if(response=="OK"){
+                  Swal.fire({
+                    position: 'center',
+                    type: 'success',
+                    title: 'Alamat berhasil ditambahkan!',
+                    showConfirmButton: false,
+                    timer: 1500
+                  }).then((result) => {
+                    location.reload();
+                  });
+
+              }else if(response=="DUPLICATE"){
+                Swal.fire({
+                  type: 'warning',
+                  html:   "Nama alamat sudah terdaftar!",
+                  showCloseButton: false,
+                  showCancelButton: false,
+                  showConfirmButton:true,
+                  allowEnterKey:true,
+                  confirmButtonColor:'#009245'
+                });
+              }else{
+                Swal.fire({
+                  type: 'warning',
+                  html:   "Ada kesalahan dalam pengisian form!",
+                  showCloseButton: false,
+                  showCancelButton: false,
+                  showConfirmButton:true,
+                  allowEnterKey:true,
+                  confirmButtonColor:'#009245'
+                });
+              }
+
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+               console.log(textStatus, errorThrown);
+            }
+
+        });
+
+
+    }
     </script>
